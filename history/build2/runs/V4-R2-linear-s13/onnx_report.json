@@ -1,0 +1,40 @@
+{
+ "cpu_threads": 4,
+ "cpu": "AMD EPYC 7R13 Processor",
+ "latency_torch_fp32_cpu": {
+  "p50": 28.41,
+  "p95": 31.45
+ },
+ "latency_ort_fp32_cpu": {
+  "p50": 13.74,
+  "p95": 14.89
+ },
+ "quantization": {
+  "per_tensor": {
+   "decision_agreement_vs_torch": 0.98805,
+   "latency_ort_int8_cpu": {
+    "p50": 6.97,
+    "p95": 8.47
+   }
+  },
+  "per_channel": {
+   "decision_agreement_vs_torch": 0.62562,
+   "latency_ort_int8_cpu": {
+    "p50": 7.32,
+    "p95": 9.03
+   }
+  }
+ },
+ "chosen_quantization": "per_tensor",
+ "latency_ort_int8_cpu": {
+  "p50": 6.97,
+  "p95": 8.47
+ },
+ "int8_vs_torch_decision_agreement": 0.98805,
+ "words_compared": 36241,
+ "size_mb": {
+  "onnx_int8": 155.5,
+  "safetensors": 619.0
+ },
+ "params": 162266132
+}

@@ -1,0 +1,82 @@
+train 500419 rows, 15639 steps, device cuda
+/usr/local/lib/python3.11/site-packages/torch/optim/lbfgs.py:457: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  loss = float(closure())
+{
+ "dev_calibrated": {
+  "MSA": [
+   0.99,
+   0.9904,
+   0.9902
+  ],
+  "EGY": [
+   0.9923,
+   0.9881,
+   0.9902
+  ],
+  "SAU": [
+   0.986,
+   0.9779,
+   0.9819
+  ],
+  "GLF": [
+   0.9868,
+   0.9777,
+   0.9822
+  ],
+  "LEV": [
+   0.9905,
+   0.9788,
+   0.9846
+  ],
+  "IRQ": [
+   0.9861,
+   0.979,
+   0.9826
+  ],
+  "MAG": [
+   0.9958,
+   0.9882,
+   0.992
+  ],
+  "score": 0.9862
+ },
+ "gold_test": {
+  "natural_MSA_test": 0.01926,
+  "challenge_MSA_test": [
+   0.823,
+   0.8263,
+   0.6441
+  ],
+  "natural_EGY_test": 0.00419,
+  "challenge_EGY_test": [
+   0.8901,
+   0.8356,
+   0.3036
+  ],
+  "natural_SAU_test": 0.00304,
+  "challenge_SAU_test": [
+   0.8305,
+   0.7279,
+   0.3416
+  ],
+  "natural_GLF_test": 0.00115,
+  "challenge_GLF_test": [
+   0.8191,
+   0.7031,
+   0.3239
+  ],
+  "natural_LEV_test": 0.00243,
+  "challenge_LEV_test": [
+   0.7927,
+   0.671,
+   0.2703
+  ],
+  "natural_IRQ_test": 0.00402,
+  "challenge_IRQ_test": [
+   0.7732,
+   0.6644,
+   0.2615
+  ]
+ }
+}
