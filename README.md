@@ -9,6 +9,7 @@ CPU, offline, in **7 ms** per sentence. I built it for voice-agent QA: dialect-a
 drifted to MSA", "a Gulf agent used Egyptian words"), caller-dialect estimates and simulation checks.
 
 > Private repository. Model, data and Space are private on Hugging Face (`NightPrince/HaSeen-3*`); set `HF_TOKEN`.
+> Report page (method, results, limits): https://claude.ai/artifact/5dtW5nBuEYU7xmF5FfopXQ
 
 ## Setup
 ```bash
