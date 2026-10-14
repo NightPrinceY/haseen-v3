@@ -1,0 +1,487 @@
+<title>Dialect Detector Architectures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (RTL) with wide tables/diagrams scrolling in their own boxes; architecture cards in a 2-col grid */
+:root{
+  --bg:#f5f6f3; --surface:#ffffff; --ink:#1b1f2a; --muted:#5b6170; --line:#dfe2e6;
+  --accent:#2f4bb8; --accent-soft:#e6eaf8; --s2:#b4690e; --s2-soft:#fbefdc;
+  --good:#1f7a4d; --good-soft:#e2f2e9; --bad:#b3261e; --bad-soft:#f8e3e1; --mid:#8a6d00; --mid-soft:#f6efd2;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12141a; --surface:#1a1d26; --ink:#e7e9ee; --muted:#a2a8b6; --line:#2c303c;
+  --accent:#8ea2ff; --accent-soft:#232a48; --s2:#f0a64a; --s2-soft:#3a2a14;
+  --good:#5fd197; --good-soft:#15301f; --bad:#ff8a80; --bad-soft:#3a1b19; --mid:#e3c75a; --mid-soft:#332c10; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12141a; --surface:#1a1d26; --ink:#e7e9ee; --muted:#a2a8b6; --line:#2c303c;
+  --accent:#8ea2ff; --accent-soft:#232a48; --s2:#f0a64a; --s2-soft:#3a2a14;
+  --good:#5fd197; --good-soft:#15301f; --bad:#ff8a80; --bad-soft:#3a1b19; --mid:#e3c75a; --mid-soft:#332c10; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:32px 80px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,4.4vw,42px);font-weight:700}
+h2{font-size:clamp(22px,3vw,28px);font-weight:600}
+h3{font-size:19px;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.ltr{direction:ltr;unicode-bidi:isolate}
+code,.mono{font-family:var(--f-mono);font-size:.88em;direction:ltr;unicode-bidi:isolate}
+section{display:flex;flex-direction:column;gap:18px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hero */
+header{display:flex;flex-direction:column;gap:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 12px;font-size:13.5px}
+.chip b{font-weight:600}
+
+/* example sentence */
+.sent{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.toks{display:flex;flex-wrap:wrap;gap:8px;font-size:22px;font-family:var(--f-display)}
+.tok{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;border-radius:10px;background:var(--good-soft)}
+.tok small{font-family:var(--f-mono);font-size:11px;color:var(--muted);direction:ltr}
+.tok.dev{background:var(--bad-soft);box-shadow:inset 0 -3px 0 var(--bad)}
+.tok.dev small{color:var(--bad)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13.5px;color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:6px;vertical-align:middle}
+
+/* insight boxes */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.box.key{border-color:var(--accent);background:var(--accent-soft)}
+ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+
+/* arch cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,470px),1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card.rec{border:2px solid var(--accent)}
+.card-head{display:flex;gap:12px;align-items:flex-start}
+.letter{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-family:var(--f-mono);font-weight:500;background:var(--accent-soft);color:var(--accent)}
+.card.s2 .letter{background:var(--s2-soft);color:var(--s2)}
+.tag{font-family:var(--f-mono);font-size:11.5px;padding:2px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.rec{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.flow{font-family:var(--f-mono);font-size:12.5px;direction:ltr;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow-x:auto;white-space:pre;line-height:1.6}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.pc{grid-template-columns:1fr}}
+.pc h4{margin:0 0 4px;font-size:13px;font-family:var(--f-mono);letter-spacing:.05em}
+.pro h4{color:var(--good)} .con h4{color:var(--bad)}
+.pc ul{font-size:14.5px}
+.bars{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:center;font-size:13px}
+.bar{height:7px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.bars .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px}
+.note{font-size:14px;border-inline-start:3px solid var(--s2);padding-inline-start:10px;color:var(--muted)}
+
+/* matrix */
+.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.weights label{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.weights label span{display:flex;justify-content:space-between}
+.weights output{font-family:var(--f-mono);color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.presets{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:5px 12px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+th,td{padding:10px 12px;text-align:start;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.04em}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:center}
+tr:last-child td{border-bottom:0}
+tr.top td{background:var(--accent-soft)}
+.total{font-weight:600;color:var(--accent)}
+.rank{font-family:var(--f-mono);color:var(--muted)}
+
+/* system one */
+.s1{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.model{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.model .name{font-family:var(--f-mono);font-size:13px;direction:ltr;text-align:left;word-break:break-all;color:var(--accent)}
+.verdict{font-size:14px;padding:8px 10px;border-radius:8px;background:var(--mid-soft)}
+
+/* plan */
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.day .d{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.day ul{font-size:14px}
+ol.q{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:8px;max-width:75ch}
+.src{font-size:13.5px;columns:2 300px;column-gap:28px}
+.src li{break-inside:avoid;margin-bottom:4px}
+pre.mermaid{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;overflow-x:auto;direction:ltr;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar">
+
+<header>
+  <span class="eyebrow ltr">Tuner take-home · Dialect Deviation Detection · Arch study</span>
+  <h1>اختيار الـ Architecture لكشف الكلمات اللي خارجة عن اللهجة</h1>
+  <p class="muted">مقارنة بين 9 archs، من الـ rules البسيطة لحد الـ System One models (Jev وCLM وstrands-decider). كل الأرقام هنا تقديرات مبدئية للنقاش، مش قياسات. القياس الحقيقي هيبقى في الـ eval بتاعنا.</p>
+  <div class="chips">
+    <span class="chip"><b>Offline:</b> مفيش cloud LLM وقت الـ inference</span>
+    <span class="chip"><b>GPU:</b> متاح في الـ deployment</span>
+    <span class="chip"><b>Open-weight:</b> مسموح self-hosted</span>
+    <span class="chip"><b>Shared words:</b> تتحسب conforming</span>
+    <span class="chip"><b>Deadline:</b> 19 أكتوبر · هدفنا 17</span>
+    <span class="chip"><b>جهاز يحيى:</b> GPU بـ 3.68 GiB</span>
+  </div>
+</header>
+
+<section id="v2">
+  <span class="eyebrow ltr">v2 · After the deep research (12 Oct)</span>
+  <h2>بعد البحث: إيه اللي اتأكد وإيه اللي اتغيّر</h2>
+  <p class="muted">قرينا أكتر من 15 بحث، وجربنا 3 spikes حقيقية على HF Sandbox (التكلفة حوالي $0.03). الأرقام دي قسناها بنفسنا أو جايبينها من مصادر منشورة.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>الدليل</th><th>الرقم</th><th>المعنى بالنسبة لينا</th></tr></thead>
+    <tbody>
+      <tr><td>AMIYA 2026: الـ LLM ردّ باللهجة الصح</td><td class="n">11% مصري · 0.9% سعودي</td><td>المشكلة حقيقية ومنشورة. الـ LLMs بتهرب للـ MSA</td></tr>
+      <tr><td>أحسن F1 منشور لـ word-level بين MSA واللهجة</td><td class="n">~0.92</td><td>سقف واقعي. هدفنا 0.85 على gold حقيقي</td></tr>
+      <tr><td>Rule: "مش مقبولة في الـ analyzer المصري"</td><td class="n">F1 0.16</td><td>الـ morphology ضعيفة: الـ analyzer المصري بيقبل 99% من الـ MSA و77% من الخليجي</td></tr>
+      <tr><td>قوائم كلمات اللهجات المنشورة (Keleg 2025)</td><td class="n">دقة الخليجي 0.0 · تمييز المصري 0.35</td><td>الـ lexicon الثابت مينفعش يكون هو اللي بيقرر. السياق إجباري (ماشي / حد)</td></tr>
+      <tr><td>ALDi-Token-DI (MARBERT جاهز، MSA/DA)</td><td class="n">"سوف" فاتته</td><td>الموديلات المتدرّبة على code-switching طبيعي بتتجاهل الكلمة الواحدة الغريبة. لازم داتا فيها كلمة واحدة محقونة</td></tr>
+      <tr><td>Tokenizer fertility على نص مصري</td><td class="n">MARBERTv2 1.86 · mmBERT 2.80</td><td>عيلة MARBERT هي الأنسب. mmBERT بيطوّل الـ sequence بحوالي 50%</td></tr>
+      <tr><td>MARBERT token clf على CPU (fp32، 4 threads)</td><td class="n">p50 30 ms</td><td>محتاجين ONNX وint8 عشان نوصل للـ target على CPU. الـ GPU مش مشكلة</td></tr>
+      <tr><td>LinCE (الداتا الوحيدة المتعلّمة على مستوى الكلمة)</td><td class="n">السيرفر واقع</td><td>لازم نبني الداتا بنفسنا</td></tr>
+      <tr><td>MADAR parallel (مصري / خليجي / MSA)</td><td class="n">11,600 جملة</td><td>نعمل alignment على الـ MSA (طريقة AGS) ونطلع منه labels دقيقة</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>طبقة الداتا (مشتركة بين كل الـ archs)</h3>
+  <pre class="mermaid">
+flowchart LR
+  subgraph SRC[Sources]
+    M[MADAR-6 parallel<br/>Cairo / Doha / MSA]
+    F[FineWeb2-arz + AOC-EGY<br/>real Egyptian text]
+    R[HF router LLMs<br/>Egyptian replies]
+  end
+  M --> AL[SimAlign on MSA anchor<br/>+ etymology-aware match]
+  AL --> D1[D1 aligned mixing<br/>Egyptian grammar + 1-3 inserted GLF/MSA words<br/>exact labels]
+  F --> LX[Claude-built EGY/GLF/MSA lexicon<br/>function words first]
+  LX --> D2[D2 lexicon injection<br/>into real sentences]
+  F --> T[Claude teacher labels]
+  T --> D3[D3 real mixed text<br/>silver labels]
+  R --> G[Claude pre-label]
+  G --> Y[Yahya verifies]
+  Y --> GOLD[(GOLD set<br/>never trained on)]
+  D1 --> TRAIN[(train / dev)]
+  D2 --> TRAIN
+  D3 --> TRAIN
+  </pre>
+
+  <h3>الـ 3 archs النهائيين</h3>
+  <div class="cards">
+    <article class="card">
+      <div class="card-head"><span class="letter">F1</span><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><h3 class="ltr" style="text-align:right">Data-centric encoder</h3><span class="tag">simplest strong system</span></div></div>
+      <div class="flow">normalize -> MARBERTv2 token head
+  5 classes {EGY, GLF, MSA, SHARED, OTHER}
+-> temperature scaling -> decision layer (target)
+-> lexicon suggestion -> JSON      (ONNX int8)</div>
+      <div class="pc"><div class="pro"><h4>PROS</h4><ul><li>أبسط حل وأسرع</li><li>كل الجودة جاية من الداتا (D1–D3)</li></ul></div><div class="con"><h4>CONS</h4><ul><li>بيبدأ من الصفر في التمييز بين MSA واللهجة</li></ul></div></div>
+    </article>
+    <article class="card rec">
+      <div class="card-head"><span class="letter">F2</span><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><h3 class="ltr" style="text-align:right">Warm-start + multi-task encoder</h3><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag">recommended ship target</span><span class="tag rec">recommended</span></div></div></div>
+      <div class="flow">init from ALDi-Token-DI (MARBERT, already MSA/DA-aware)
+-> token head 5 classes (+ marker-lexicon feature)
+-> aux heads: sentence ALDi (distilled), sentence DID
+-> calibration -> decision layer -> JSON   (ONNX int8)</div>
+      <div class="pc"><div class="pro"><h4>PROS</h4><ul><li>بيورث المعرفة من الداتا الحقيقية بتاعة CALCS (حوالي 20 ألف token) اللي معرفناش ننزّلها</li><li>نفس سرعة F1</li><li>الـ aux heads بتساعد في الكلمات المشتركة</li></ul></div><div class="con"><h4>CONS</h4><ul><li>تدريب أعقد شوية</li><li>لازم نتأكد إنه ميرجعش لعادة "تجاهل الكلمة الغريبة"</li></ul></div></div>
+    </article>
+    <article class="card s2">
+      <div class="card-head"><span class="letter">F3</span><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><h3 class="ltr" style="text-align:right">F2 + System-2 re-check</h3><span class="tag">batch / post-call mode</span></div></div>
+      <div class="flow">F2 labels all words (one pass)
+if conf(w) &lt; tau:
+   AGS-style focused model: "[TGT] w [TGT]" in context
+   or local LLM (ALLaM-7B / Fanar-9B) per word
+merge -> decision layer -> JSON</div>
+      <div class="pc"><div class="pro"><h4>PROS</h4><ul><li>أعلى جودة في الحالات الصعبة</li><li>tau بيتحكم في التوازن بين الجودة والـ latency</li><li>أقوى production story</li></ul></div><div class="con"><h4>CONS</h4><ul><li>مكوّنات أكتر نبنيها</li><li>مش مناسب للـ guard الـ real-time قبل الـ TTS</li></ul></div></div>
+    </article>
+  </div>
+  <div class="box key">
+    <h3>الترشيح بعد البحث</h3>
+    <p><b>نسلّم F2</b> كـ System 1، ونقارنه بـ F1 كـ ablation، وده بيبيّن قيمة الـ warm start بالأرقام. و<b>F3 يبقى flag اختياري</b> في وضع الـ batch. وفي الـ README نعرض جدول: morphology rule، وبعده lexicon، وبعده ALDi-Token-DI كما هو، وبعده F1، وبعده F2، وبعده F3، على نفس الـ gold set.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">The task in one picture</span>
+  <h2>المطلوب بالظبط</h2>
+  <div class="sent">
+    <div class="muted ltr mono" style="font-size:13px">target = "Arabic / Egyptian"</div>
+    <div class="toks" aria-label="مثال التاسك متعلّم">
+      <span class="tok">أنا<small>shared</small></span>
+      <span class="tok dev">أبغى<small>GULF .92</small></span>
+      <span class="tok">أروح<small>shared</small></span>
+      <span class="tok">الاجتماع<small>shared</small></span>
+      <span class="tok">بكرة<small>EGY</small></span>
+      <span class="tok">بس<small>EGY</small></span>
+      <span class="tok dev">سوف<small>MSA .87</small></span>
+      <span class="tok">أتأخر<small>shared</small></span>
+      <span class="tok">شوية<small>EGY</small></span>
+    </div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--good)"></i>conforming (مصري أو مشترك)</span>
+      <span><i class="dot" style="background:var(--bad)"></i>deviating، ومعاها اللهجة الحقيقية والـ confidence</span>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="box key">
+      <h3>الملاحظة اللي بتحكم كل القرارات</h3>
+      <p>المشكلة <b>token-level</b>: قرار لكل كلمة، والقرار بيعتمد على السياق. فالسؤال الأهم في أي arch: <b>كام forward pass محتاجين للجملة؟</b> الـ encoder بيعمل pass واحد لكل الكلمات. أي موديل "sentence-level" هيحتاج pass لكل كلمة، والـ latency هتتضرب في عدد الكلمات.</p>
+    </div>
+    <div class="box">
+      <h3>الموديل يتنبّأ باللهجة، والقرار ييجي بعده</h3>
+      <p>الموديل يطلع لكل كلمة توزيع على <span class="mono">{EGY, GLF, MSA, SHARED, OTHER}</span>، وبعدين decision layer بسيطة تقارنه بالـ target. كده موديل واحد يخدم أي target، والـ label الإضافي (Nice-to-have) ييجي لوحده.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">System One models — the ones you sent</span>
+  <h2>الـ System One models: إيه هي، وتنفع هنا ولا لأ</h2>
+  <p>دي عيلة جديدة ظهرت في سبتمبر 2026: موديلات بتاخد <b>state</b> (نص) و<b>typed questions</b> (Noul = yes/no، أو Choice، أو Score)، وترجع احتمالات calibrated في pass واحد من غير ما تولّد نص. فكرتها هي نفس فكرتك بالظبط: <b>decision maker أسرع من الـ LLM</b>. بس اتصممت عشان قرار واحد على النص كله، مش قرار لكل كلمة.</p>
+  <div class="s1">
+    <div class="model">
+      <div class="name">StrandsAgents/strands-decider-2B-hobson-v19</div>
+      <ul>
+        <li>LoRA على <span class="mono">Qwen3.5-2B-Base</span>، وفوقه pointer head (حوالي مليون parameter) بيقارن الـ hidden state عند <span class="mono">&lt;answer&gt;</span> بآخر token في كل option.</li>
+        <li>median 115 ms على RTX 3090 لكل request.</li>
+        <li>متدرّب على datasets إنجليزي بس، ومفيش أي claim عن العربي.</li>
+        <li>إعادة التدريب بالـ recipe بتاعته: حوالي 11 ساعة على 3090.</li>
+      </ul>
+      <div class="verdict">ينفع كـ <b>System 2 judge</b> على الكلمات اللي مش واضحة، أو كـ gate على مستوى الجملة. مش هينفع System 1 على مستوى الكلمة.</div>
+    </div>
+    <div class="model">
+      <div class="name">Contrastive-LM/CLM-v0.1-8B</div>
+      <ul>
+        <li>Qwen3-8B frozen، وفوقه 2 projection heads (state وaction)، متدرّبين بـ InfoNCE.</li>
+        <li>الـ embedding بييجي من آخر token (last-token pooling)، يعني متجه واحد للنص كله.</li>
+        <li>الـ fine-tuning رخيص لأن الـ heads بس اللي بتتدرّب. والـ action caching بيفيد لو عندك options كتير.</li>
+        <li>الـ model card مكتوب فيه <span class="mono">language: en</span>.</li>
+      </ul>
+      <div class="verdict">عشان يدّي label لكل كلمة لازم نعمل pass لموديل 8B على كل كلمة. والـ caching مش هيفيد، لأن عندنا 4–5 labels بس. فهو <b>غير مناسب</b> للمشكلة دي.</div>
+    </div>
+    <div class="model">
+      <div class="name">autotrust/JEV-9B · JEV-27B (open students of TypeSafe Jev)</div>
+      <ul>
+        <li>System 1 adapter (40M parameter) على Qwen3.5-9B، وSystem 2 (توليد عادي) في نفس الـ weights.</li>
+        <li>حوالي 90 ms لكل decision على B200، و2.5 ms لكل decision لو batch من 128.</li>
+        <li>Choice بيقبل من 2 لـ 16 option. ومتدرّب distillation من Jev، وكله إنجليزي.</li>
+      </ul>
+      <div class="verdict">الفكرة اللي تستاهل ناخدها منه هي <b>Blocks of Experts</b>: backbone frozen وفوقه block صغير متدرّب. ودي نفس فكرة Arch F عندنا.</div>
+    </div>
+  </div>
+  <div class="box">
+    <h3>الخلاصة عن الـ System One models</h3>
+    <p>الـ System One models نموذج تفكير صح، والـ token classifier هو أنقى شكل لـ System 1 على مستوى الكلمة: pass واحد، وdistribution calibrated لكل كلمة. فهناخد من عيلة Jev <b>الفلسفة</b> (calibrated typed decisions، والـ System 1/2 routing، والـ frozen backbone مع head صغير)، ونطبّقها على encoder أو decoder بيعمل labeling لكل الكلمات مرة واحدة. والـ decider الجاهز ممكن يدخل كـ <b>System 2</b> بس على الكلمات القليلة اللي مش واضحة، ولازم نقيسه على عربي الأول.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">Nine architectures</span>
+  <h2>الـ Architectures المرشّحة</h2>
+  <p class="muted">كل كارت فيه شكل الـ pipeline، والمميزات والعيوب، وتقييم مبدئي من 5 (5 = أحسن). الـ Latency محسوبة لجملة فيها حوالي 15 كلمة على GPU واحد.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">Decision matrix</span>
+  <h2>المقارنة: غيّر الأوزان وشوف الترتيب</h2>
+  <p class="muted">الأرقام دي تقديري المبدئي، ومعمولة عشان نتناقش فيها. غيّر الوزن حسب أولوياتك، والجدول هيترتّب لوحده.</p>
+  <div class="presets">
+    <button type="button" data-p="balanced">متوازن</button>
+    <button type="button" data-p="yahya">أولويات يحيى (Quality + Latency)</button>
+    <button type="button" data-p="deadline">ضمان الـ 5 أيام</button>
+    <button type="button" data-p="interview">انطباع الـ interview (Arch + Productisation)</button>
+  </div>
+  <div class="weights" id="weights"></div>
+  <div class="tablebox"><table id="matrix"><thead></thead><tbody></tbody></table></div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">Recommended system</span>
+  <h2>الترشيح: H + I (Cascade مع Distillation)</h2>
+  <pre class="mermaid">
+flowchart LR
+  T[text + target] --> N[normalize + tokenize]
+  N --> S1[System 1: Arabic encoder<br/>token head + sentence head<br/>ONNX, one pass]
+  S1 -->|conf high ~90-95% of words| D[decision layer<br/>compare with target]
+  S1 -->|conf low| S2[System 2: local LLM 7-9B<br/>or decision model<br/>per uncertain word]
+  S2 --> D
+  D --> J[JSON: tokens + deviations]
+  subgraph Offline training
+    C[corpora: MADAR, Egyptian, Gulf, MSA] --> SY[synthetic injection<br/>lexicon swaps]
+    C --> TL[teacher LLM labels]
+    SY --> TR[train System 1]
+    TL --> TR
+  end
+  </pre>
+  <div class="grid2">
+    <div class="box">
+      <h3>ليه ده</h3>
+      <ul>
+        <li><b>Latency:</b> أغلب الكلمات بتعدّي من pass واحد لـ encoder (ملي ثواني قليلة على GPU)، والـ LLM بيشتغل بس على الكلمات الصعبة.</li>
+        <li><b>Quality:</b> الحالات النادرة اللي محتاجة فهم أعمق بتروح للموديل الأكبر.</li>
+        <li><b>Productisation:</b> لو الـ resources زادت نكبّر System 2 أو نزوّد الـ threshold، ونفس الـ arch يكمّل. وده بالظبط معيار "Same solution if more resources".</li>
+        <li><b>Calibration:</b> الـ confidence اللي في الـ output بيبقى معناه حقيقي، لأننا بنعمله temperature scaling على الـ dev set.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>المخاطر وإزاي نقللها</h3>
+      <ul>
+        <li><b>الداتا:</b> مفيش dataset فيها labels على مستوى الكلمة لمصري وخليجي وMSA. الحل: synthetic injection من MADAR lexicon، ونضيف عليها labels من teacher LLM.</li>
+        <li><b>Eval منفوخ:</b> الـ gold set لازم يبقى جمل حقيقية يحيى يعلّمها بإيده، وتكون منفصلة تماماً عن الـ synthetic.</li>
+        <li><b>الـ compute:</b> الـ GPU المحلي 3.68 GiB بس. الـ encoder يتدرّب عليه عادي، بس الـ 7B teacher محتاج Kaggle/Colab، أو compute credits من Tuner، وهما عرضوا ده.</li>
+        <li><b>الوقت:</b> System 2 يبقى optional flag. لو الوقت ضاق، نسلّم C لوحده، ونكتب الـ cascade كـ production plan.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">Data strategy</span>
+  <h2>الداتا: أهم من الموديل</h2>
+  <div class="grid2">
+    <div class="box"><h3>1 · Synthetic injection</h3><p>ناخد جمل مصري حقيقية، ونبدّل كلمات فيها بالمقابل الخليجي أو الـ MSA من <b>MADAR lexicon</b> (1,045 concept × 25 مدينة) أو من الـ parallel corpora (مصري↔MSA). الـ labels بتطلع دقيقة 100% ومن غير تكلفة، وبتحاكي بالظبط "LLM بيخلط اللهجات".</p></div>
+    <div class="box"><h3>2 · Teacher labels</h3><p>LLM عربي local (Falcon-H1-Arabic أو ALLaM أو Qwen) يعلّم كلمات في جمل حقيقية، مصري وخليجي وMSA، من FineWeb2-arz وGumar وغيرهم. ده مسموح لأن القيد على الـ inference بس، وبنكتب ده صريح في الـ README.</p></div>
+    <div class="box"><h3>3 · Real word-level labels</h3><p><b>LinCE MSA-EA</b>: tweets متعلّمة على مستوى الكلمة (MSA / EA / NE / ambiguous)، حوالي 20 ألف token في الـ dev. مفيدة كـ training إضافي، وكـ external eval لزوج MSA-مصري.</p></div>
+    <div class="box"><h3>4 · Gold eval set (يدوي)</h3><p>من 200 لـ 300 جملة يحيى يعلّمها بإيده. فيها جمل من output بتاع LLM فيه خلط حقيقي، ومعاها annotation guideline مكتوبة. الـ P/R/F1 بتتحسب على الكلمات اللي بتـ deviate، ومعاها per-label breakdown.</p></div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">5-day plan for the recommended path</span>
+  <h2>خطة الـ 5 أيام (لو اخترنا H + I)</h2>
+  <div class="days">
+    <div class="day"><span class="d ltr">Day 1 · 13 Oct</span><ul><li>Annotation guideline</li><li>جمع الداتا (MADAR وLinCE وcorpora)</li><li>Baseline A: lexicon وmorphology</li><li>Repo skeleton وJSON schema</li></ul></div>
+    <div class="day"><span class="d ltr">Day 2 · 14 Oct</span><ul><li>Synthetic injection pipeline</li><li>Teacher labeling (Kaggle GPU)</li><li>البدء في الـ gold eval set</li></ul></div>
+    <div class="day"><span class="d ltr">Day 3 · 15 Oct</span><ul><li>تدريب System 1 (C)</li><li>Calibration</li><li>مقارنة 2–3 backbones</li></ul></div>
+    <div class="day"><span class="d ltr">Day 4 · 16 Oct</span><ul><li>System 2 routing</li><li>ONNX وقياس الـ latency</li><li>CLI وPython API وtests</li><li>Error analysis</li></ul></div>
+    <div class="day"><span class="d ltr">Day 5 · 17 Oct</span><ul><li>README والـ production plan</li><li>Dockerfile</li><li>Fresh-clone test</li><li>التسليم</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow ltr">To discuss</span>
+  <h2>نقط محتاجين نتفق عليها</h2>
+  <ol class="q">
+    <li>الـ targets: مصري بس (والخليجي والـ MSA كـ labels)، ولا نخلي مصري وخليجي وMSA كلهم targets؟</li>
+    <li>System 1 backbone: encoder عربي (CAMeLBERT-Mix أو MARBERTv2)، ولا decoder صغير مع LoRA (Arch F)؟ الأحسن نقارن الاتنين في يوم 3.</li>
+    <li>System 2: LLM عربي local، ولا decision model زي strands-decider؟ ولا نخليه في الـ production plan بس؟</li>
+    <li>نطلب compute credits من Tuner عشان الـ teacher LLM، ولا نكتفي بـ Kaggle وColab؟</li>
+    <li>الـ Morphology: موافق على قاعدة "نعلّم على الدليل الموجود، مش الناقص"؟</li>
+    <li>الكلمات اللاتيني والـ Arabizi تاخد label <span class="mono">OTHER</span> وتعدّي، والـ Named entities تتحسب conforming؟</li>
+  </ol>
+</section>
+
+<section>
+  <span class="eyebrow ltr">Sources</span>
+  <h2>المصادر</h2>
+  <ul class="src">
+    <li><a href="https://hf.co/StrandsAgents/strands-decider-2B-hobson-v19">strands-decider-2B-hobson-v19 (model card)</a></li>
+    <li><a href="https://github.com/strands-labs/strands-decider">strands-decider (code, latency)</a></li>
+    <li><a href="https://hf.co/Contrastive-LM/CLM-v0.1-8B">CLM-v0.1-8B (model card)</a></li>
+    <li><a href="https://github.com/Contrastive-LM/CLM">CLM (code)</a></li>
+    <li><a href="https://hf.co/autotrust/JEV-9B">autotrust/JEV-9B</a></li>
+    <li><a href="https://github.com/model-collapse/jev-bench">JevBench</a></li>
+    <li><a href="https://openrouter.ai/blog/insights/what-is-jev/">What is Jev (OpenRouter)</a></li>
+    <li><a href="https://aclanthology.org/2020.lrec-1.223">LinCE benchmark (MSA-EA LID)</a></li>
+    <li><a href="https://arxiv.org/pdf/2407.04910">NADI 2024 (multi-label DID, ALDi)</a></li>
+    <li><a href="https://arxiv.org/html/2310.13747v1">ALDi: Level of Dialectness</a></li>
+    <li><a href="https://camel.abudhabi.nyu.edu/madar/static/pdfs/2018-LREC-MADAR-Resources.pdf">MADAR corpus and lexicon</a></li>
+    <li><a href="https://aclanthology.org/2020.lrec-1.868">CAMeL Tools</a></li>
+    <li><a href="https://arxiv.org/pdf/2103.06678">CAMeLBERT (variant/size/task)</a></li>
+    <li><a href="https://arxiv.org/pdf/2101.01785">ARBERT and MARBERT</a></li>
+    <li><a href="https://hf.co/CAMeL-Lab/bert-base-arabic-camelbert-mix-pos-egy">CAMeLBERT-Mix POS-EGY (token clf)</a></li>
+    <li><a href="https://arxiv.org/pdf/1609.02960">Gumar: Gulf Arabic corpus</a></li>
+    <li><a href="https://annota8.ai/blog/arabic-llm-benchmark-landscape-2026.html">Arabic LLM landscape 2026</a></li>
+    <li><a href="https://arxiv.org/pdf/2510.27543">DialectalArabicMMLU</a></li>
+    <li><a href="https://arxiv.org/pdf/2603.16397">Fanar 2.0</a></li>
+    <li><a href="https://research.google/pubs/pos-tagging-for-improving-code-switching-identification-in-arabic/">POS for Arabic code-switching ID</a></li>
+    <li><a href="https://hf.co/datasets/Omartificial-Intelligence-Space/FineWeb2-Egyptian-Arabic">FineWeb2 Egyptian Arabic</a></li>
+    <li><a href="https://hf.co/datasets/AdhamAshraf/egyptian-2-arabic">Egyptian ↔ MSA parallel (18k)</a></li>
+  </ul>
+</section>
+</div>
+
+<script>
+const CRIT=[
+  {k:"q",ar:"الجودة (F1)"},
+  {k:"l",ar:"الـ Latency"},
+  {k:"e",ar:"سهولة التنفيذ في 5 أيام"},
+  {k:"p",ar:"Productisation"},
+  {k:"r",ar:"أمان (مخاطر أقل)"}
+];
+const ARCH=[
+ {id:"A",name:"Rules + Lexicon + Morphology",sub:"System 0 · baseline",s:{q:2,l:5,e:5,p:4,r:4},
+  flow:"tokens -> CAMeL morph analyzers (MSA / EGY / GLF dbs)\n       -> dialect lexicon (MADAR) + marker rules (سوف، لن، الذي، مش، ده، ايش)\n       -> vote -> label",
+  pro:["سريع جداً ويشتغل على CPU","سهل نفسّر كل قرار","baseline لازم يبقى موجود في التسليم"],
+  con:["مبيفهمش السياق (كلمة صح في سياق وغلط في سياق تاني)","الكلمات اللي مش في الـ lexicon بتقع","الـ morphology DBs بتدّي analyses كتير لنفس الكلمة"]},
+ {id:"B",name:"Encoder Token Classifier",sub:"Classic System 1",s:{q:3.5,l:5,e:4,p:5,r:4},
+  flow:"text -> CAMeLBERT-Mix / MARBERTv2 (~110-160M)\n     -> per-token head {EGY,GLF,MSA,SHARED,OTHER}\n     -> first-subword pooling -> decision layer",
+  pro:["pass واحد لكل الكلمات، بضع ms على GPU وعشرات ms على CPU","encoders متدرّبة على تويتر ولهجات","ONNX وint8 والـ serving سهل"],
+  con:["الجودة كلها معتمدة على الـ training data","سعة الموديل محدودة مع الكلمات النادرة","الـ confidence محتاج calibration"]},
+ {id:"C",name:"Multi-task Encoder (B++)",sub:"System 1 · strongest encoder",s:{q:4,l:5,e:3.5,p:5,r:3.5},rec:true,
+  flow:"text -> Arabic encoder\n     -> token head (5 classes) + CRF/consistency\n     -> sentence head (dialect + ALDi) as auxiliary loss\n     -> lexicon/morph features concatenated (from A)\n     -> temperature-scaled probs -> decision layer",
+  pro:["السياق الجملي بيساعد في الكلمات المشتركة","features من A بتسد فجوة الكلمات النادرة","نفس سرعة B تقريباً"],
+  con:["تصميم وتدريب أكتر شوية","محتاج نضبط وزن كل loss"]},
+ {id:"D",name:"Decision Model per word (Jev-style)",sub:"strands-decider / JEV",s:{q:2.5,l:2,e:3,p:3,r:2},
+  flow:"for each word w_i:\n  state = sentence with [w_i] marked\n  Choice(\"Which variety is w_i?\", EGY|GLF|MSA|SHARED)\n-> N decisions (shared prefix, batched)",
+  pro:["probabilities calibrated جاهزة","zero-shot من غير تدريب في الأول","ينفع كـ System 2 judge"],
+  con:["متدرّب على إنجليزي بس، ومفيش دليل إنه بيفهم اللهجات","N calls لكل جملة (~115 ms لكل call على 3090)","2B-9B أكبر بكتير من المطلوب للقرار ده"]},
+ {id:"E",name:"Contrastive (CLM)",sub:"state / action embeddings",s:{q:2.5,l:1.5,e:2.5,p:2.5,r:2},
+  flow:"state_i = embed(sentence, focus=w_i)   # Qwen3-8B last-token\naction_k = embed(\"Egyptian word\"...)    # cached\nlabel = argmax sim(state_i, action_k)",
+  pro:["تدريب الـ heads رخيص","الفكرة نضيفة ومبتكرة في الـ README"],
+  con:["8B pass لكل كلمة، فالـ latency وحشة جداً","last-token pooling بيضيّع معلومات على مستوى الكلمة","encoder-locked، ومتقيّم على إنجليزي"]},
+ {id:"F",name:"Decoder backbone + token head",sub:"Blocks-of-Experts style",s:{q:4.5,l:3.5,e:3,p:4,r:3},
+  flow:"text -> Qwen3.5-2B / Falcon-H1-Arabic (frozen or LoRA)\n     -> hidden states per token (+ bidirectional trick)\n     -> small token head (5 classes)\n     -> one pass for all words",
+  pro:["معرفة أكبر بكتير باللهجات من pretraining الـ LLM","برضه pass واحد لكل الكلمات","نفس فلسفة Jev: backbone frozen وhead صغير"],
+  con:["causal attention مبيشوفش الكلمات اللي بعد الكلمة إلا بـ trick (echo أو LLM2Vec)","التدريب محتاج GPU أكبر من 3.68 GiB","أبطأ من الـ encoder بـ 5–10×"]},
+ {id:"G",name:"Local Generative LLM",sub:"System 2 · prompting",s:{q:3.5,l:1,e:4.5,p:2,r:3},
+  flow:"prompt(text, target, guideline, few-shot)\n -> Falcon-H1-Arabic / ALLaM / Qwen (local, vLLM)\n -> constrained JSON (guided decoding)",
+  pro:["أسرع حاجة نبنيها","بيفهم السياق كويس","teacher ممتاز للداتا (Arch I)"],
+  con:["ثواني لكل جملة","ممكن يغيّر الكلمات أو يلخبط الـ indices","الـ confidence مش calibrated"]},
+ {id:"H",name:"Cascade: System 1 → System 2",sub:"C + (F or G or D) on low confidence",s:{q:4.5,l:4,e:2.5,p:5,r:3},rec:true,
+  flow:"C labels all words in one pass\n  if max_prob(w_i) < tau:  route w_i -> System 2\nmerge -> decision layer -> JSON\n(tau tuned on dev for F1 vs latency)",
+  pro:["الجودة قريبة من System 2 والسرعة قريبة من System 1","tau بيتحكم في الـ trade-off بين الجودة والسرعة","أقوى production story"],
+  con:["مكوّنات أكتر نبنيها ونختبرها","System 2 يتعمله failure handling"]},
+ {id:"I",name:"Distillation: Teacher → Student",sub:"training strategy for C",s:{q:4.5,l:5,e:2,p:5,r:3},rec:true,
+  flow:"teacher (G or F, offline) labels 50-200k real sentences\n + synthetic injection labels (exact)\n -> train student C on soft labels\n -> deploy student only",
+  pro:["الـ inference سرعة الـ encoder، والجودة قريبة من الـ teacher","ده الحل الحقيقي لمشكلة الداتا","نفس الطريقة اللي اتعمل بيها JEV"],
+  con:["أطول وقت تجهيز","أخطاء الـ teacher بتتنقل للـ student، فلازم gold eval"]}
+];
+const PRESETS={balanced:{q:3,l:3,e:3,p:3,r:3},yahya:{q:5,l:4,e:2,p:3,r:2},deadline:{q:3,l:2,e:5,p:2,r:4},interview:{q:4,l:3,e:2,p:5,r:2}};
+let W={...PRESETS.yahya};
+try{const s=JSON.parse(localStorage.getItem("arch-weights")||"null");if(s)W={...W,...s}}catch(e){}
+
+function bars(s){return CRIT.map(c=>`<span>${c.ar}</span><span class="bar"><i style="width:${s[c.k]/5*100}%"></i></span><span class="v">${s[c.k]}</span>`).join("")}
+document.getElementById("cards").innerHTML=ARCH.map(a=>`
+ <article class="card${a.rec?" rec":""}${a.id==="G"?" s2":""}" id="arch-${a.id}">
+  <div class="card-head"><span class="letter">${a.id}</span>
+   <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+    <h3 class="ltr" style="text-align:right">${a.name}</h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag">${a.sub}</span>${a.rec?'<span class="tag rec">recommended</span>':""}</div>
+   </div></div>
+  <div class="flow">${a.flow.replace(/</g,"&lt;")}</div>
+  <div class="pc"><div class="pro"><h4>PROS</h4><ul>${a.pro.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+   <div class="con"><h4>CONS</h4><ul>${a.con.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+  <div class="bars">${bars(a.s)}</div>
+ </article>`).join("");
+
+const wEl=document.getElementById("weights");
+wEl.innerHTML=CRIT.map(c=>`<label for="w-${c.k}"><span>${c.ar}<output id="o-${c.k}"></output></span><input type="range" id="w-${c.k}" min="0" max="5" step="1"></label>`).join("");
+function render(){
+  CRIT.forEach(c=>{document.getElementById("w-"+c.k).value=W[c.k];document.getElementById("o-"+c.k).textContent=W[c.k]});
+  const tot=CRIT.reduce((s,c)=>s+W[c.k],0)||1;
+  const rows=ARCH.map(a=>({a,score:CRIT.reduce((s,c)=>s+a.s[c.k]*W[c.k],0)/tot})).sort((x,y)=>y.score-x.score);
+  document.querySelector("#matrix thead").innerHTML=`<tr><th>#</th><th>ARCH</th>${CRIT.map(c=>`<th>${c.ar}</th>`).join("")}<th>WEIGHTED</th></tr>`;
+  document.querySelector("#matrix tbody").innerHTML=rows.map((r,i)=>`<tr class="${i===0?"top":""}"><td class="rank">${i+1}</td><td><a href="#arch-${r.a.id}"><b class="mono">${r.a.id}</b></a> <span class="ltr">${r.a.name}</span></td>${CRIT.map(c=>`<td class="n">${r.a.s[c.k]}</td>`).join("")}<td class="n total">${r.score.toFixed(2)}</td></tr>`).join("");
+  try{localStorage.setItem("arch-weights",JSON.stringify(W))}catch(e){}
+}
+CRIT.forEach(c=>document.getElementById("w-"+c.k).addEventListener("input",e=>{W[c.k]=+e.target.value;render()}));
+document.querySelectorAll("[data-p]").forEach(b=>b.addEventListener("click",()=>{W={...PRESETS[b.dataset.p]};render()}));
+render();
+</script>
