@@ -89,6 +89,15 @@ ul.clean{padding-left:20px} ul.clean li{margin-bottom:8px;max-width:72ch}
 .next{display:flex;justify-content:space-between;gap:12px;margin-top:50px;padding-top:18px;border-top:1px solid var(--line)}
 .next button{font:500 15px var(--f-body);background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer}
 
+.flowbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:10px}
+.flowsteps{display:flex;gap:4px;margin:12px 0 8px;overflow-x:auto}
+.flowsteps button{flex:1 0 auto;font:600 11px var(--f-mono);letter-spacing:.04em;text-transform:uppercase;border:0;border-top:4px solid var(--line);background:none;color:var(--muted);padding:8px 6px 4px;cursor:pointer;white-space:nowrap}
+.flowsteps button.done{border-top-color:var(--decide)} .flowsteps button[aria-selected="true"]{border-top-color:var(--accent);color:var(--ink)}
+.jsonbox{margin-top:10px} .jsonbox summary{cursor:pointer;font-weight:600;font-size:14px}
+#flowsvg .in{animation:fin .55s ease both} #flowsvg .pulse{animation:pulse 2.4s linear infinite}
+@keyframes fin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pulse{from{transform:translateY(0)}to{transform:translateY(-300px)}}
+@media (prefers-reduced-motion: reduce){#flowsvg .in,#flowsvg .pulse{animation:none}}
 .archwrap{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:8px;overflow-x:auto}
 #archsvg{min-width:640px}
 #archsvg .blk{cursor:pointer} #archsvg .blk.sel>rect:first-child{stroke:var(--ink);stroke-width:3}
@@ -281,6 +290,19 @@ footer{margin-top:30px;font-size:13px;color:var(--muted)}
   <p>I chose the architecture in four steps, each settled by evidence before training. Click a step.</p>
   <div class="pick" id="archsteps" role="tablist" aria-label="decision steps"></div>
   <div class="card" id="archstep" style="margin-top:14px"></div>
+
+  <div class="block">
+    <div class="eyebrow">Live · one sentence, end to end · every number is the real model's</div>
+    <h3>What happens to «عاوز أساعدك، وسوف أحوّلك للقسم المختص الحين»</h3>
+    <div class="flowbar">
+      <div class="pick" id="flowtargets" role="group" aria-label="target"></div>
+      <div class="pick"><button class="pill" id="fprev" aria-label="previous step">←</button><button class="pill" id="fplay">▶ play</button><button class="pill" id="fnext" aria-label="next step">→</button></div>
+    </div>
+    <div class="flowsteps" id="flowsteps" role="tablist" aria-label="stages"></div>
+    <div class="archwrap"><svg class="chart" id="flowsvg" viewBox="0 0 1000 520" role="img" aria-label="end-to-end flow"></svg></div>
+    <div class="card" id="flowcap" style="margin-top:10px" aria-live="polite"></div>
+    <details class="jsonbox" id="flowjsonbox"><summary>The JSON the package returns for this target (real)</summary><pre id="flowjson"></pre></details>
+  </div>
 
   <div class="block">
     <div class="eyebrow">The three architectures, drawn · pick a model, click any part</div>
@@ -636,6 +658,134 @@ function renderSteps(){
 }
 $("archsteps").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; st=+b.dataset.i; renderSteps();});
 renderSteps();
+
+// ---------- live end-to-end flow ----------
+const FL = {"text": "عاوز أساعدك، وسوف أحوّلك للقسم المختص الحين", "raw_split": ["عاوز", "أساعدك،", "وسوف", "أحوّلك", "للقسم", "المختص", "الحين"], "words": [{"raw": "عاوز", "start": 0, "end": 4, "norm": "عاوز"}, {"raw": "أساعدك", "start": 5, "end": 11, "norm": "اساعدك"}, {"raw": "وسوف", "start": 13, "end": 17, "norm": "وسوف"}, {"raw": "أحوّلك", "start": 18, "end": 24, "norm": "احولك"}, {"raw": "للقسم", "start": 25, "end": 30, "norm": "للقسم"}, {"raw": "المختص", "start": 31, "end": 37, "norm": "المختص"}, {"raw": "الحين", "start": 38, "end": 43, "norm": "الحين"}], "sub": [{"tok": "[CLS]", "id": 2, "wid": null}, {"tok": "عاوز", "id": 4981, "wid": 0}, {"tok": "اساعدك", "id": 62162, "wid": 1}, {"tok": "وسوف", "id": 11792, "wid": 2}, {"tok": "احول", "id": 37942, "wid": 3}, {"tok": "##ك", "id": 1012, "wid": 3}, {"tok": "للقسم", "id": 95608, "wid": 4}, {"tok": "المختص", "id": 59145, "wid": 5}, {"tok": "الحين", "id": 3917, "wid": 6}, {"tok": "[SEP]", "id": 3, "wid": null}], "W": [{"pos": 1, "logit": [-11.965, 9.055, 13.451, 14.03, 10.939, -11.504, 2.394], "odia_logit": -14.114, "other_logit": -14.567, "p": {"MSA": 0.0, "EGY": 0.9999, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 0.0, "MAG": 0.9151}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 2, "logit": [10.7, 14.583, 14.374, 14.25, 13.58, 10.143, 14.363], "odia_logit": -16.385, "other_logit": -14.753, "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 3, "logit": [10.449, -9.132, -10.265, -8.976, -10.989, -10.586, -9.341], "odia_logit": -10.639, "other_logit": -9.927, "p": {"MSA": 1.0, "EGY": 0.0001, "SAU": 0.0, "GLF": 0.0001, "LEV": 0.0, "IRQ": 0.0, "MAG": 0.0001}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 4, "logit": [2.543, 7.111, 11.141, 11.876, 10.271, 4.572, 6.351], "odia_logit": -13.277, "other_logit": -12.448, "p": {"MSA": 0.9259, "EGY": 0.9991, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 0.9894, "MAG": 0.9982}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 6, "logit": [11.37, 14.262, 13.109, 13.575, 14.554, 11.176, 13.434], "odia_logit": -16.65, "other_logit": -17.06, "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 7, "logit": [10.076, 11.949, 11.855, 12.256, 12.172, 10.071, 12.214], "odia_logit": -14.151, "other_logit": -15.206, "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 8, "logit": [7.511, -10.432, 12.314, 11.016, 11.002, 10.01, 12.108], "odia_logit": -14.827, "other_logit": -12.441, "p": {"MSA": 0.9994, "EGY": 0.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}], "cal": {"T_var": 1.0068962574005127, "T_odia": 1.0016647577285767, "tau": {"MSA": 0.2, "EGY": 0.15, "SAU": 0.9, "GLF": 0.9, "LEV": 0.8, "IRQ": 0.35}, "tau_odia": 0.4, "odia_gate": 0.5}, "vars": ["MSA", "EGY", "SAU", "GLF", "LEV", "IRQ", "MAG"], "result": {"MSA": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": false, "label": "Arabic / Gulf", "labels": ["Arabic / Gulf", "Arabic / Saudi", "Arabic / Levantine", "Arabic / Egyptian", "Arabic / Maghrebi"], "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": true, "confidence": 1.0}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 0.926}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 0.999}], "deviations": ["عاوز"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "EGY": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "هـ + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 0.999}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": false, "label": "Arabic / Saudi", "labels": ["Arabic / Saudi", "Arabic / Maghrebi", "Arabic / Gulf", "Arabic / Levantine", "Arabic / Iraqi", "Arabic / MSA"], "confidence": 1.0}], "deviations": ["وسوف", "الحين"], "summary": {"arabic_words": 7, "deviating_words": 2, "adherence": 0.7143, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "SAU": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "بـ / راح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 1.0}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["وسوف"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "GLF": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "بـ / راح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 1.0}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["وسوف"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "LEV": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "رح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 1.0}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["وسوف"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "IRQ": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": false, "label": "Arabic / Gulf", "labels": ["Arabic / Gulf", "Arabic / Saudi", "Arabic / Levantine", "Arabic / Egyptian", "Arabic / Maghrebi"], "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "راح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 0.989}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["عاوز", "وسوف"], "summary": {"arabic_words": 7, "deviating_words": 2, "adherence": 0.7143, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}}};
+const FV = FL.vars, FT = ["MSA","EGY","SAU","GLF","LEV","IRQ"];
+const FSTAGES = ["Input","Split","Normalise","WordPiece","Encoder","First sub-word","Logits","Calibrate","Decide","Output"];
+let fs=0, ftg="EGY", ftimer=null;
+const WX = i => 905 - i*130;            // 7 words, right to left
+const SX = k => 945 - k*99;             // 10 sub-words, right to left
+const F2 = x => (Math.round(x*100)/100).toFixed(2);
+function fdecide(i, t){
+  const w=FL.W[i], pv=w.p, c=FL.cal, pt=pv[t];
+  if (w.p_other>0.5) return {ok:true, why:`non-Arabic p ${F2(w.p_other)} > 0.5`};
+  if (w.p_odia>c.tau_odia && pt<c.odia_gate) return {ok:false, labels:["other dialect"], why:`other-dialect p ${F2(w.p_odia)} > ${c.tau_odia}`};
+  if (pt < c.tau[t]) {
+    const others=FV.filter(v=>v!==t && !(t==="GLF"&&v==="SAU"));
+    const lg=v=>w.logit[FV.indexOf(v)]; let S=others.filter(v=>pv[v]>=0.5).sort((a,b)=>lg(b)-lg(a)); if(!S.length) S=[others.sort((a,b)=>lg(b)-lg(a))[0]];
+    return {ok:false, labels:S.map(v=>NAME[v]), why:`p(${NAME[t]}) ${F2(pt)} < τ ${c.tau[t]}`};
+  }
+  return {ok:true, why:`p(${NAME[t]}) ${F2(pt)} ≥ τ ${c.tau[t]}`};
+}
+function fcap(){
+  const c=FL.cal, r=FL.result[ftg], dev=r.tokens.filter(x=>!x.conforms).map(x=>x.word);
+  return [
+   `<b>Input.</b> A voice agent configured as <b>${NAME[ftg]}</b> produced this turn. HaSeen receives the text and the target, nothing else: no audio, no LLM, no network.`,
+   `<b>Split into words.</b> Split on spaces; punctuation at word edges is not part of the word, so «أساعدك،» becomes «أساعدك». Each word keeps its character offsets (shown under it) so the output can point back into the original text. 7 Arabic words.`,
+   `<b>Normalise.</b> A light CODA-style normalisation so spelling variants meet the same vocabulary: أ إ آ → ا, ى → ي, ة → ه, diacritics such as the shadda in «أحوّلك» removed. Two words change here.`,
+   `<b>WordPiece.</b> MARBERT's tokenizer (100,000 entries) maps each word to vocabulary IDs (shown under each piece). Six words are single pieces; «احولك» splits into «احول» + «##ك». [CLS] and [SEP] frame the sequence: 10 tokens enter the model.`,
+   `<b>Encoder.</b> The 10 IDs become 768-number vectors (token + position embeddings), then pass through 12 Transformer layers. In every layer, self-attention lets each token look at all the others in both directions, then a feed-forward network refines it. Out comes one context-aware vector per token. This is the 162.25M-parameter part.`,
+   `<b>First sub-word.</b> One decision per word: each word keeps the vector of its first piece. «##ك» is dropped (its information is already in «احول» through attention), and so are [CLS] and [SEP]. 7 vectors remain.`,
+   `<b>Heads → logits.</b> My naturalness head (768 → 7) turns each word vector into 7 raw scores, one per variety. Positive = natural, negative = not. Real values: «وسوف» is +10.4 for MSA and about −9 to −11 for every dialect; «الحين» is −10.4 for Egyptian and +11 to +12 for the Gulf varieties. Two more heads give other-dialect and non-Arabic scores (all near 0 here).`,
+   `<b>Calibrate.</b> Each score is divided by the temperature T = ${c.T_var.toFixed(3)} (fitted on dev) and passed through its own sigmoid: p = σ(logit ÷ T). Seven independent probabilities per word; they do not have to sum to 1, because a word can be natural in several varieties.`,
+   `<b>Decide for ${NAME[ftg]}.</b> Only the target's column matters now: a word deviates when p(${NAME[ftg]}) < τ = ${c.tau[ftg]} (fitted on dev for the best F1 with ≤ 1% false alarms). Other-dialect would apply only if its probability passed ${c.tau_odia} and p(target) < ${c.odia_gate}. A deviating word is labelled with every variety where p ≥ 0.5, most likely first.`,
+   `<b>Output.</b> ${dev.length} of 7 words do not fit ${NAME[ftg]}${dev.length?": «"+dev.join("», «")+"»":""}. Adherence ${Math.round(r.summary.adherence*100)}%. The turn reads as ${r.summary.reads_as.map(x=>x.variety.replace("Arabic / ","")+" "+x.score.toFixed(2)).join(", ")} (from the informative words). Total time on a CPU: about 7 ms.`
+  ][fs];
+}
+function drawFlow(){
+  $("flowtargets").innerHTML=FT.map(t=>`<button class="pill" style="--c:var(--${t})" aria-pressed="${t===ftg}" data-t="${t}">target · ${NAME[t]}</button>`).join("");
+  $("flowsteps").innerHTML=FSTAGES.map((x,i)=>`<button role="tab" aria-selected="${i===fs}" class="${i<fs?"done":""}" data-i="${i}">${i+1} ${x}</button>`).join("");
+  $("fprev").disabled=fs===0; $("fnext").disabled=fs===FSTAGES.length-1;
+  const s=$("flowsvg"); s.innerHTML="";
+  const g0=el("g",{class:"in"}); s.append(g0);
+  const T=(x,y,t,o={})=>{const e=el("text",Object.assign({x,y,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-family":"Figtree, sans-serif"},o),t); g0.append(e); return e;};
+  const R=(x,y,w,h,o={})=>{const e=el("rect",Object.assign({x,y,width:w,height:h,rx:12},o)); g0.append(e); return e;};
+  const ARW=(x1,y1,x2,y2,c="var(--muted)")=>{g0.append(el("path",{d:`M${x1} ${y1}L${x2} ${y2}`,stroke:c,"stroke-width":1.6,fill:"none","marker-end":"url(#fah)"}));};
+  const defs=el("defs",{}), mk=el("marker",{id:"fah",viewBox:"0 0 10 10",refX:8,refY:5,markerWidth:6,markerHeight:6,orient:"auto-start-reverse"}); mk.append(el("path",{d:"M0 0L10 5L0 10z",fill:"var(--muted)"})); defs.append(mk); s.append(defs);
+  const AR={"font-family":"Reem Kufi, sans-serif"};
+  const words=FL.words, W=FL.W, sub=FL.sub;
+  if(fs===0){
+    T(500,190,FL.text,Object.assign({"font-size":34},AR));
+    R(390,250,220,44,{fill:`var(--${ftg}-s)`,stroke:`var(--${ftg})`}); T(500,278,"target: Arabic / "+NAME[ftg],{"font-weight":600});
+    T(500,360,"haseen.detect(text, \""+ftg.toLowerCase()+"\")",{"font-family":"JetBrains Mono, monospace","font-size":15,fill:"var(--muted)"});
+  }
+  if(fs===1){
+    T(500,90,FL.text,Object.assign({"font-size":24,fill:"var(--muted)"},AR));
+    words.forEach((w,i)=>{ R(WX(i)-56,190,112,54,{fill:"var(--paper)",stroke:"var(--line)"}); T(WX(i),224,w.raw,Object.assign({"font-size":21},AR)); T(WX(i),268,w.start+"–"+w.end,{"font-family":"JetBrains Mono, monospace","font-size":12,fill:"var(--muted)"}); ARW(WX(i),120,WX(i),186); });
+    T(WX(1),330,"«أساعدك،» → «أساعدك»: edge comma removed",Object.assign({"font-size":14,fill:"var(--muted)"},AR));
+  }
+  if(fs===2){
+    words.forEach((w,i)=>{ const ch=w.raw!==w.norm;
+      R(WX(i)-56,130,112,50,{fill:"var(--paper)",stroke:"var(--line)"}); T(WX(i),162,w.raw,Object.assign({"font-size":20},AR));
+      ARW(WX(i),184,WX(i),246,ch?"var(--accent)":"var(--muted)");
+      R(WX(i)-56,250,112,50,{fill:ch?"var(--EGY-s)":"var(--paper)",stroke:ch?"var(--accent)":"var(--line)","stroke-width":ch?2:1}); T(WX(i),282,w.norm,Object.assign({"font-size":20},AR)); });
+    T(WX(1),340,"أ → ا",Object.assign({fill:"var(--accent)","font-size":16},AR)); T(WX(3),340,"أ → ا · ّ removed",Object.assign({fill:"var(--accent)","font-size":16},AR));
+    T(500,420,"أ إ آ → ا   ·   ى → ي   ·   ة → ه   ·   no diacritics or tatweel",Object.assign({"font-size":15,fill:"var(--muted)"},AR));
+  }
+  if(fs===3){
+    words.forEach((w,i)=>{ R(WX(i)-56,60,112,44,{fill:"var(--paper)",stroke:"var(--line)"}); T(WX(i),88,w.norm,Object.assign({"font-size":18},AR)); });
+    sub.forEach((t,k)=>{ const isSp=t.wid===null, x=SX(k);
+      R(x-44,230,88,52,{fill:isSp?"var(--OTH-s)":"var(--MSA-s)",stroke:isSp?"var(--OTH)":"var(--MSA)"}); T(x,262,t.tok,Object.assign({"font-size":isSp?13:17},isSp?{}:AR));
+      T(x,306,t.id,{"font-family":"JetBrains Mono, monospace","font-size":12,fill:"var(--muted)"});
+      if(!isSp) ARW(WX(t.wid),108,x,226,t.tok.startsWith("##")||(sub[k+1]&&sub[k+1].wid===t.wid)?"var(--accent)":"var(--muted)"); });
+    T(500,380,"10 token IDs enter the model · «احولك» → «احول» + «##ك»",Object.assign({"font-size":15,fill:"var(--muted)"},AR));
+  }
+  if(fs===4){
+    sub.forEach((t,k)=>{ const x=SX(k); R(x-40,450,80,40,{fill:"var(--MSA-s)",stroke:"var(--MSA)"}); T(x,476,t.tok,Object.assign({"font-size":14},t.wid===null?{}:AR)); ARW(x,448,x,424); ARW(x,118,x,92);
+      for(let j=0;j<8;j++) R(x-9,52+j*5,18,4,{rx:1,fill:"var(--accent)",opacity:.3+.08*j}); });
+    R(40,122,920,300,{fill:"var(--GLF-s)",stroke:"var(--GLF)",rx:22});
+    for(let L=0;L<12;L++){ R(60,402-L*23,880,17,{rx:8,fill:"var(--paper)",stroke:"var(--line)"}); if(L%3===0) T(80,415-L*23,"L"+(L+1),{"font-size":11,"font-family":"JetBrains Mono, monospace",fill:"var(--muted)"}); }
+    const pl=el("rect",{x:60,y:400,width:880,height:22,rx:10,fill:"var(--decide)",opacity:.35,class:"pulse"}); g0.append(pl);
+    for(const [a,b] of [[1,3],[3,8],[2,6],[4,5],[1,8],[6,7]]) g0.append(el("path",{d:`M${SX(a)} 140 Q ${(SX(a)+SX(b))/2} ${104} ${SX(b)} 140`,stroke:"var(--accent)","stroke-width":1.3,fill:"none",opacity:.55}));
+    T(500,30,"10 vectors × 768 numbers, each aware of the whole turn",{"font-size":14,fill:"var(--muted)"});
+    T(925,270,"×12",{"font-size":22,"font-family":"Caprasimo, serif",fill:"var(--muted)"});
+  }
+  if(fs===5){
+    sub.forEach((t,k)=>{ const x=SX(k), keep=t.wid!==null && !t.tok.startsWith("##");
+      R(x-40,330,80,40,{fill:keep?"var(--EGY-s)":"var(--OTH-s)",stroke:keep?"var(--accent)":"var(--OTH)","stroke-width":keep?2.5:1,opacity:keep?1:.6}); T(x,356,t.tok,Object.assign({"font-size":14},t.wid===null?{}:AR));
+      for(let j=0;j<8;j++) R(x-9,262+j*5,18,4,{rx:1,fill:keep?"var(--accent)":"var(--OTH)",opacity:keep?.35+.08*j:.25});
+      if(!keep) T(x,240,"×",{"font-size":26,fill:"var(--muted)"}); else ARW(x,258,WX(t.wid),176); });
+    words.forEach((w,i)=>{ R(WX(i)-50,120,100,52,{fill:"var(--EGY-s)",stroke:"var(--accent)"}); T(WX(i),152,w.norm,Object.assign({"font-size":18},AR)); });
+    T(500,70,"7 word vectors → the heads",{"font-size":14,fill:"var(--muted)"});
+  }
+  if(fs>=6 && fs<=8){
+    const isP=fs>=7, cw=82, ch=46, x0=205, y0=70;
+    FV.forEach((v,j)=>{ const x=x0+j*cw; T(x+cw/2,y0-14,NAME[v],{"font-size":13,"font-weight":fs===8&&v===ftg?700:500,fill:fs===8&&v===ftg?`var(--${v})`:"var(--muted)"}); });
+    words.forEach((w,i)=>{ const y=y0+i*ch; T(190,y+30,w.raw,Object.assign({"font-size":19,"text-anchor":"end"},AR));
+      FV.forEach((v,j)=>{ const x=x0+j*cw, lg=W[i].logit[j], p=W[i].p[v], val=isP?p:lg;
+        const pos=isP?p>=0.5:lg>=0, a=isP?Math.abs(p-0.5)*1.6+.05:Math.min(1,Math.abs(lg)/14)*.85+.05;
+        const dim=fs===8&&v!==ftg;
+        R(x+3,y+4,cw-6,ch-8,{rx:9,fill:pos?"var(--ok)":"var(--bad)",opacity:dim?a*.25:a});
+        T(x+cw/2,y+30,isP?F2(val):(val>0?"+":"")+val.toFixed(1),{"font-size":14,"font-family":"JetBrains Mono, monospace",fill:"var(--ink)",opacity:dim?.45:1}); });
+      if(fs===8){ const d=fdecide(i,ftg), x=x0+7*cw+16;
+        R(x,y+4,170,ch-8,{rx:9,fill:d.ok?"var(--paper)":`var(--${KEY[d.labels[0]]||"OTH"}-s)`,stroke:d.ok?"var(--line)":`var(--${KEY[d.labels[0]]||"OTH"})`});
+        T(x+85,y+29,d.ok?"fits ✓":d.labels.slice(0,2).join(" · ")+(d.labels.length>2?" +"+(d.labels.length-2):""),{"font-size":13,"font-weight":600}); } });
+    if(fs===8){ const j=FV.indexOf(ftg); R(x0+j*cw,y0-4,cw,7*ch+4,{fill:"none",stroke:`var(--${ftg})`,"stroke-width":3,rx:12});
+      T(x0+j*cw+cw/2,y0+7*ch+24,"τ = "+FL.cal.tau[ftg],{"font-size":14,"font-family":"JetBrains Mono, monospace",fill:`var(--${ftg})`,"font-weight":700});
+      T(x0+7*cw+101,y0-14,"decision",{"font-size":13,fill:"var(--muted)"}); }
+    T(500,y0+7*ch+52,fs===6?"raw logits from the naturalness head (768 → 7)":fs===7?"p = σ(logit ÷ "+FL.cal.T_var.toFixed(3)+")":"",{"font-size":14,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
+  }
+  if(fs===9){
+    const r=FL.result[ftg];
+    r.tokens.forEach((x,i)=>{ const k=x.conforms?null:(KEY[(x.label||"").replace("Arabic / ","")]||"OTH"), X=WX(i);
+      R(X-58,150,116,60,{fill:k?`var(--${k}-s)`:"var(--paper)",stroke:k?`var(--${k})`:"var(--line)","stroke-width":k?2:1,rx:30}); T(X,188,x.word,Object.assign({"font-size":21},AR));
+      if(!x.conforms){ T(X,236,(x.label||"").replace("Arabic / ",""),{"font-size":13,"font-weight":700,fill:`var(--${k})`}); if(x.suggestion) T(X,258,"→ "+x.suggestion,Object.assign({"font-size":13,fill:"var(--muted)"},AR)); } });
+    T(500,90,"target: "+NAME[ftg],{"font-size":14,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
+    R(300,320,400,64,{fill:"var(--paper)",stroke:"var(--line)"}); T(500,348,"adherence "+Math.round(r.summary.adherence*100)+"%  ·  "+r.summary.deviating_words+" of "+r.summary.arabic_words+" words deviate",{"font-size":16,"font-weight":600});
+    T(500,372,"reads as "+r.summary.reads_as.map(z=>z.variety.replace("Arabic / ","")+" "+z.score.toFixed(2)).join(" · "),{"font-size":13,fill:"var(--muted)"});
+  }
+  $("flowcap").innerHTML=`<div class="eyebrow">step ${fs+1} of ${FSTAGES.length} · ${FSTAGES[fs]}</div><p style="font-size:15px;margin:0">${fcap()}</p>`;
+  $("flowjson").textContent=JSON.stringify(Object.assign({target:"Arabic / "+NAME[ftg]},FL.result[ftg]),null,1);
+}
+function fgo(i){ fs=Math.max(0,Math.min(FSTAGES.length-1,i)); drawFlow(); }
+$("fnext").addEventListener("click",()=>{fstop(); fgo(fs+1);});
+$("fprev").addEventListener("click",()=>{fstop(); fgo(fs-1);});
+$("flowsteps").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){fstop(); fgo(+b.dataset.i);}});
+$("flowtargets").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){ftg=b.dataset.t; drawFlow();}});
+function fstop(){ if(ftimer){clearInterval(ftimer); ftimer=null; $("fplay").textContent="▶ play";} }
+$("fplay").addEventListener("click",()=>{ if(ftimer){fstop(); return;} if(fs===FSTAGES.length-1) fs=-1; $("fplay").textContent="❚❚ pause"; fgo(fs+1); ftimer=setInterval(()=>{ if(fs>=FSTAGES.length-1){fstop(); return;} fgo(fs+1); },4200); });
+drawFlow();
 
 // ---------- drawn architectures ----------
 const AM = {
