@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "haseen"
+version = "3.0.0"
+description = "HaSeen 3: word-level Arabic dialect deviation detection for six targets, for voice agents and LLM output"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Proprietary, all rights reserved; see LICENSE"}
+authors = [{name = "Yahya Elnawasany (NightPrince)"}]
+dependencies = ["onnxruntime>=1.17", "tokenizers>=0.15", "huggingface_hub>=0.23", "numpy"]  # CPU, int8 ONNX: no PyTorch
+
+[project.optional-dependencies]
+gpu = ["torch>=2.3", "transformers>=4.45", "safetensors"]  # HaSeen-3 in PyTorch (CUDA if present)
+dev = ["pytest"]
+
+[project.scripts]
+haseen = "haseen.cli:main"
+
+[project.urls]
+Model = "https://huggingface.co/NightPrince/HaSeen-3-ONNX"
+Source = "https://github.com/NightPrinceY/haseen-v3"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HaSeen 3 Playground</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%20%3Crect%20x%3D%228%22%20y%3D%228%22%20width%3D%22496%22%20height%3D%22496%22%20rx%3D%22112%22%20fill%3D%22%23f5ead8%22%20stroke%3D%22%23e0d1b8%22%20stroke-width%3D%2210%22/%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20fill%3D%22%23c67139%22%20d%3D%22M342%20180a86%2086%200%201%201%200%20172a86%2086%200%201%201%200-172z%20M331%20212a43%2043%200%201%200%200%2086a43%2043%200%201%200%200-86z%22/%3E%20%3Ccircle%20cx%3D%22242%22%20cy%3D%22336%22%20r%3D%2215%22%20fill%3D%22%23dfaf5a%22/%3E%20%3Cg%20fill%3D%22%234882a0%22%3E%20%3Crect%20x%3D%2282%22%20y%3D%22320%22%20width%3D%22130%22%20height%3D%2232%22%20rx%3D%2216%22/%3E%20%3Crect%20x%3D%2282%22%20y%3D%22236%22%20width%3D%2230%22%20height%3D%22116%22%20rx%3D%2215%22/%3E%20%3Crect%20x%3D%22132%22%20y%3D%22236%22%20width%3D%2230%22%20height%3D%22116%22%20rx%3D%2215%22/%3E%20%3Crect%20x%3D%22182%22%20y%3D%22236%22%20width%3D%2230%22%20height%3D%22116%22%20rx%3D%2215%22/%3E%20%3C/g%3E%20%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* HaSeen identity: the Organic system (sand, terracotta, sage; Caprasimo / Figtree / Reem Kufi) + nile, saffron, plum.
+   One colour per variety: Egyptian terracotta, Gulf sage, MSA nile, other dialects plum; saffron = the decision. */
+:root{
+  --bg:#f5ead8; --surface:#f9f4ed; --sunk:#ebddc5; --ink:#201e1d; --muted:#645c50; --line:color-mix(in srgb,#201e1d 14%,transparent);
+  --egy:#c67139; --egy-s:#ffe1d0; --egy-d:#643312; --glf:#7a8a5e; --glf-s:#e1eecc; --glf-d:#3d472b;
+  --msa:#4882a0; --msa-s:#d8ebf6; --msa-d:#234759; --dia:#9d6780; --dia-s:#f6e1ea; --dia-d:#573646;
+  --signal:#dfaf5a; --signal-s:#f6e6cc; --signal-d:#573d05; --accent:#c67139; --accent-press:#b2622d;
+  --sau:#7a8a5e; --sau-s:#e1eecc; --sau-d:#3d472b; --khl:#5e7a4a; --khl-s:#dbe8cf; --khl-d:#2f3f22;
+  --lev:#b8892e; --lev-s:#f6e6cc; --lev-d:#573d05; --irq:#4f8a78; --irq-s:#d5ece4; --irq-d:#1f4238;
+  --yem:#9c6b3c; --yem-s:#f0e0cd; --yem-d:#4d3015; --mor:#b0584a; --mor-s:#f7ddd6; --mor-d:#5a2219;
+  --tun:#3d7d92; --tun-s:#d3e9f0; --tun-d:#173c48;
+  --display:"Caprasimo",system-ui,sans-serif; --body:"Figtree",system-ui,sans-serif; --ar:"Reem Kufi","Figtree",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --shadow:0 3px 10px color-mix(in srgb,#2e2b25 16%,transparent);
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#1a1613; --surface:#27211c; --sunk:#120f0d; --ink:#f5ead8; --muted:#c0b6a5; --line:color-mix(in srgb,#f5ead8 14%,transparent);
+  --egy:#d67f48; --egy-s:#402310; --egy-d:#ffc6a5; --glf:#8fa073; --glf-s:#272e1b; --glf-d:#ccdbb2;
+  --msa:#63a1c1; --msa-s:#192e39; --msa-d:#b5daef; --dia:#be849f; --dia-s:#38252e; --dia-d:#eec8d8;
+  --signal:#dfaf5a; --signal-s:#392809; --signal-d:#eecf9c; --accent-press:#f6a06b;
+  --sau:#8fa073; --sau-s:#272e1b; --sau-d:#ccdbb2; --khl:#7f9a69; --khl-s:#1f2a17; --khl-d:#c3d8b0;
+  --lev:#dfaf5a; --lev-s:#392809; --lev-d:#eecf9c; --irq:#6fb39d; --irq-s:#15302a; --irq-d:#bfe6d8;
+  --yem:#c8955f; --yem-s:#33220f; --yem-d:#ecd3b4; --mor:#d98272; --mor-s:#3d1a14; --mor-d:#f5c9bf;
+  --tun:#6fb0c6; --tun-s:#112d36; --tun-d:#bfe2ee;
+  --shadow:0 0 0 1px color-mix(in srgb,#f5ead8 8%,transparent); color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--body)}
+.wrap{max-width:1040px;margin:0 auto;padding:36px 18px 64px;display:flex;flex-direction:column;gap:20px}
+header{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+header svg{width:92px;height:92px;flex:none}
+h1{margin:0;font:400 clamp(44px,7vw,68px)/1 var(--display);letter-spacing:-.02em}
+h1 .ar{font:500 .5em var(--ar);color:var(--muted);margin-inline-start:14px;vertical-align:middle}
+.tag{color:var(--muted);font-size:18px;margin:6px 0 10px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{font:500 12px var(--mono);padding:5px 12px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.badge.live{background:var(--glf-s);color:var(--glf-d)}
+.panel{background:var(--surface);border-radius:32px;padding:22px;box-shadow:var(--shadow)}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px}
+@media (max-width:720px){.controls{grid-template-columns:minmax(0,1fr)}}
+textarea{width:100%;min-height:120px;resize:vertical;border-radius:24px;border:1px solid var(--line);background:var(--bg);color:var(--ink);
+  font:500 24px/1.6 var(--ar);padding:14px 18px;direction:rtl;text-align:right;caret-color:var(--accent)}
+textarea:hover{border-color:color-mix(in srgb,var(--ink) 40%,transparent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+::selection{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+.side{display:flex;flex-direction:column;gap:10px}
+.lbl{font:500 11.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.targets{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.targets button{display:flex;justify-content:space-between;align-items:center;gap:6px;text-align:start;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 14px var(--body);cursor:pointer}
+.targets button:hover{background:color-mix(in srgb,var(--ink) 6%,var(--bg))}
+.targets button span{font-family:var(--ar);color:var(--muted)}
+.targets button[data-t="MSA"][aria-pressed="true"]{border-color:var(--msa);background:var(--msa-s);color:var(--msa-d)}
+.targets button[data-t="EGY"][aria-pressed="true"]{border-color:var(--egy);background:var(--egy-s);color:var(--egy-d)}
+.targets button[data-t="SAU"][aria-pressed="true"]{border-color:var(--sau);background:var(--sau-s);color:var(--sau-d)}
+.targets button[data-t="GLF"][aria-pressed="true"]{border-color:var(--khl);background:var(--khl-s);color:var(--khl-d)}
+.targets button[data-t="LEV"][aria-pressed="true"]{border-color:var(--lev);background:var(--lev-s);color:var(--lev-d)}
+.targets button[data-t="IRQ"][aria-pressed="true"]{border-color:var(--irq);background:var(--irq-s);color:var(--irq-d)}
+.targets button[data-t="YEM"][aria-pressed="true"]{border-color:var(--yem);background:var(--yem-s);color:var(--yem-d)}
+.targets button[data-t="MOR"][aria-pressed="true"]{border-color:var(--mor);background:var(--mor-s);color:var(--mor-d)}
+.targets button[data-t="TUN"][aria-pressed="true"]{border-color:var(--tun);background:var(--tun-s);color:var(--tun-d)}
+.go{padding:12px;border-radius:999px;border:0;background:var(--accent);color:#f5ead8;font:400 17px var(--display);cursor:pointer}
+.go:hover{background:var(--accent-press)}
+.go:disabled{opacity:.45;cursor:wait}
+.progress{height:8px;border-radius:999px;background:var(--sunk);overflow:hidden}
+.progress i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--egy),var(--signal),var(--msa));transition:width .2s}
+.status{font:12.5px var(--mono);color:var(--muted)}
+.verdict{padding:12px 18px;border-radius:999px;font:500 17px var(--ar);direction:rtl;text-align:right}
+.verdict.clean{background:var(--sunk);color:var(--ink)} .verdict.dirty{background:var(--signal-s);color:var(--signal-d)}
+.meta{display:flex;justify-content:space-between;font:12.5px var(--mono);color:var(--muted);margin-bottom:10px}
+.sentence{direction:rtl;display:flex;flex-wrap:wrap;gap:10px;padding:18px 2px}
+.tok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:7px 16px 9px;border-radius:24px;border:2px solid transparent;background:var(--bg);font:500 26px/1.3 var(--ar)}
+.tok small{font:500 10.5px var(--mono);direction:ltr;color:var(--muted)}
+.tok em{font:normal 13px var(--ar);color:var(--ink);opacity:.85}
+.tok.msa{background:var(--msa-s);border-color:var(--msa);color:var(--msa-d)} .tok.msa small{color:var(--msa-d)}
+.tok.egy{background:var(--egy-s);border-color:var(--egy);color:var(--egy-d)} .tok.egy small{color:var(--egy-d)}
+.tok.sau{background:var(--sau-s);border-color:var(--sau);color:var(--sau-d)} .tok.sau small{color:var(--sau-d)}
+.tok.khl{background:var(--khl-s);border-color:var(--khl);color:var(--khl-d)} .tok.khl small{color:var(--khl-d)}
+.tok.lev{background:var(--lev-s);border-color:var(--lev);color:var(--lev-d)} .tok.lev small{color:var(--lev-d)}
+.tok.irq{background:var(--irq-s);border-color:var(--irq);color:var(--irq-d)} .tok.irq small{color:var(--irq-d)}
+.tok.yem{background:var(--yem-s);border-color:var(--yem);color:var(--yem-d)} .tok.yem small{color:var(--yem-d)}
+.tok.mor{background:var(--mor-s);border-color:var(--mor);color:var(--mor-d)} .tok.mor small{color:var(--mor-d)}
+.tok.tun{background:var(--tun-s);border-color:var(--tun);color:var(--tun-d)} .tok.tun small{color:var(--tun-d)}
+.tok.dia{background:var(--dia-s);border-color:var(--dia);color:var(--dia-d)} .tok.dia small{color:var(--dia-d)}
+.tok.skip{opacity:.6}
+.summary{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 8px;font:12.5px var(--mono);color:var(--muted)}
+.summary span{background:var(--sunk);border-radius:999px;padding:4px 12px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%}
+details{margin-top:12px} details summary{cursor:pointer;color:var(--muted);font-size:13.5px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+th{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:start;padding:6px}
+td{padding:6px;border-top:1px solid var(--line);white-space:nowrap}
+td.w{font:500 18px var(--ar)} tr.dev td.w{color:var(--signal-d)}
+.bar{display:inline-block;width:44px;height:8px;border-radius:999px;background:var(--sunk);vertical-align:middle;overflow:hidden;margin-inline-end:6px}
+.bar i{display:block;height:100%;border-radius:999px}
+.num{font:12px var(--mono)}
+.tablewrap{overflow-x:auto}
+pre{margin:8px 0 0;background:var(--sunk);border-radius:20px;padding:14px;overflow-x:auto;font:12px/1.5 var(--mono);direction:ltr}
+.examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.examples button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 14px;font:15px var(--ar);cursor:pointer;direction:rtl;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.examples button:hover{background:color-mix(in srgb,var(--accent) 10%,var(--bg))}
+.examples button b{font:500 11px var(--mono);color:var(--muted);margin-inline-start:8px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.how div{background:var(--sunk);border-radius:28px;padding:16px 20px;font-size:14.5px}
+.how b{display:block;font:400 19px var(--display);margin-bottom:6px}
+.how .ar{font-family:var(--ar)}
+footer{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true"> <rect x="8" y="8" width="496" height="496" rx="112" fill="#f5ead8" stroke="#e0d1b8" stroke-width="10"/> <path fill-rule="evenodd" fill="#c67139" d="M342 180a86 86 0 1 1 0 172a86 86 0 1 1 0-172z M331 212a43 43 0 1 0 0 86a43 43 0 1 0 0-86z"/> <circle cx="242" cy="336" r="15" fill="#dfaf5a"/> <g fill="#4882a0"> <rect x="82" y="320" width="130" height="32" rx="16"/> <rect x="82" y="236" width="30" height="116" rx="15"/> <rect x="132" y="236" width="30" height="116" rx="15"/> <rect x="182" y="236" width="30" height="116" rx="15"/> </g> </svg>
+  <div style="min-width:0;flex:1">
+    <h1>HaSeen 3<span class="ar">هـ · سين</span></h1>
+    <p class="tag">One letter decides the dialect. Every Arabic word, checked against the variety you want.</p>
+    <div class="badges"><span class="badge live" id="b-live">● runs in your browser</span><span class="badge">HaSeen-3 · int8 ONNX · 162.6M params</span><span class="badge">6 targets · Gulf ⊃ Saudi</span><span class="badge">private preview</span><span class="badge">no text leaves your device</span></div>
+  </div>
+</header>
+
+
+<section class="panel" aria-label="input">
+  <div class="controls">
+    <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+      <span class="lbl">Text · النص</span>
+      <textarea id="txt" aria-label="Arabic text">أبغى أساعدك، سوف أحوّلك للقسم المختص الحين</textarea>
+    </div>
+    <div class="side">
+      <span class="lbl">Target · اللهجة المطلوبة</span>
+      <div class="targets" role="group" aria-label="target">
+        <button type="button" data-t="EGY" aria-pressed="true">Egyptian <span>مصري</span></button>
+        <button type="button" data-t="GLF" aria-pressed="false">Gulf <span>خليجي</span></button>
+        <button type="button" data-t="SAU" aria-pressed="false">Saudi <span>سعودي</span></button>
+        <button type="button" data-t="LEV" aria-pressed="false">Levantine <span>شامي</span></button>
+        <button type="button" data-t="IRQ" aria-pressed="false">Iraqi <span>عراقي</span></button>
+        <button type="button" data-t="MSA" aria-pressed="false">MSA <span>فصحى</span></button>
+      </div>
+      <button class="go" id="go" disabled>Loading model…</button>
+      <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+      <span class="status" id="status">Downloading HaSeen-3 (164 MB, once; cached afterwards)</span>
+      <span class="status">* experimental in this release</span>
+    </div>
+  </div>
+</section>
+
+<section class="panel" aria-label="result" id="result">
+  <div class="meta"><span id="m-target">Arabic / Egyptian</span><span id="m-ms">—</span></div>
+  <div class="verdict clean" id="verdict">اكتب جملة واضغط افحص</div>
+  <div class="summary" id="summary"></div>
+  <div class="sentence" id="sentence"></div>
+  <div class="legend"><span><i style="background:var(--muted)"></i>conforms</span><span><i style="background:var(--msa)"></i>MSA · فصحى</span><span><i style="background:var(--egy)"></i>Egyptian · مصري</span><span><i style="background:var(--khl)"></i>Gulf · خليجي</span><span><i style="background:var(--sau)"></i>Saudi · سعودي</span><span><i style="background:var(--lev)"></i>Levantine · شامي</span><span><i style="background:var(--irq)"></i>Iraqi · عراقي</span><span><i style="background:var(--mor)"></i>Maghrebi · مغاربي</span><span><i style="background:var(--dia)"></i>other dialect · لهجة أخرى</span></div>
+  <details><summary>Naturalness of every word in each variety · احتمالات كل كلمة</summary>
+    <div class="tablewrap"><table><thead><tr><th>word</th><th>MSA</th><th>EGY</th><th>SAU</th><th>GLF</th><th>LEV</th><th>IRQ</th><th>MAG</th><th>other</th></tr></thead><tbody id="probs"></tbody></table></div>
+  </details>
+  <details><summary>JSON output (task schema)</summary><pre id="json">{}</pre></details>
+</section>
+
+<section class="panel" aria-label="examples">
+  <span class="lbl">Try these · جرّب</span>
+  <div class="examples" id="examples"></div>
+</section>
+
+<section class="how" aria-label="how it works">
+  <div><b>One question per variety</b>Is the word natural in MSA? Egyptian? any Gulf variety? Saudi? Levantine? Iraqi? Maghrebi? One pass answers all of them; the target you pick decides which answer counts. «حضرتك» is Egyptian, so a Gulf agent that says it is flagged.</div>
+  <div><b>The service register</b>Formal open-class words (<span class="ar">الفاتورة، التحويل، يمكنك</span>) are shared; MSA grammar markers (<span class="ar">سوف، سنقوم، لن، الذي</span>) and other varieties' words are not.</div>
+  <div><b>Small and offline</b>One Arabic encoder, int8 ONNX, one pass per sentence on a CPU; this page runs it in your browser. Judged on held-out native speech (Saudi TV, Egyptian speech, news) and real LLM agent replies.</div>
+</section>
+
+<footer><span style="font:400 17px var(--display);color:var(--ink)">HaSeen 3</span><span>HaSeen 3 · six targets, seven varieties · trained on HaSeen-3-Mix · evaluated on HaSeen-3-Bench · built by Yahya (NightPrince)</span></footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js"></script>
+<script src="haseen.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const EX = [
+  ["أبغى أساعدك، سوف أحوّلك للقسم المختص الحين", "EGY"],
+  ["أبغى أساعدك، سوف أحوّلك للقسم المختص الحين", "GLF"],
+  ["حضرتك الطلب بتاعك هيوصل بكرة الصبح، وهل تحب نبعتلك رسالة تأكيد؟", "EGY"],
+  ["يا حبيبي، عندك موعد متاح بعد العصر، شو الوقت اللي تفضل؟", "SAU"],
+  ["شو المشكلة اللي عندك؟ بدي ساعدك هلق", "LEV"],
+  ["ابشر يا غالي، الحين بنسوي لك الطلب ونرسل لك الكود", "GLF"],
+  ["شلونك عيني؟ هسه أدزلك الرابط", "IRQ"],
+  ["سنقوم بمعالجة طلبك، وسيتم التواصل معك قريبًا", "SAU"],
+  ["يمكنك دفع الفاتورة عبر التطبيق، ولن تحتاج إلى زيارة الفرع", "MSA"],
+];
+const TN = { MSA: "MSA", EGY: "Egyptian", SAU: "Saudi", GLF: "Gulf", MAG: "Maghrebi", LEV: "Levantine", IRQ: "Iraqi", YEM: "Yemeni", MOR: "Moroccan", TUN: "Tunisian" };
+const LAB = { "Arabic / MSA": ["msa", "فصحى"], "Arabic / Egyptian": ["egy", "مصري"], "Arabic / Saudi": ["sau", "سعودي"],
+  "Arabic / Gulf": ["khl", "خليجي"], "Arabic / Maghrebi": ["mor", "مغاربي"], "Arabic / Levantine": ["lev", "شامي"], "Arabic / Iraqi": ["irq", "عراقي"],
+  "Arabic / Yemeni": ["yem", "يمني"], "Arabic / Moroccan": ["mor", "مغربي"], "Arabic / Tunisian": ["tun", "تونسي"],
+  "Arabic / other dialect": ["dia", "لهجة أخرى"] };
+let target = "EGY", sess = null, wp = null, cal = null, cmap = {};
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+document.querySelectorAll(".targets button").forEach((b) => b.onclick = () => {
+  target = b.dataset.t; document.querySelectorAll(".targets button").forEach((c) => c.setAttribute("aria-pressed", c === b)); run();
+});
+EX.forEach(([t, g]) => { const b = document.createElement("button"); b.type = "button"; b.innerHTML = `${esc(t)}<b>${TN[g]}</b>`;
+  b.onclick = () => { $("txt").value = t; document.querySelector(`.targets button[data-t="${g}"]`).click(); }; $("examples").append(b); });
+$("go").onclick = run;
+$("txt").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+
+async function fetchWithProgress(url, onp) {
+  let cache = null;
+  try { cache = await caches.open("haseen-v3"); const hit = await cache.match(url); if (hit) { onp(1); return await hit.arrayBuffer(); } } catch (e) {}
+  const r = await fetch(url); if (!r.ok) throw new Error(`${url}: ${r.status}`);
+  const total = +r.headers.get("content-length") || 164210531; const reader = r.body.getReader(); const chunks = []; let got = 0;
+  for (;;) { const { done, value } = await reader.read(); if (done) break; chunks.push(value); got += value.length; onp(got / total); }
+  const buf = new Uint8Array(got); let o = 0; for (const c of chunks) { buf.set(c, o); o += c.length; }
+  try { if (cache) await cache.put(url, new Response(buf.slice().buffer)); } catch (e) {}
+  return buf.buffer;
+}
+
+async function boot() {
+  try {
+    ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/";
+    ort.env.wasm.numThreads = self.crossOriginIsolated ? Math.min(4, navigator.hardwareConcurrency || 1) : 1;
+    const [tj, c, cm] = await Promise.all(["model/tokenizer.json", "model/calibration.json", "model/lexicons/concept_map.json"].map((u) => fetch(u).then((r) => r.json())));
+    wp = new HaSeen.WordPiece(tj); cal = c; cmap = cm;
+    (cal.experimental || []).forEach((t) => { const b = document.querySelector(`.targets button[data-t="${t}"]`); if (b) b.firstChild.textContent = b.firstChild.textContent.trim() + "* "; });
+    const buf = await fetchWithProgress("model/model.int8.onnx", (p) => { $("prog").style.width = (p * 100).toFixed(1) + "%"; $("status").textContent = `Downloading HaSeen-3… ${(p * 100).toFixed(0)}%`; });
+    $("status").textContent = "Starting the model…";
+    sess = await ort.InferenceSession.create(buf, { executionProviders: ["wasm"], graphOptimizationLevel: "all" });
+    $("go").disabled = false; $("go").textContent = "Check · افحص"; $("status").textContent = `Ready · ${ort.env.wasm.numThreads} thread(s) · nothing is sent to a server`;
+    run();
+  } catch (e) { $("status").textContent = "Could not load the model: " + e.message; $("b-live").textContent = "● offline"; }
+}
+
+async function run() {
+  if (!sess) return;
+  const text = $("txt").value.trim();
+  if (!text) { $("verdict").className = "verdict clean"; $("verdict").textContent = "اكتب جملة واضغط افحص"; $("sentence").innerHTML = ""; return; }
+  const t0 = performance.now();
+  const words = HaSeen.splitWords(text);
+  const ai = words.map((w, i) => (HaSeen.ARABIC.test(w.word) ? i : -1)).filter((i) => i >= 0);
+  const enc = wp.encodeWords(ai.map((i) => HaSeen.norm(words[i].word)), 128);
+  const first = words.map(() => -1); ai.forEach((wi, k) => (first[wi] = enc.first[k]));
+  let variety = new Float32Array(0), odia = new Float32Array(0), other = new Float32Array(0);
+  if (ai.length) {
+    const n = enc.ids.length;
+    const ids = new ort.Tensor("int64", BigInt64Array.from(enc.ids.map(BigInt)), [1, n]);
+    const mask = new ort.Tensor("int64", BigInt64Array.from(enc.ids.map(() => 1n)), [1, n]);
+    const out = await sess.run({ input_ids: ids, attention_mask: mask });
+    variety = out.variety.data; odia = out.odia.data; other = out.other.data;
+  }
+  const res = HaSeen.decide(words, first, variety, odia, other, cal, target, cmap);
+  const ms = performance.now() - t0;
+  $("m-target").textContent = res.target; $("m-ms").textContent = `${ms.toFixed(1)} ms · in your browser`;
+  const nd = res.deviations.length;
+  $("verdict").className = "verdict " + (nd ? "dirty" : "clean");
+  $("verdict").textContent = nd ? `⚠️ ${nd === 1 ? "كلمة واحدة خارج" : nd + " كلمات خارج"} اللهجة المطلوبة: ${res.deviations.join("، ")}` : "✅ كل الكلمات مطابقة للهجة المطلوبة";
+  $("sentence").innerHTML = res.tokens.map((t) => {
+    if (!t.p) return `<span class="tok skip">${esc(t.word)}<small>—</small></span>`;
+    if (t.conforms) return `<span class="tok">${esc(t.word)}<small>✓ ${t.confidence.toFixed(2)}</small></span>`;
+    const [cls, ar] = LAB[t.label] || LAB.unknown;
+    const also = (t.labels || []).slice(1).map((l) => (LAB[l] || LAB["Arabic / other dialect"])[1]);
+    return `<span class="tok ${cls}" title="${(t.labels || [t.label]).join(" · ")}">${esc(t.word)}<small>${ar}${also.length ? " +" + also.length : ""} · ${t.confidence.toFixed(2)}</small>${t.suggestion ? `<em>← ${esc(t.suggestion)}</em>` : ""}</span>`;
+  }).join("");
+  const bar = (p, c) => `<span class="bar"><i style="width:${(p * 100).toFixed(0)}%;background:var(--${c})"></i></span><span class="num">${p.toFixed(2)}</span>`;
+  $("probs").innerHTML = res.tokens.filter((t) => t.p).map((t) => `<tr class="${t.conforms ? "" : "dev"}"><td class="w">${esc(t.word)}</td>${HaSeen.VARS.map((v) => `<td>${bar(t.p[v], ({GLF: "khl", MAG: "mor"})[v] || v.toLowerCase())}</td>`).join("")}<td>${bar(t.p.other_dialect, "dia")}</td></tr>`).join("");
+  const sm = res.summary || {};
+  $("summary").innerHTML = sm.arabic_words ? `<span>adherence ${(sm.adherence * 100).toFixed(0)}%</span><span>reads as ${sm.reads_as.map((r) => `${TN[Object.keys(LAB).includes(r.variety) ? LAB[r.variety][0].toUpperCase() : ""] || r.variety.replace("Arabic / ", "")} ${r.score.toFixed(2)}`).join(" · ")}</span>${(cal.experimental || []).includes(target) ? "<span>experimental target</span>" : ""}` : "";
+  const clean = JSON.parse(JSON.stringify(res)); clean.tokens.forEach((t) => delete t.p); clean.meta = { model: "HaSeen-3 (int8, onnxruntime-web)", latency_ms: +ms.toFixed(1) };
+  $("json").textContent = JSON.stringify(clean, null, 1);
+}
+boot();
+</script>
+</body>
+</html>

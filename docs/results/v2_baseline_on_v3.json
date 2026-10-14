@@ -1,0 +1,62 @@
+{
+ "MSA": {
+  "dev_fitted_tau": null,
+  "test_FA": 0.02241,
+  "test_P": 0.8047,
+  "test_R": 0.7249,
+  "test_F1": 0.7627,
+  "dev_F1": null,
+  "shipped_dev_F1": 0.7708,
+  "shipped_dev_FA": 0.02133
+ },
+ "EGY": {
+  "dev_fitted_tau": 0.125,
+  "test_FA": 0.00494,
+  "test_P": 0.951,
+  "test_R": 0.8335,
+  "test_F1": 0.8884,
+  "dev_F1": 0.8886,
+  "shipped_dev_F1": 0.8593,
+  "shipped_dev_FA": 0.0144
+ },
+ "SAU": {
+  "dev_fitted_tau": 0.325,
+  "test_FA": 0.00772,
+  "test_P": 0.9245,
+  "test_R": 0.7358,
+  "test_F1": 0.8194,
+  "dev_F1": 0.8214,
+  "shipped_dev_F1": 0.8221,
+  "shipped_dev_FA": 0.01066
+ },
+ "GLF": {
+  "dev_fitted_tau": 0.375,
+  "test_FA": 0.00516,
+  "test_P": 0.9538,
+  "test_R": 0.7702,
+  "test_F1": 0.8522,
+  "dev_F1": 0.828,
+  "shipped_dev_F1": 0.819,
+  "shipped_dev_FA": 0.01187
+ },
+ "LEV": {
+  "dev_fitted_tau": 0.425,
+  "test_FA": 0.00324,
+  "test_P": 0.9496,
+  "test_R": 0.6839,
+  "test_F1": 0.7952,
+  "dev_F1": 0.8107,
+  "shipped_dev_F1": 0.8083,
+  "shipped_dev_FA": 0.00539
+ },
+ "IRQ": {
+  "dev_fitted_tau": 0.7,
+  "test_FA": 0.00373,
+  "test_P": 0.9361,
+  "test_R": 0.6942,
+  "test_F1": 0.7972,
+  "dev_F1": 0.7911,
+  "shipped_dev_F1": 0.7672,
+  "shipped_dev_FA": 0.00253
+ }
+}
