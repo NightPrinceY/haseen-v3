@@ -8,13 +8,19 @@ dialects (Sudanese, Libyan, Algerian, …) are named when they appear. One encod
 CPU, offline, in **7 ms** per sentence. I built it for voice-agent QA: dialect-adherence evals, red flags ("the agent
 drifted to MSA", "a Gulf agent used Egyptian words"), caller-dialect estimates and simulation checks.
 
-> Private repository. Model, data and Space are private on Hugging Face (`NightPrince/HaSeen-3*`); set `HF_TOKEN`.
-> The full story (task, research, data, architecture, three builds, results, decisions, limits): https://claude.ai/artifact/FPTDppf8nPKVPh2ZjSoeg9
+**The full story, interactive** (task, research, data, architecture drawn layer by layer, a live end-to-end run of one
+sentence, results, decisions, limits): **https://nightprincey.github.io/haseen-v3/** (source: [docs/index.html](docs/index.html)).
+
+| | |
+|---|---|
+| Model (int8 ONNX, the default runtime) | [huggingface.co/NightPrince/HaSeen-3-ONNX](https://huggingface.co/NightPrince/HaSeen-3-ONNX) |
+| Model (PyTorch weights) | [huggingface.co/NightPrince/HaSeen-3](https://huggingface.co/NightPrince/HaSeen-3) |
+| Browser demo | [huggingface.co/spaces/NightPrince/HaSeen-3-Playground](https://huggingface.co/spaces/NightPrince/HaSeen-3-Playground) |
+| Server image | `docker pull nightprincey/haseen3:3.0.0` |
 
 ## Setup
 ```bash
 uv tool install "git+https://github.com/NightPrinceY/haseen-v3"     # or: pipx install … / pip install -e . in a venv
-export HF_TOKEN=hf_…                                                 # the model repo is private
 haseen download                                                      # once (~156 MB); later runs are offline
 ```
 
@@ -40,12 +46,47 @@ r["tokens"][0]["labels"]        # varieties a deviating word belongs to, most li
 r["summary"]["adherence"]       # share of Arabic words that fit the target
 r["summary"]["reads_as"]        # which varieties the turn reads as (caller-dialect estimate)
 ```
+### Output (the task's schema, plus a few additions)
+Real output of `haseen "أنا أبغى أروح الاجتماع بكرة بس سوف أتأخر شوية" -t egy --json` (shortened):
+```json
+{"target": "Arabic / Egyptian",
+ "tokens": [
+  {"word": "أنا", "index": 0, "start": 0, "end": 3, "conforms": true, "confidence": 1.0},
+  {"word": "أبغى", "index": 1, "start": 4, "end": 8, "conforms": false, "label": "Arabic / Saudi",
+   "labels": ["Arabic / Saudi", "Arabic / Gulf"], "confidence": 1.0},
+  …
+  {"word": "سوف", "index": 6, "start": 31, "end": 34, "conforms": false, "label": "Arabic / MSA",
+   "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "هـ + الفعل"},
+  …],
+ "deviations": ["أبغى", "سوف"],
+ "summary": {"arabic_words": 9, "deviating_words": 2, "adherence": 0.7778, "reads_as": […]},
+ "meta": {"model": "HaSeen-3-ONNX (int8)", "latency_ms": …}}
+```
+Additions to the task's example schema, and why: `start` / `end` character offsets (a UI can highlight the word in the
+original text); `labels`, every variety the word is natural in, most likely first (many dialect words belong to
+several; the task's `label` is the first item); `suggestion`, what the target would say instead; a per-turn `summary`
+with adherence and the varieties the turn reads as. `Arabic / Saudi` for أبغى is correct and more specific than the
+task's `Arabic / Gulf`; Gulf is the second label.
+
+### Supported dialects
+Targets: MSA, Egyptian, Saudi (Najdi, Hijazi, Southern), Gulf (Saudi, Gulf-east: UAE, Qatar, Kuwait, Bahrain, Oman;
+Yemeni), Levantine (Palestinian, Jordanian, Lebanese, Syrian), Iraqi. Labels can also be Maghrebi (Moroccan,
+Tunisian) or "other dialect" (Sudanese, Libyan, Algerian, …).
+
+### Names, numbers, punctuation, spelling
+- **Punctuation** at word edges is stripped (`أساعدك،` → `أساعدك`); a token that is only punctuation is not a word.
+- **Numbers, Latin script and names** never deviate: a dedicated head detects non-Arabic tokens and names, and they
+  are reported as conforming and not scored.
+- **Spelling variation** is normalised before the model (أ إ آ → ا, ى → ي, ة → ه, no diacritics or tatweel), so
+  `بكرة` and `بكره` are the same word.
+- **Arabizi** (Arabic in Latin script) is out of scope in this release.
+
 Targets: `msa egy sau glf lev irq` (also `Egyptian`, `gulf`, `khaleeji`, `najdi`, `shami`, `مصري`, `خليجي`, …).
 `glf` accepts a word if it is natural in any Gulf variety; `sau` is stricter (Saudi only).
 
 Docker (model baked in, runs with `--network none`):
 ```bash
-DOCKER_BUILDKIT=1 docker build --secret id=hf_token,env=HF_TOKEN -t haseen3 .
+docker build -t haseen3 .                                            # or: docker pull nightprincey/haseen3:3.0.0
 docker run --rm -p 8000:8000 haseen3
 ```
 
@@ -69,7 +110,12 @@ Full results, hard sets (LLM agent replies, held-out dictionary probe) and how I
 [docs/RESULTS.md](docs/RESULTS.md).
 <!-- /RESULTS -->
 
-Reproduce: `make bench && make eval` runs the test split through this package; expected output in
+Reproduce:
+- `make eval-public` runs the **public evaluation set in this repo**: 200 real LLM agent replies asked to answer "in
+  dialect T", with word-level gold ([data/eval_public/](data/eval_public/), expected output in
+  [docs/eval_public.txt](docs/eval_public.txt)).
+- The full HaSeen-3-Bench (15,357 sentences) is built from research-licensed corpora, so it is a private dataset
+  available on request; with access, `make bench && make eval` runs the test split through this package; expected output in
 [docs/eval_sdk_test.txt](docs/eval_sdk_test.txt) (mean F1 0.869, 6/6 within the gate; the package strips edge
 punctuation first, so single targets differ from the table by ≤ 0.004).
 
@@ -84,6 +130,15 @@ punctuation first, so single targets differ from the table by ≤ 0.004).
   right only 38–79%; many dialect words are natural in several varieties, so read the set, not only the first item.
 - **LLM-style replies**: on real agent replies, F1 is 0.49–0.71 for the dialect targets, and Iraqi raised false
   alarms on 3% of words.
+
+## What I would do with more time
+1. **3.1 · Gulf negatives** (about 1.5 hours of work and $1.3 of GPU): treat a Yemeni "unknown" as "not natural"
+   when Saudi and Gulf-east both say no and Yemeni text barely uses the word, then retrain. This targets the main
+   known limit above.
+2. **Label order**: rank a deviating word's labels by how specific a variety is to it, not only by probability.
+3. **Native review per dialect** for the agent set and for the model's alarms, starting with Gulf.
+4. **Production data**: rebuild the same pipeline on commercial-friendly sources and real call transcripts
+   (the research-licensed corpora stay for evaluation), then run HaSeen on ASR output in the call pipeline.
 
 ## How it works
 - **Labels**: for every word and every variety, one bit: natural (1), not natural (0) or unknown (masked). A word
@@ -115,8 +170,12 @@ punctuation first, so single targets differ from the table by ≤ 0.004).
 | `brief/` | the task and the scope questions with their answers |
 
 ## Data and licences
+Credits: MARBERT (UBC-NLP) and ALDi-Token-DI (VARabi) for the encoder and warm start; MADAR (CMU-Q / NYUAD), SADA
+(SDAIA and the Saudi Broadcasting Authority), QCRI (MGB-2, MGB-3, ArabicCulturalQA), SDAIA SCC, Birzeit SinaLab
+(Curras, Baladi, Nâbra, Lisan), Alexandria (UBC), Levanti, CALIMA (CAMeL Lab), mo3jam and Lahga for data and lexicons.
+
 Training and evaluation use research-licensed sources (MADAR: CMU-Q / NYUAD; SADA CC BY-NC-SA; QCRI MGB-2 / MGB-3 /
-ArabicCulturalQA; SDAIA SCC; Birzeit corpora; Alexandria CC BY-NC 4.0). Models and datasets are private; no
-redistribution. The MADAR-derived suggestion map (`lexicons/concept_map.json`) ships only inside the private model
+ArabicCulturalQA; SDAIA SCC; Birzeit corpora; Alexandria CC BY-NC 4.0). The datasets are private (no
+redistribution); the models are released for research use. The MADAR-derived suggestion map (`lexicons/concept_map.json`) ships only inside the model
 repos and is never committed here, so this code repository holds no licensed data. Code: all rights reserved
 (see LICENSE).

@@ -8,6 +8,8 @@ data:             ## download the training mix (private)
 	hf download NightPrince/HaSeen-3-Mix --repo-type dataset --local-dir data/train
 test:             ## unit tests (no model needed) + SDK smoke test if a model is available
 	pytest -q tests
+eval-public:      ## the public evaluation set in this repo (200 LLM agent replies, word-level gold)
+	python scripts/evaluate.py --bench data/eval_public --split test
 eval:             ## HaSeen-3-Bench test split through the SDK, ONNX int8 on CPU
 	python scripts/evaluate.py --split test
 demo:             ## one sentence, three targets

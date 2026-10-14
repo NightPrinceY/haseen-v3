@@ -1,0 +1,74 @@
+{
+ "MSA": {
+  "natural_fa": 0.0,
+  "P": 0.0,
+  "R": 0.0,
+  "F1": 0.0,
+  "label_set_hit": 0.0,
+  "agent_F1": 0.0,
+  "agent_P": 0.0,
+  "agent_R": 0.0,
+  "agent_n": 2,
+  "agent_FA": 0.0
+ },
+ "EGY": {
+  "natural_fa": 0.0,
+  "P": 0.0,
+  "R": 0.0,
+  "F1": 0.0,
+  "label_set_hit": 0.0,
+  "agent_F1": 0.25,
+  "agent_P": 0.5,
+  "agent_R": 0.1667,
+  "agent_n": 6,
+  "agent_FA": 0.00139
+ },
+ "SAU": {
+  "natural_fa": 0.0,
+  "P": 0.0,
+  "R": 0.0,
+  "F1": 0.0,
+  "label_set_hit": 0.0,
+  "agent_F1": 0.6415,
+  "agent_P": 0.8095,
+  "agent_R": 0.5312,
+  "agent_n": 32,
+  "agent_FA": 0.00626
+ },
+ "GLF": {
+  "natural_fa": 0.0,
+  "P": 0.0,
+  "R": 0.0,
+  "F1": 0.0,
+  "label_set_hit": 0.0,
+  "agent_F1": 0.7143,
+  "agent_P": 0.9375,
+  "agent_R": 0.5769,
+  "agent_n": 26,
+  "agent_FA": 0.00179
+ },
+ "LEV": {
+  "natural_fa": 0.0,
+  "P": 0.0,
+  "R": 0.0,
+  "F1": 0.0,
+  "label_set_hit": 0.0,
+  "agent_F1": 0.4865,
+  "agent_P": 0.75,
+  "agent_R": 0.36,
+  "agent_n": 25,
+  "agent_FA": 0.00523
+ },
+ "IRQ": {
+  "natural_fa": 0.0,
+  "P": 0.0,
+  "R": 0.0,
+  "F1": 0.0,
+  "label_set_hit": 0.0,
+  "agent_F1": 0.5079,
+  "agent_P": 0.4848,
+  "agent_R": 0.5333,
+  "agent_n": 30,
+  "agent_FA": 0.02977
+ }
+}

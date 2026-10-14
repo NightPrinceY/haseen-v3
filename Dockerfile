@@ -1,5 +1,5 @@
 # HaSeen 3 on CPU: the haseen package + HaSeen-3-ONNX (int8), no PyTorch. The model is baked in at build time
-# (private repo: pass the token as a build secret), so the container runs fully offline.
+# (a token is only needed while the model repo is private: pass it as a build secret), so the container runs offline.
 #   DOCKER_BUILDKIT=1 docker build --secret id=hf_token,env=HF_TOKEN -t haseen3 .
 #   docker run --rm -p 8000:8000 haseen3                                   # POST /detect, GET /health
 #   docker run --rm haseen3 "أبغى أساعدك، سوف أحوّلك للقسم المختص الحين" -t egy --json
@@ -13,7 +13,7 @@ WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY src ./src
 RUN --mount=type=secret,id=hf_token \
-    pip install . && HF_TOKEN="$(cat /run/secrets/hf_token)" haseen download \
+    pip install . && HF_TOKEN="$(cat /run/secrets/hf_token 2>/dev/null)" haseen download \
     && useradd --system --create-home --uid 10001 haseen && chmod -R a+rX /opt/haseen
 ENV HF_HUB_OFFLINE=1
 USER haseen

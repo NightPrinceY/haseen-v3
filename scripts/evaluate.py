@@ -29,6 +29,8 @@ INV = {v: k for k, v in NAME.items()}
 
 
 def run(path):
+    if not os.path.exists(path):
+        return
     rows = [json.loads(l) for l in open(path, encoding="utf-8")]
     for r in rows:
         # one word per gold token: join with spaces; split_words strips edge punctuation, so map by order
@@ -43,6 +45,7 @@ def run(path):
 
 t0 = time.time()
 table, out = [], {}
+FULL = os.path.exists(f"{a.bench}/natural_MSA_{a.split}.jsonl")  # data/eval_public holds the agent part only
 for T in TARGETS:
     fa = n = 0
     for r, toks in run(f"{a.bench}/natural_{T}_{a.split}.jsonl"):
@@ -68,17 +71,28 @@ for T in TARGETS:
     agent = ""
     ap_ = f"{a.bench}/agent_{T}_{a.split}.jsonl"
     if os.path.exists(ap_):  # LLM replies asked to speak T (test only); word-level P / R / F1
-        atp = afp = afn = 0
+        atp = afp = afn = ann = 0
         for r, toks in run(ap_):
             for i, tk in enumerate(toks):
                 if r["ignore"][i]:
                     continue
+                ann += not r["dev"][i]
                 d, g = not tk["conforms"], bool(r["dev"][i])
                 atp += d and g; afp += d and not g; afn += (not d) and g
         aP, aR = atp / max(1, atp + afp), atp / max(1, atp + afn)
         out[T]["agent_F1"] = round(2 * aP * aR / max(1e-9, aP + aR), 4)
+        out[T].update(agent_P=round(aP, 4), agent_R=round(aR, 4), agent_n=atp + afn, agent_FA=round(afp / max(1, ann), 5))
         agent = f"   {out[T]['agent_F1']:.3f}"
     table.append(f"{T:4}  {fa / max(1, n) * 100:6.2f}%  {P:6.3f} {R:6.3f} {F:6.3f}   {hit / max(1, tp):5.2f}{agent}")
+if not FULL:  # public subset: LLM agent replies only
+    print(f"HaSeen 3 · {det.name} · public agent set ({a.bench}) · {time.time() - t0:.0f}s\n")
+    print("T     agent P   agent R  agent F1  false alarms  deviations")
+    for T, o in out.items():
+        if "agent_F1" in o:
+            print(f"{T:4}  {o['agent_P']:7.3f}  {o['agent_R']:7.3f}  {o['agent_F1']:8.3f}  {o['agent_FA'] * 100:10.2f}%  {o['agent_n']:10d}")
+    if a.out:
+        json.dump(out, open(a.out, "w"), indent=1)
+    sys.exit(0)
 print(f"HaSeen 3 · {det.name} · HaSeen-3-Bench {a.split} · {time.time() - t0:.0f}s\n")
 print("T     nat FA      P      R     F1   label-set" + ("   agent F1" if any("agent_F1" in o for o in out.values()) else ""))
 print("\n".join(table))

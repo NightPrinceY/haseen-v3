@@ -1,6 +1,6 @@
 # PRD: Dialect Deviation Detector
 
-Status: **v2 (2026-10-12)** — architecture decided by the pilot (see `pilot/PILOT_REPORT.md`); Data Guard and day-by-day plan added. Interactive blueprint: https://claude.ai/artifact/T8tB7JNzGPMXFovxri3sPe
+Status: **v2 (2026-10-12)** — architecture decided by the pilot (see `pilot/PILOT_REPORT.md`); Data Guard and day-by-day plan added. Interactive blueprint: research/artifacts/
 Owner: Yahya. Deadline: 2026-10-19 15:00 Cairo (target 2026-10-17).
 
 ---

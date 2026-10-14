@@ -17,7 +17,7 @@ Everything in this folder as of git tag `takehome-v1` is **V1**. Later work goes
 | Shipping model | `training/models/HaSeen-1-R5v6-s42/` (+ bucket) | R5v6-pointer-s42 (chosen by dev score) |
 | ONNX int8 | `training/models/HaSeen-1-R4v5-s21/onnx/` | same architecture; export of R5v6-s42 is a V1.1 task |
 | Results vs pre-registered expectations | `training/RESULTS.md` | all runs R1–R5 |
-| Blueprint (interactive) | `research/artifacts/training-blueprint.html` → https://claude.ai/artifact/GUxvVmhaSXwZoqh9yU3qHt | v4 |
+| Blueprint (interactive) | `research/artifacts/training-blueprint.html` → (page source in research/artifacts/) | v4 |
 | Storage | `hf://buckets/NightPrince/HaSeen-V1` (private) | data + every run |
 
 ## V1 numbers (R5v6, mean ± 95% CI over 3 seeds; shipping seed s42 in brackets)
