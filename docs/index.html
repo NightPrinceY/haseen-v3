@@ -399,7 +399,7 @@ footer{margin-top:30px;font-size:13px;color:var(--muted)}
     <div><h3>Three ways to be wrong, three parts</h3><p>natural (false alarms on native speech), challenge (recall on swapped words, 25% from concepts never trained on), agent and probe (real LLM replies and unseen dictionary words).</p></div>
     <div><h3>Leakage: zero</h3><p>No training sentence shares a sentence or any normalized 6-gram with any test file (869 rows removed; a second pass removes 0). <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/pipeline/scripts/filter_overlap_v3.py">filter</a></p></div>
   </div>
-  <p class="note"><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/BENCH_CARD.md">Bench card</a> · on Hugging Face as HaSeen-3-Bench (private)</p>
+  <p class="note"><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/BENCH_CARD.md">Bench card</a> · on Hugging Face as HaSeen-3-Bench (private dataset, on request) · public part: <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/data/eval_public">data/eval_public</a></p>
 </section>
 
 <!-- 08 TRAINING DATA -->
@@ -438,7 +438,7 @@ footer{margin-top:30px;font-size:13px;color:var(--muted)}
     <div><span class="ar">العراق</span><br>was "not MSA" because Iraqi text uses it far more. Names used in MSA text stay MSA.</div>
     <div><span class="ar">خلاص</span><br>a corpus-rate rule made it non-Iraqi; corpora differ in genre, so the crowd lexicon wins. Rolled back.</div>
   </div></div>
-  <p class="note"><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/MIX_CARD.md">Data card</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/pipeline/haseen2/labeler.py">labeler</a> · on Hugging Face as HaSeen-3-Mix (private)</p>
+  <p class="note"><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/MIX_CARD.md">Data card</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/pipeline/haseen2/labeler.py">labeler</a> · on Hugging Face as HaSeen-3-Mix (private dataset, on request)</p>
 </section>
 
 <!-- 09 TRAINING & CHOICE -->
@@ -536,7 +536,7 @@ docker run --rm --network none -p 8000:8000 nightprincey/haseen3:3.0.0</pre>
     <li><b>Words it has never seen.</b> Swaps from held-out concepts are caught 32–63% of the time; held-out dictionary entries 57%. Next: more lexicon coverage for Levantine and Iraqi.</li>
     <li><b>The first label.</b> The label set holds the right variety 83–92% of the time, its first item 38–79%. Next: rank labels by how specific a variety is to the word.</li>
     <li><b>LLM-style replies.</b> Agent-set F1 0.49–0.71; the agent labels are mine with Claude's help, not checked by native speakers of every dialect. Next: native reviewers per dialect, starting with Gulf.</li>
-    <li><b>Licences.</b> MADAR, SADA, Birzeit and QCRI sets are research or non-commercial, so this release is private and for research. Production: the same pipeline rebuilt on commercial-friendly data and Tuner's own call transcripts.</li>
+    <li><b>Licences.</b> MADAR, SADA, Birzeit and QCRI sets are research or non-commercial, so the datasets stay private and the models are released for research use. Production: the same pipeline rebuilt on commercial-friendly data and Tuner's own call transcripts.</li>
     <li><b>Text only.</b> Accent and pronunciation reach HaSeen through STT output; running it on ASR transcripts is the natural next integration.</li>
   </ul>
 </section>
@@ -544,14 +544,14 @@ docker run --rm --network none -p 8000:8000 nightprincey/haseen3:3.0.0</pre>
 <!-- 14 WHERE -->
 <section class="panel" id="where" data-n="14" data-t="Where it lives" hidden>
   <div class="eyebrow">14 · Where it lives</div>
-  <h2>Everything, linked (private until shared)</h2>
+  <h2>Everything, linked</h2>
   <div class="tbl"><table>
     <thead><tr><th>What</th><th>Where</th></tr></thead>
     <tbody>
       <tr><td>Code, CLI, server, Dockerfile, tests, pipeline, results files</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0">github.com/NightPrinceY/haseen-v3</a> (tag v3.0.0)</td></tr>
-      <tr><td>Model (int8 ONNX, default) / PyTorch weights</td><td class="mono">huggingface.co/NightPrince/HaSeen-3-ONNX · HaSeen-3</td></tr>
-      <tr><td>Test set / training data</td><td class="mono">datasets/NightPrince/HaSeen-3-Bench · HaSeen-3-Mix</td></tr>
-      <tr><td>Browser demo</td><td class="mono">spaces/NightPrince/HaSeen-3-Playground</td></tr>
+      <tr><td>Model (int8 ONNX, default) / PyTorch weights</td><td><a href="https://huggingface.co/NightPrince/HaSeen-3-ONNX">HaSeen-3-ONNX</a> · <a href="https://huggingface.co/NightPrince/HaSeen-3">HaSeen-3</a></td></tr>
+      <tr><td>Test set / training data</td><td class="mono">HaSeen-3-Bench · HaSeen-3-Mix (private datasets, on request) · public agent set: <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/data/eval_public">data/eval_public</a></td></tr>
+      <tr><td>Browser demo</td><td><a href="https://huggingface.co/spaces/NightPrince/HaSeen-3-Playground">HaSeen-3-Playground</a></td></tr>
       <tr><td>Server image</td><td class="mono">docker.io/nightprincey/haseen3:3.0.0</td></tr>
       <tr><td>Pre-registration, decisions, results</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/training/PREREG_V3.md">PREREG_V3.md</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/RESULTS.md">RESULTS.md</a></td></tr>
       <tr><td>Research trail: plan, papers, data survey, architecture study, pilot, audits, spend log</td><td><a href="https://github.com/NightPrinceY/haseen-v3/tree/v3.0.0/research">research/</a> · <a href="https://github.com/NightPrinceY/haseen-v3/tree/v3.0.0/docs/sources">docs/sources/</a></td></tr><tr><td>Builds 1 and 2 kept as they were: guidelines, gold-building trail, all runs, results, reports</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/history">history/</a></td></tr><tr><td>Every Build-3 run: config, training logs, dev curve, metrics, policy, known answers, export report</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/experiments/build3">experiments/build3/</a></td></tr><tr><td>The task and the scope questions</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/brief">brief/</a></td></tr>
@@ -586,7 +586,7 @@ const DEC = [
  ["14 Oct","Use speech-transcript datasets, human-transcribed only for the test","SADA speaker metadata gave a speaker-disjoint split; model-transcribed sets kept to training"],
  ["14 Oct","Do not train again until every part of the data is reviewed","Round 1 matched its teacher (model 0.83, labeler 0.815); the review lifted the teacher to 0.864 and the model to 0.876"],
  ["14 Oct","Ship 3.0.0 with the Gulf / Egyptian limit stated rather than retrain after the test","The test had been scored once; a fix now would mean scoring it twice, so it is the 3.1 plan"],
- ["14 Oct","Keep everything private until I choose what to share","Several sources are research-only; access is granted per reviewer"]
+ ["14 Oct","Release code and models, keep the datasets private","Several sources are research-only; the test is available on request, and a public agent set ships in the repo"]
 ];
 const $ = (id) => document.getElementById(id);
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
@@ -849,7 +849,7 @@ const AM = {
  aldi:{name:"ALDi-Token-DI", by:"VARabi", params:"162,255,366", link:HF("VARabi/ALDi-Token-DI"), enc:"GLF", encTag:"MARBERT weights, fine-tuned for token tagging", head:"SAU",
    about:`<b>BertForTokenClassification.</b> MARBERT with its masked-word head removed and a token head added: every token gets one of 6 CALCS-2016 tags (MSA, dialect, named entity, ambiguous, mixed, other), trained on MSA–Egyptian code-switched tweets. My starting weights. <a href="${HF("VARabi/ALDi-Token-DI")}">model</a> · <a href="https://github.com/AMR-KELEG/ALDi">code</a> · <a href="https://arxiv.org/abs/2310.13747">paper</a>`},
  haseen:{name:"HaSeen-3", by:"Yahya", params:"162,263,056", link:"", enc:"EGY", encTag:"ALDi weights, every weight fine-tuned again by me", head:"EGY",
-   about:`<b>My model.</b> ALDi-Token-DI's 6-tag head removed; first-sub-word pooling and four per-word heads added (12,304 parameters); the whole encoder fine-tuned on 501K sentences; a temperature and one threshold per target fitted on dev. Shipped as int8 ONNX (155 MB, 7 ms). <span class="mono">NightPrince/HaSeen-3 · HaSeen-3-ONNX (private)</span>`}
+   about:`<b>My model.</b> ALDi-Token-DI's 6-tag head removed; first-sub-word pooling and four per-word heads added (12,304 parameters); the whole encoder fine-tuned on 501K sentences; a temperature and one threshold per target fitted on dev. Shipped as int8 ONNX (155 MB, 7 ms). <a href="https://huggingface.co/NightPrince/HaSeen-3">HaSeen-3</a> · <a href="https://huggingface.co/NightPrince/HaSeen-3-ONNX">HaSeen-3-ONNX</a>`}
 };
 const TOK=["[CLS]","انا","ابغي","وسن","##رسل","[SEP]"], CX=[235,345,455,565,675,785];
 const INFO={
