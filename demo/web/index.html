@@ -124,7 +124,7 @@ footer{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13p
   <div style="min-width:0;flex:1">
     <h1>HaSeen 3<span class="ar">هـ · سين</span></h1>
     <p class="tag">One letter decides the dialect. Every Arabic word, checked against the variety you want.</p>
-    <div class="badges"><span class="badge live" id="b-live">● runs in your browser</span><span class="badge">HaSeen-3 · int8 ONNX · 162.6M params</span><span class="badge">6 targets · Gulf ⊃ Saudi</span><span class="badge">private preview</span><span class="badge">no text leaves your device</span></div>
+    <div class="badges"><span class="badge live" id="b-live">● runs in your browser</span><span class="badge">HaSeen-3 · int8 ONNX · 162.3M params</span><span class="badge">6 targets · Gulf ⊃ Saudi</span><span class="badge">private preview</span><span class="badge">no text leaves your device</span></div>
   </div>
 </header>
 
@@ -147,8 +147,8 @@ footer{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13p
       </div>
       <button class="go" id="go" disabled>Loading model…</button>
       <div class="progress" aria-hidden="true"><i id="prog"></i></div>
-      <span class="status" id="status">Downloading HaSeen-3 (164 MB, once; cached afterwards)</span>
-      <span class="status">* experimental in this release</span>
+      <span class="status" id="status">Downloading HaSeen-3 (156 MB, once; cached afterwards)</span>
+      <span class="status" id="explegend" hidden>* experimental in this release</span>
     </div>
   </div>
 </section>
@@ -227,6 +227,7 @@ async function boot() {
     ort.env.wasm.numThreads = self.crossOriginIsolated ? Math.min(4, navigator.hardwareConcurrency || 1) : 1;
     const [tj, c, cm] = await Promise.all(["model/tokenizer.json", "model/calibration.json", "model/lexicons/concept_map.json"].map((u) => fetch(u).then((r) => r.json())));
     wp = new HaSeen.WordPiece(tj); cal = c; cmap = cm;
+    if ((cal.experimental || []).length) $("explegend").hidden = false;
     (cal.experimental || []).forEach((t) => { const b = document.querySelector(`.targets button[data-t="${t}"]`); if (b) b.firstChild.textContent = b.firstChild.textContent.trim() + "* "; });
     const buf = await fetchWithProgress("model/model.int8.onnx", (p) => { $("prog").style.width = (p * 100).toFixed(1) + "%"; $("status").textContent = `Downloading HaSeen-3… ${(p * 100).toFixed(0)}%`; });
     $("status").textContent = "Starting the model…";
