@@ -1,0 +1,42 @@
+{
+ "gold_version": "v1",
+ "guideline": "docs/GUIDELINE.md v1.2",
+ "frozen": "2026-10-12",
+ "files": {
+  "egy_natural": {
+   "path": "data/gold_v1/egy_natural.jsonl",
+   "sha256": "e6e3d33a67595c22dd87b49169ff9d6f401b0dc5e5e575fbc387a393ad3e0099",
+   "sentences": 277,
+   "tokens": 4761,
+   "deviations": 4
+  },
+  "msa": {
+   "path": "data/gold_v1/msa.jsonl",
+   "sha256": "cba3e0bdc03ea7236dbf773e0cddc248a6cdc0e062c98225955d902d3b4b3379",
+   "sentences": 131,
+   "tokens": 2952,
+   "deviations": 46
+  },
+  "glf_experimental": {
+   "path": "data/gold_v1/glf_experimental.jsonl",
+   "sha256": "ae342615bdc0ba0f049b8ccc1ea96456d8bc92d4ca108052e10136a3f7383b74",
+   "sentences": 56,
+   "tokens": 1138,
+   "deviations": 47
+  },
+  "egy_stress": {
+   "path": "data/gold_v1/egy_stress.jsonl",
+   "sha256": "b62f1cd5a042bd3b2896efa702e1729c01feae83d88c2b88996b11d0b863b5bc",
+   "sentences": 168,
+   "tokens": 2824,
+   "deviations": 12
+  },
+  "egy_challenge": {
+   "path": "data/gold_v1/egy_challenge.jsonl",
+   "sha256": "50504f9733ce33ee30e3f0529e64a769c05eeb1852ace5a0e33321c30ffc6d34",
+   "sentences": 162,
+   "tokens": 2859,
+   "deviations": 173
+  }
+ }
+}

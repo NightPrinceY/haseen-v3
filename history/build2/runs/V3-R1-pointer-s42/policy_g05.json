@@ -1,0 +1,23 @@
+{
+ "odia_gate": 0.5,
+ "ensemble": [
+  "runs/V3-R1-pointer-s42"
+ ],
+ "T_var": 1.357925534248352,
+ "T_odia": 1.011009693145752,
+ "tau": {
+  "MSA": 0.05,
+  "EGY": 0.575,
+  "SAU": 0.425,
+  "KHL": 0.8,
+  "LEV": 0.9,
+  "IRQ": 0.175,
+  "YEM": 0.175,
+  "MOR": 0.9,
+  "TUN": 0.525
+ },
+ "tau_odia": 0.4,
+ "fa_max": 0.01,
+ "fitted_on": "gold_v2 dev (natural + challenge)",
+ "label_rule": "set {v != t: p_v >= 0.5}; MSA first"
+}

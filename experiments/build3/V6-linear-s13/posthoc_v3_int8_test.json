@@ -1,0 +1,251 @@
+{
+ "policy": {
+  "T_var": 1.0068962574005127,
+  "T_odia": 1.0016647577285767,
+  "tau": {
+   "MSA": 0.2,
+   "EGY": 0.15,
+   "SAU": 0.9,
+   "GLF": 0.9,
+   "LEV": 0.8,
+   "IRQ": 0.35
+  },
+  "tau_odia": 0.4,
+  "odia_gate": 0.5,
+  "fitted_on": "V3 dev (natural + challenge)",
+  "label_rule": "set {v != t, v not inside t: p_v >= 0.5}; most likely first"
+ },
+ "dev": {
+  "MSA": {
+   "FA": 0.00696,
+   "P": 0.9273,
+   "R": 0.8582,
+   "F1": 0.8914,
+   "label_top1": 0.381,
+   "label_set_hit": 0.8908,
+   "heldout_recall": 0.5192,
+   "heldout_n": 52,
+   "n_dev": 416
+  },
+  "EGY": {
+   "FA": 0.00378,
+   "P": 0.9634,
+   "R": 0.8587,
+   "F1": 0.908,
+   "label_top1": 0.6152,
+   "label_set_hit": 0.8937,
+   "heldout_recall": 0.4824,
+   "heldout_n": 85,
+   "n_dev": 460
+  },
+  "SAU": {
+   "FA": 0.00671,
+   "P": 0.9437,
+   "R": 0.8444,
+   "F1": 0.8913,
+   "label_top1": 0.6829,
+   "label_set_hit": 0.8753,
+   "heldout_recall": 0.5,
+   "heldout_n": 102,
+   "n_dev": 437
+  },
+  "GLF": {
+   "FA": 0.00331,
+   "P": 0.9607,
+   "R": 0.8182,
+   "F1": 0.8837,
+   "label_top1": 0.7953,
+   "label_set_hit": 0.9094,
+   "heldout_recall": 0.4314,
+   "heldout_n": 102,
+   "n_dev": 418
+  },
+  "LEV": {
+   "FA": 0.00411,
+   "P": 0.9492,
+   "R": 0.7628,
+   "F1": 0.8458,
+   "label_top1": 0.612,
+   "label_set_hit": 0.7893,
+   "heldout_recall": 0.3711,
+   "heldout_n": 97,
+   "n_dev": 392
+  },
+  "IRQ": {
+   "FA": 0.00488,
+   "P": 0.9307,
+   "R": 0.7428,
+   "F1": 0.8262,
+   "label_top1": 0.6634,
+   "label_set_hit": 0.8673,
+   "heldout_recall": 0.2836,
+   "heldout_n": 134,
+   "n_dev": 416
+  }
+ },
+ "dev_mean_F1": 0.8744,
+ "dev_gate": 6,
+ "test": {
+  "MSA": {
+   "FA": 0.00759,
+   "P": 0.9267,
+   "R": 0.8894,
+   "F1": 0.9077,
+   "label_top1": 0.3757,
+   "label_set_hit": 0.8644,
+   "heldout_recall": 0.6296,
+   "heldout_n": 108,
+   "n_dev": 796
+  },
+  "EGY": {
+   "FA": 0.00376,
+   "P": 0.9656,
+   "R": 0.8524,
+   "F1": 0.9055,
+   "label_top1": 0.6229,
+   "label_set_hit": 0.9054,
+   "heldout_recall": 0.3929,
+   "heldout_n": 168,
+   "n_dev": 955
+  },
+  "SAU": {
+   "FA": 0.00756,
+   "P": 0.9251,
+   "R": 0.8401,
+   "F1": 0.8806,
+   "label_top1": 0.6856,
+   "label_set_hit": 0.8758,
+   "heldout_recall": 0.5099,
+   "heldout_n": 202,
+   "n_dev": 882
+  },
+  "GLF": {
+   "FA": 0.00364,
+   "P": 0.9633,
+   "R": 0.8149,
+   "F1": 0.8829,
+   "label_top1": 0.7896,
+   "label_set_hit": 0.9192,
+   "heldout_recall": 0.4319,
+   "heldout_n": 213,
+   "n_dev": 805
+  },
+  "LEV": {
+   "FA": 0.00783,
+   "P": 0.9092,
+   "R": 0.7526,
+   "F1": 0.8235,
+   "label_top1": 0.6472,
+   "label_set_hit": 0.8348,
+   "heldout_recall": 0.3189,
+   "heldout_n": 185,
+   "n_dev": 772
+  },
+  "IRQ": {
+   "FA": 0.0043,
+   "P": 0.9322,
+   "R": 0.7253,
+   "F1": 0.8158,
+   "label_top1": 0.6735,
+   "label_set_hit": 0.8657,
+   "heldout_recall": 0.3346,
+   "heldout_n": 260,
+   "n_dev": 739
+  }
+ },
+ "agent": {
+  "MSA": {
+   "FA": 0.0,
+   "P": 0.0,
+   "R": 0.0,
+   "F1": 0.0,
+   "label_top1": 0.0,
+   "label_set_hit": 0.0,
+   "heldout_recall": 0.0,
+   "heldout_n": 0,
+   "n_dev": 2,
+   "FA_words": 0.0
+  },
+  "EGY": {
+   "FA": 0.0,
+   "P": 0.5,
+   "R": 0.1667,
+   "F1": 0.25,
+   "label_top1": 0.0,
+   "label_set_hit": 1.0,
+   "heldout_recall": 0.0,
+   "heldout_n": 0,
+   "n_dev": 6,
+   "FA_words": 0.00139
+  },
+  "SAU": {
+   "FA": 0.0,
+   "P": 0.8095,
+   "R": 0.5312,
+   "F1": 0.6415,
+   "label_top1": 0.7647,
+   "label_set_hit": 1.0,
+   "heldout_recall": 0.0,
+   "heldout_n": 0,
+   "n_dev": 32,
+   "FA_words": 0.00626
+  },
+  "GLF": {
+   "FA": 0.0,
+   "P": 0.9375,
+   "R": 0.5769,
+   "F1": 0.7143,
+   "label_top1": 1.0,
+   "label_set_hit": 1.0,
+   "heldout_recall": 0.0,
+   "heldout_n": 0,
+   "n_dev": 26,
+   "FA_words": 0.00179
+  },
+  "LEV": {
+   "FA": 0.0,
+   "P": 0.75,
+   "R": 0.36,
+   "F1": 0.4865,
+   "label_top1": 0.4444,
+   "label_set_hit": 1.0,
+   "heldout_recall": 0.0,
+   "heldout_n": 0,
+   "n_dev": 25,
+   "FA_words": 0.00523
+  },
+  "IRQ": {
+   "FA": 0.0,
+   "P": 0.4848,
+   "R": 0.5333,
+   "F1": 0.5079,
+   "label_top1": 0.625,
+   "label_set_hit": 1.0,
+   "heldout_recall": 0.0,
+   "heldout_n": 0,
+   "n_dev": 30,
+   "FA_words": 0.02977
+  }
+ },
+ "probe": {
+  "conform": 0.8406,
+  "deviate": 0.5706,
+  "n": {
+   "conform": 734,
+   "deviate": 3230
+  }
+ },
+ "probe_by_target": {
+  "IRQ:conform": 0.863,
+  "MSA:deviate": 0.7484,
+  "EGY:deviate": 0.3561,
+  "SAU:deviate": 0.7322,
+  "LEV:deviate": 0.4928,
+  "LEV:conform": 0.9417,
+  "GLF:deviate": 0.5378,
+  "IRQ:deviate": 0.6143,
+  "GLF:conform": 0.8459,
+  "SAU:conform": 0.6982,
+  "EGY:conform": 1.0
+ }
+}

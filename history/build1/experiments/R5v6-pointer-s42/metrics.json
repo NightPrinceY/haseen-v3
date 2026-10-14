@@ -1,0 +1,144 @@
+{
+ "dev_default": {
+  "EGY": [
+   0.9839,
+   0.9886,
+   0.9863
+  ],
+  "GLF": [
+   0.9866,
+   0.9896,
+   0.9881
+  ],
+  "MSA": [
+   0.9675,
+   0.9834,
+   0.9754
+  ],
+  "score": 0.984
+ },
+ "dev_calibrated": {
+  "EGY": [
+   0.9889,
+   0.988,
+   0.9885
+  ],
+  "GLF": [
+   0.9876,
+   0.989,
+   0.9883
+  ],
+  "MSA": [
+   0.9768,
+   0.9781,
+   0.9775
+  ],
+  "score": 0.9857
+ },
+ "ece_dev_before": 0.0023,
+ "ece_dev_after": 0.0005,
+ "calibration": {
+  "T_var": 1.3588532209396362,
+  "T_dia": 1.0178107023239136,
+  "tau": {
+   "EGY": 0.3,
+   "GLF": 0.4,
+   "MSA": 0.3
+  },
+  "tau_dia": 0.5
+ },
+ "heldout": {
+  "EGY": [
+   0.9905,
+   0.8267,
+   0.9012
+  ],
+  "GLF": [
+   0.9781,
+   0.993,
+   0.9855
+  ],
+  "MSA": [
+   0.9707,
+   0.9431,
+   0.9567
+  ],
+  "score": 0.9362
+ },
+ "gold": {
+  "egy_challenge": {
+   "P": 0.9941,
+   "R": 0.9769,
+   "F1": 0.9854,
+   "tp": 169,
+   "fp": 1,
+   "fn": 4,
+   "label_acc": 0.9882,
+   "words": 2859
+  },
+  "egy_natural": {
+   "P": 0.3333,
+   "R": 0.25,
+   "F1": 0.2857,
+   "tp": 1,
+   "fp": 2,
+   "fn": 3,
+   "label_acc": 1.0,
+   "words": 4761
+  },
+  "egy_stress": {
+   "P": 0.75,
+   "R": 1.0,
+   "F1": 0.8571,
+   "tp": 12,
+   "fp": 4,
+   "fn": 0,
+   "label_acc": 1.0,
+   "words": 2824
+  },
+  "glf_experimental": {
+   "P": 0.8222,
+   "R": 0.7872,
+   "F1": 0.8043,
+   "tp": 37,
+   "fp": 8,
+   "fn": 10,
+   "label_acc": 0.973,
+   "words": 1138
+  },
+  "msa": {
+   "P": 0.6129,
+   "R": 0.8261,
+   "F1": 0.7037,
+   "tp": 38,
+   "fp": 24,
+   "fn": 8,
+   "label_acc": 1.0,
+   "words": 2952
+  }
+ },
+ "latency_ms_batch1_15w": {
+  "p50": 10.26,
+  "p95": 10.81,
+  "device": "cuda"
+ },
+ "train_seconds": 1301,
+ "checklist": {
+  "MFT": {
+   "pass": 24,
+   "n": 26,
+   "rate": 0.923
+  },
+  "INV": {
+   "pass": 42,
+   "n": 42,
+   "rate": 1.0
+  },
+  "DIR": {
+   "pass": 6,
+   "n": 6,
+   "rate": 1.0
+  }
+ },
+ "rescored": "decision layer: label = first natural variety in preference order (bug fix 2026-10-13)"
+}

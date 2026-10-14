@@ -1,0 +1,16 @@
+{
+ "T_var": 1.0048644542694092,
+ "T_odia": 1.002068281173706,
+ "tau": {
+  "MSA": 0.05,
+  "EGY": 0.425,
+  "SAU": 0.825,
+  "GLF": 0.925,
+  "LEV": 0.875,
+  "IRQ": 0.475
+ },
+ "tau_odia": 0.4,
+ "odia_gate": 0.5,
+ "fitted_on": "V3 dev (natural + challenge)",
+ "label_rule": "set {v != t, v not inside t: p_v >= 0.5}; most likely first"
+}

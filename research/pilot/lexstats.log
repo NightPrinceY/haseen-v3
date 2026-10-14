@@ -1,0 +1,33 @@
+
+README.md:   0%|          | 0.00/2.79k [00:00<?, ?B/s][AREADME.md: 100%|██████████| 2.79k/2.79k [00:00<00:00, 22.2MB/s]
+Omartificial-Intelligence-Space/FineWeb2-Egyptian-Arabic sentences kept 30234 tokens 770888
+
+README.md:   0%|          | 0.00/4.16k [00:00<?, ?B/s][AREADME.md: 100%|██████████| 4.16k/4.16k [00:00<00:00, 35.2MB/s]
+AdhamAshraf/egyptian-2-arabic sentences kept 11644 tokens 90026
+
+README.md:   0%|          | 0.00/2.74k [00:00<?, ?B/s][AREADME.md: 100%|██████████| 2.74k/2.74k [00:00<00:00, 28.3MB/s]
+Omartificial-Intelligence-Space/FineWeb2-Najdi-Arabic sentences kept 9827 tokens 203631
+
+README.md:   0%|          | 0.00/500 [00:00<?, ?B/s][AREADME.md: 100%|██████████| 500/500 [00:00<00:00, 5.41MB/s]
+AhmedSSabir/Gulf-Arabic-Tweets-2018-2020 sentences kept 3436 tokens 87806
+
+README.md:   0%|          | 0.00/2.34k [00:00<?, ?B/s][AREADME.md: 100%|██████████| 2.34k/2.34k [00:00<00:00, 23.4MB/s]
+Omartificial-Intelligence-Space/FineWeb2-MSA sentences kept 73419 tokens 1649438
+vocab 70268 totals {'EGY': 860914, 'GLF': 291437, 'MSA': 1649438}
+سوف {'EGY': [11, 0.0508], 'GLF': [16, 0.2154], 'MSA': [433, 1.0]}
+لن {'EGY': [40, 0.1477], 'GLF': [14, 0.1562], 'MSA': [525, 1.0]}
+الذي {'EGY': [116, 0.0379], 'GLF': [23, 0.0226], 'MSA': [5890, 1.0]}
+خطا {'EGY': [26, 0.4046], 'GLF': [16, 0.7441], 'MSA': [125, 1.0]}
+فورا {'EGY': [38, 1.0], 'GLF': [6, 0.4987], 'MSA': [68, 0.9287]}
+تسجيل {'EGY': [23, 0.4188], 'GLF': [15, 0.816], 'MSA': [107, 1.0]}
+الدفع {'EGY': [22, 0.9687], 'GLF': [4, 0.5723], 'MSA': [44, 1.0]}
+ابغي {'EGY': [2, 0.0039], 'GLF': [218, 1.0], 'MSA': [2, 0.002]}
+وايد {'EGY': [3, 0.0043], 'GLF': [273, 1.0], 'MSA': [6, 0.0042]}
+الحين {'EGY': [9, 0.003], 'GLF': [1058, 1.0], 'MSA': [44, 0.0074]}
+عايز {'EGY': [1077, 1.0], 'GLF': [14, 0.0398], 'MSA': [6, 0.0031]}
+مش {'EGY': [9546, 1.0], 'GLF': [203, 0.063], 'MSA': [10, 0.0006]}
+اقوم {'EGY': [30, 0.3896], 'GLF': [26, 1.0], 'MSA': [18, 0.1233]}
+الله {'EGY': [958, 0.2036], 'GLF': [1593, 1.0], 'MSA': [8122, 0.9006]}
+شاء {'EGY': [159, 0.5966], 'GLF': [90, 1.0], 'MSA': [142, 0.2782]}
+تمام {'EGY': [82, 0.8866], 'GLF': [31, 1.0], 'MSA': [93, 0.5245]}
+حاضر {'EGY': [49, 1.0], 'GLF': [9, 0.5669], 'MSA': [7, 0.0791]}

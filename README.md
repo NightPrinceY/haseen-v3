@@ -108,7 +108,12 @@ punctuation first, so single targets differ from the table by ≤ 0.004).
 | `pipeline/` | labeler v10, test and data builders, leakage filter, audits (run against the private data layout) |
 | `scripts/evaluate.py` | benchmark through the public API |
 | `demo/web/` | the Space: the model in the browser (onnxruntime-web), same decisions as Python (`tests/js_parity.js`) |
-| `docs/` | targets, guideline, data cards, results and the files behind every number |
+| `docs/` | targets, guideline, data cards, results and the files behind every number; `docs/sources/` one note per data source |
+| `experiments/build3/` | every Build-3 run: config, dev curve, metrics, dev-fitted policy, known answers, selection, export report |
+| `research/` | the research trail: plan, literature, data survey, architecture study, spikes, pilot, data audits, GPU spend log, report pages |
+| `history/` | the two earlier builds kept as they were (guidelines, gold-building trail, all runs, results, reports) |
+| `brief/` | the task and the scope questions with their answers |
+| `JOURNAL.md` | what I did, day by day, with links to the evidence |
 
 ## Data and licences
 Training and evaluation use research-licensed sources (MADAR: CMU-Q / NYUAD; SADA CC BY-NC-SA; QCRI MGB-2 / MGB-3 /

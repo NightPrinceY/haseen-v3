@@ -1,0 +1,818 @@
+<title>HaSeen Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: RTL engineering blueprint. Sticky section nav; each section = one job (map, model, guard, plan, evidence, decisions, beyond). Diagrams are LTR SVGs inside their own scroll boxes. */
+:root{
+  --bg:#f3f4f1; --surface:#ffffff; --raise:#f8f9f7; --ink:#1b1f28; --muted:#5c6271; --line:#d8dbe1;
+  --accent:#2c47b0; --accent-soft:#e4e8f8; --s2:#b0650c; --s2-soft:#fbeedb; --data:#6a5aa8; --data-soft:#ece9f6;
+  --good:#1e7a4c; --good-soft:#e0f1e7; --bad:#b3261e; --bad-soft:#f7e1de; --warn:#8a6b00; --warn-soft:#f6eecf;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111318; --surface:#191c24; --raise:#1e222b; --ink:#e6e8ee; --muted:#9fa5b3; --line:#2c303b;
+  --accent:#90a4ff; --accent-soft:#232a49; --s2:#f0a64a; --s2-soft:#3a2a14; --data:#b7a9f1; --data-soft:#29243f;
+  --good:#5fd197; --good-soft:#163322; --bad:#ff8a80; --bad-soft:#3b1c1a; --warn:#e3c75a; --warn-soft:#332c10; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111318; --surface:#191c24; --raise:#1e222b; --ink:#e6e8ee; --muted:#9fa5b3; --line:#2c303b;
+  --accent:#90a4ff; --accent-soft:#232a49; --s2:#f0a64a; --s2-soft:#3a2a14; --data:#b7a9f1; --data-soft:#29243f;
+  --good:#5fd197; --good-soft:#163322; --bad:#ff8a80; --bad-soft:#3b1c1a; --warn:#e3c75a; --warn-soft:#332c10; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:0 80px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.25;text-wrap:balance;margin:0}
+h2{font-size:clamp(21px,2.7vw,28px);font-weight:600} h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:74ch}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);direction:ltr;text-align:right}
+.muted{color:var(--muted)} .mono{font-family:var(--f-mono);font-size:.9em}
+.note{font-size:13px;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:16px;scroll-margin-top:70px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button,select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill.m{border-color:var(--good);color:var(--good)} .pill.e{border-color:var(--s2);color:var(--s2)}
+.pill.y{border-color:var(--accent);color:var(--accent)} .pill.c{border-color:var(--data);color:var(--data)} .pill.a{border-color:var(--muted)}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-20px;padding:10px 20px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+nav.top a{font-size:14px;text-decoration:none;color:var(--ink);padding:4px 10px;border-radius:7px;border:1px solid transparent}
+nav.top a:hover{border-color:var(--line)}
+nav.top .brand{font-family:var(--f-display);font-weight:700;margin-inline-end:10px;direction:ltr}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:14px;padding-top:28px}
+.hero h1{font-size:clamp(32px,5.4vw,58px);font-weight:700;letter-spacing:-.01em;direction:ltr;text-align:right}
+.hero h1 span{font-weight:300;color:var(--muted)}
+.hero .lead{font-size:18px;max-width:70ch}
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.toks{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--f-display);font-size:24px}
+.tk{display:flex;flex-direction:column;align-items:center;padding:6px 11px;border-radius:10px;background:var(--good-soft);border:1px solid transparent;min-width:58px}
+.tk small{font-family:var(--f-mono);font-size:11px;color:var(--muted);direction:ltr}
+.tk.dev{background:var(--bad-soft);border-color:var(--bad)} .tk.dev small{color:var(--bad)}
+.tk .sg{font-size:13px;color:var(--good)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.fact b{font-family:var(--f-mono);font-size:22px;font-weight:500;direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;color:var(--muted)}
+
+/* diagram + drawer */
+.views{display:flex;flex-wrap:wrap;gap:6px}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+@media (max-width:960px){.stage{grid-template-columns:1fr}}
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px;overflow-x:auto;direction:ltr}
+figure{margin:0} figcaption{font-size:13.5px;color:var(--muted);padding:6px 6px 2px;direction:rtl;text-align:right}
+svg.dg{display:block;width:100%;min-width:900px;height:auto;color:var(--ink)}
+.node rect{fill:var(--surface);stroke:currentColor;stroke-width:1.2}
+.node.io rect{fill:var(--raise)}
+.node.model rect{fill:var(--accent-soft);stroke:var(--accent)}
+.node.s2 rect{fill:var(--s2-soft);stroke:var(--s2);stroke-dasharray:5 4}
+.node.data rect{fill:var(--data-soft);stroke:var(--data)}
+.node.guard rect{fill:var(--good-soft);stroke:var(--good);stroke-width:1.6}
+.node.gold rect{fill:var(--warn-soft);stroke:var(--warn);stroke-width:1.6}
+.node text{fill:currentColor;font-family:var(--f-mono);font-size:12px}
+.node text.t{font-weight:500;font-size:13px}
+.node text.s{fill:var(--muted);font-size:10.5px}
+.node{cursor:pointer;transition:opacity .2s}
+.node:hover rect{stroke-width:2.4} .node.sel rect{stroke-width:3}
+.edge path{fill:none;stroke:currentColor;stroke-width:1.2;opacity:.7}
+.edge.d path{stroke:var(--data);opacity:.95} .edge.q path{stroke:var(--good);stroke-dasharray:4 4;opacity:.95}
+.edge.o path{stroke:var(--s2);stroke-dasharray:5 4;opacity:.95}
+.edge text{fill:var(--muted);font-family:var(--f-mono);font-size:10.5px}
+.edge{transition:opacity .2s}
+.dim{opacity:.13}
+.lane text{fill:var(--muted);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em}
+.lane rect{fill:none;stroke:var(--line);stroke-dasharray:2 4}
+.drawer{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0;position:sticky;top:70px}
+.drawer h3{direction:ltr;text-align:right}
+.drawer ul{margin:0;padding-inline-start:18px;font-size:14.5px;display:flex;flex-direction:column;gap:3px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px;margin:0}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-family:var(--f-mono);font-size:12px;direction:ltr;text-align:right}
+
+/* model internals */
+.model-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+@media (max-width:960px){.model-grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.wordpick{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--f-display);font-size:19px}
+.wordpick button{font-family:var(--f-display);font-size:18px;padding:4px 10px}
+.bars{display:flex;flex-direction:column;gap:6px}
+.brow{display:grid;grid-template-columns:150px minmax(0,1fr) 52px;gap:8px;align-items:center;font-size:13px}
+.brow .lab{font-family:var(--f-mono);font-size:12px;direction:ltr;text-align:right}
+.btrack{height:14px;border-radius:4px;background:var(--raise);border:1px solid var(--line);overflow:hidden;direction:ltr}
+.btrack i{display:block;height:100%;background:var(--accent);transition:width .35s}
+.brow.win .btrack i{background:var(--good)} .brow.new .btrack i{background:var(--s2)}
+.brow .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:12px;direction:ltr}
+.qa{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:14px}
+.qa .t{font-family:var(--f-mono);font-size:12px;color:var(--accent);direction:ltr}
+
+/* guard */
+.progress{display:flex;align-items:center;gap:10px;font-size:14px}
+.ptrack{flex:1;height:10px;border-radius:6px;background:var(--raise);border:1px solid var(--line);overflow:hidden;direction:ltr}
+.ptrack i{display:block;height:100%;background:var(--good);transition:width .3s}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:12px}
+.gate{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0;border-inline-start:4px solid var(--line)}
+.gate[data-st="pass"]{border-inline-start-color:var(--good)} .gate[data-st="work"]{border-inline-start-color:var(--warn)} .gate[data-st="fail"]{border-inline-start-color:var(--bad)}
+.gate-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.gate-head h3{font-size:16px}
+.gid{font-family:var(--f-mono);font-size:12px;color:var(--muted);direction:ltr}
+.crit{font-family:var(--f-mono);font-size:12.5px;background:var(--raise);border:1px solid var(--line);border-radius:8px;padding:6px 9px;direction:ltr;text-align:left}
+.gate ul{margin:0;padding-inline-start:18px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.gate select{font-size:13px;padding:3px 8px}
+
+/* plan */
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.day.buffer{background:var(--raise);border-style:dashed}
+.day h3{font-size:15px;direction:ltr;text-align:right}
+.day .goal{font-size:13.5px;color:var(--muted)}
+.task{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px;font-size:14px;align-items:start}
+.task input{margin-top:5px;accent-color:var(--good)}
+.task label{cursor:pointer}
+.task .meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.task.done label{color:var(--muted);text-decoration:line-through}
+
+/* tables */
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:14px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+th{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;direction:ltr;text-align:right;white-space:nowrap}
+tr.best td{background:var(--accent-soft)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.box.key{border-color:var(--accent);background:var(--accent-soft)}
+.box ul,.box ol{margin:0;padding-inline-start:20px;font-size:14.5px;display:flex;flex-direction:column;gap:4px}
+pre.code{margin:0;font-family:var(--f-mono);font-size:12.5px;line-height:1.55;background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre;text-align:left}
+.stgrid{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
+.cell{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--raise);min-width:54px}
+.cell .w{font-family:var(--f-display);font-size:18px}
+.cell .a{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);direction:ltr}
+.cell.sub{border-style:dashed}
+.cell.first{border-color:var(--accent);background:var(--accent-soft)}
+.cell.dev{border-color:var(--bad);background:var(--bad-soft)}
+.shape{font-family:var(--f-mono);font-size:12.5px;color:var(--accent);direction:ltr;text-align:right}
+.phase{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar">
+
+<nav class="top" aria-label="sections">
+  <span class="brand">HaSeen</span>
+  <a href="#contract">Input / Output</a><a href="#map">خريطة النظام</a><a href="#model">الموديل</a><a href="#guard">Data Guard</a><a href="#plan">الخطة</a><a href="#evidence">الأدلة</a><a href="#decisions">القرارات</a><a href="#beyond">بعد Tuner</a>
+</nav>
+
+<header class="hero">
+  <span class="eyebrow">Arabic dialect fidelity · word-level System-1 decision model · working name</span>
+  <h1>HaSeen <span>/ لهجة</span></h1>
+  <p class="lead">موديل بيقرأ رد الـ voice agent قبل ما يتنطق، ويقول على كل كلمة: مصري؟ خليجي؟ فصحى؟ مشتركة؟ ده بيحصل في forward pass واحد، والـ confidence متظبط، ومعاه اقتراح تصحيح للكلمة. اتبنى أساساً لـ take-home بتاع Tuner، بس متصمم عشان يكمل بعده.</p>
+  <div class="demo" aria-label="مثال">
+    <span class="eyebrow">target = Arabic / Egyptian · illustrative output</span>
+    <div class="toks">
+      <span class="tk">أنا<small>SHARED .97</small></span>
+      <span class="tk dev">أبغى<small>GULF .96</small><span class="sg">← عايز</span></span>
+      <span class="tk">أروح<small>SHARED .90</small></span>
+      <span class="tk">الاجتماع<small>SHARED .95</small></span>
+      <span class="tk">بكرة<small>EGY .93</small></span>
+      <span class="tk">بس<small>SHARED .86</small></span>
+      <span class="tk dev">سوف<small>MSA .93</small><span class="sg">← هـ</span></span>
+      <span class="tk">أتأخر<small>SHARED .84</small></span>
+      <span class="tk">شوية<small>EGY .92</small></span>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><b>0.874</b><span>Synthetic F1 · A★ <span class="pill m">measured</span></span></div>
+    <div class="fact"><b>0.80</b><span>Realistic F1 (n=23) · linear <span class="pill m">measured</span></span></div>
+    <div class="fact"><b>0.008</b><span>ECE بعد الـ calibration <span class="pill m">measured</span></span></div>
+    <div class="fact"><b>+17 pts</b><span>من تحسين الـ labels بس <span class="pill m">measured</span></span></div>
+    <div class="fact"><b>8 ms</b><span>GPU p50 · eager fp16 <span class="pill m">measured</span></span></div>
+    <div class="fact"><b>11%</b><span>الـ LLMs بترد بالمصري الصح (AMIYA 2026)</span></div>
+  </div>
+</header>
+
+<!-- CONTRACT -->
+<section id="contract" aria-labelledby="ch">
+  <span class="eyebrow">Contract · what goes in, what comes out, what the data looks like</span>
+  <h2 id="ch">Input / Output والداتا</h2>
+  <p class="muted">الموديل بعد التدريب بياخد <b>نص وtarget</b>، ويرجّع <b>قرار لكل كلمة</b>. اضغط "الخطوة الجاية" عشان تشوف نفس الجملة بتتحوّل جوه الـ pipeline. بعض الأرقام في الخطوات (زي الـ subwords والـ logits) توضيحية، والـ shapes والـ formats هي المعتمدة.</p>
+
+  <div class="panel">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between">
+      <h3>الجملة جوه الـ pipeline</h3>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button type="button" id="stPrev">← السابقة</button>
+        <button type="button" id="stNext">الخطوة الجاية →</button>
+      </div>
+    </div>
+    <div class="views" id="stTabs" role="tablist"></div>
+    <div id="stBody" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>Input (API)</h3>
+      <pre class="code" dir="ltr">detect(text: str, target: str = "egy") -&gt; dict
+
+{
+  "text":   "أنا أبغى أروح الاجتماع بكرة بس سوف أتأخر شوية",
+  "target": "Arabic / Egyptian"      // or "egy" | "msa" | "glf"
+}</pre>
+      <dl class="kv">
+        <dt>text</dt><dd>UTF-8 Arabic, any length (split into ≤ 96-subword windows)</dd>
+        <dt>target</dt><dd>Arabic / Egyptian · MSA · Gulf (experimental)</dd>
+        <dt>batch</dt><dd>detect_batch([...]) · CLI --jsonl file</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Output (API)</h3>
+      <pre class="code" dir="ltr">{
+  "target": "Arabic / Egyptian",
+  "tokens": [
+    {"word":"أنا","index":0,"start":0,"end":3,
+     "variety":"SHARED","conforms":true,"confidence":0.97},
+    {"word":"أبغى","index":1,"start":4,"end":8,
+     "variety":"GLF","conforms":false,"label":"Arabic / Gulf",
+     "confidence":0.96,"suggestion":"عايز"},
+    ...
+    {"word":"سوف","index":6,"start":30,"end":33,
+     "variety":"MSA","conforms":false,"label":"Arabic / MSA",
+     "confidence":0.93,"suggestion":"هـ"}
+  ],
+  "deviations": ["أبغى","سوف"],
+  "sentence": {"conforms_target":false,"p_conforms":0.04,"aldi":3.8},
+  "meta": {"model":"HaSeen-V1-a-star@v1","latency_ms":4.1,
+           "escalated_tokens":0,"schema":"1.0"}
+}</pre>
+    </div>
+  </div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Field</th><th>Type</th><th>المعنى</th><th>من التاسك؟</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">tokens[].word / index</td><td class="mono">str / int</td><td>الكلمة الأصلية زي ما هي، ومكانها في الجملة</td><td>✔</td></tr>
+      <tr><td class="mono">tokens[].conforms</td><td class="mono">bool</td><td>true لو الكلمة من الـ target أو SHARED أو OTHER</td><td>✔</td></tr>
+      <tr><td class="mono">tokens[].label</td><td class="mono">str</td><td>للـ deviation بس: Arabic / Gulf أو MSA أو Levantine أو unknown</td><td>✔</td></tr>
+      <tr><td class="mono">tokens[].confidence</td><td class="mono">float</td><td>احتمال calibrated (بعد الـ temperature)</td><td>✔</td></tr>
+      <tr><td class="mono">deviations</td><td class="mono">list[str]</td><td>كل الكلمات اللي خارجة عن الـ target، بالترتيب</td><td>✔</td></tr>
+      <tr><td class="mono">tokens[].start / end</td><td class="mono">int</td><td>مكان الكلمة بالحروف في النص الأصلي، عشان الـ TTS أو الـ UI يبدّلها بالظبط</td><td>إضافة</td></tr>
+      <tr><td class="mono">tokens[].variety</td><td class="mono">EGY|GLF|MSA|SHARED|OTHER</td><td>لهجة كل كلمة، حتى لو conforming. مفيد للـ analytics</td><td>إضافة</td></tr>
+      <tr><td class="mono">tokens[].suggestion</td><td class="mono">str?</td><td>المقابل في الـ target لو موجود في الـ lexicon</td><td>إضافة</td></tr>
+      <tr><td class="mono">sentence</td><td class="mono">object</td><td>أسئلة typed على مستوى الجملة (Noul / Score). planned</td><td>إضافة</td></tr>
+      <tr><td class="mono">meta</td><td class="mono">object</td><td>نسخة الموديل، والـ latency، وعدد الكلمات اللي اتحوّلت لـ System 2</td><td>إضافة</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>أشكال الـ datasets</h3>
+  <div class="views" id="dsTabs" role="tablist"></div>
+  <div class="grid2" id="dsBody"></div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Dataset</th><th>الدور</th><th>الحجم</th><th>Format</th><th>Splits</th><th>الحالة</th></tr></thead>
+    <tbody>
+      <tr><td>D1 MADAR mix</td><td>train/dev/test (synthetic)</td><td class="n">46,400 sent · 272k tokens</td><td class="mono">jsonl</td><td class="n">36k / 4k / 6.4k</td><td><span class="pill m">built (v2)</span></td></tr>
+      <tr><td>D2 domain injection</td><td>train/dev</td><td class="n">10–20k sent</td><td class="mono">jsonl</td><td class="n">90 / 10</td><td><span class="pill e">planned</span></td></tr>
+      <tr><td>D3 teacher labels</td><td>train/dev</td><td class="n">1–2k sent</td><td class="mono">jsonl</td><td class="n">90 / 10</td><td><span class="pill e">planned</span></td></tr>
+      <tr><td>GOLD</td><td>final eval only</td><td class="n">~370 sent (EGY 250, MSA 60, GLF 60)</td><td class="mono">tsv → jsonl</td><td class="n">test only</td><td><span class="pill e">planned</span></td></tr>
+      <tr><td>Calibration set</td><td>κ (Claude vs Yahya)</td><td class="n">50 → 200 sent</td><td class="mono">tsv</td><td class="n">—</td><td><span class="pill e">planned</span></td></tr>
+      <tr><td>CheckList suite</td><td>behavioral tests</td><td class="n">~500 cases</td><td class="mono">jsonl</td><td class="n">—</td><td><span class="pill e">planned</span></td></tr>
+      <tr><td>Lexicon</td><td>feature + suggestions</td><td class="n">~1–2k entries</td><td class="mono">tsv</td><td class="n">—</td><td><span class="pill e">planned</span></td></tr>
+      <tr><td>Corpus stats</td><td>SHARED validity</td><td class="n">70k words</td><td class="mono">json</td><td class="n">—</td><td><span class="pill m">built</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- MAP -->
+<section id="map" aria-labelledby="maph">
+  <span class="eyebrow">System map</span>
+  <h2 id="maph">خريطة النظام كله</h2>
+  <p class="muted">النص فوق هو المسار الـ offline: الداتا والتدريب والتقييم. وتحت المسار الـ online: النص بيعدّي إزاي في الـ runtime. اختار view عشان يتبيّن مسار واحد بس، واضغط على أي مربع عشان تشوف تفاصيله.</p>
+  <div class="views" role="group" aria-label="views">
+    <button type="button" data-view="all" aria-pressed="true">كله</button>
+    <button type="button" data-view="data" aria-pressed="false">مصنع الداتا</button>
+    <button type="button" data-view="quality" aria-pressed="false">بوابات الجودة</button>
+    <button type="button" data-view="train" aria-pressed="false">التدريب والتقييم</button>
+    <button type="button" data-view="runtime" aria-pressed="false">الـ Runtime</button>
+  </div>
+  <div class="stage">
+    <div class="figbox"><figure id="mapfig"></figure></div>
+    <aside class="drawer" id="drawer" aria-live="polite"></aside>
+  </div>
+</section>
+
+<!-- MODEL -->
+<section id="model" aria-labelledby="modelh">
+  <span class="eyebrow">Inside A★ · the System-1 decision model</span>
+  <h2 id="modelh">الموديل من جوه</h2>
+  <p class="muted">بدل linear head ثابت، كل اختيار ليه <b>وصف بالعربي</b> بيتعمله encode مرة واحدة ويتخزّن. والـ score بتاع أي كلمة في أي اختيار هو dot product، فينفع نضيف اختيار جديد من غير ما نغيّر شكل الـ head. اختار كلمة عشان تشوف القرار بتاعها.</p>
+  <div class="figbox"><figure id="modelfig"></figure></div>
+  <div class="model-grid">
+    <div class="panel">
+      <h3>قرار كل كلمة (Choice)</h3>
+      <div class="wordpick" id="wordpick"></div>
+      <div class="bars" id="bars"></div>
+      <label class="note" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="addLev"> أضف option جديد: "كلمة باللهجة الشامية" من غير إعادة تدريب الـ head <span class="pill e">experiment, not yet measured</span></label>
+      <p class="note">الاحتمالات دي أمثلة توضيحية. أرقام الـ pilot الحقيقية في قسم الأدلة.</p>
+    </div>
+    <div class="panel">
+      <h3>Typed questions في نفس الـ pass <span class="pill e">planned</span></h3>
+      <div class="qa">
+        <span class="t">choice</span><span>لكل كلمة: <span class="mono">EGY | GLF | MSA | SHARED | OTHER</span></span>
+        <span class="t">noul</span><span>هل الجملة كلها ماشية على الـ target؟ <b id="noulv" class="mono"></b></span>
+        <span class="t">score</span><span>درجة العامية في الجملة من 0 لـ 5 (ALDi). <b id="scorev" class="mono"></b></span>
+      </div>
+      <dl class="kv">
+        <dt>backbone</dt><dd>MARBERT family · 162.6M params (HaSeen-1 V1) · init VARabi/ALDi-Token-DI</dd>
+        <dt>head</dt><dd>pointer: proj_w(h_word) · proj_o(h_option) × e^s</dd>
+        <dt>options</dt><dd>Arabic text descriptions, cached at inference</dd>
+        <dt>calibration</dt><dd>temperature T fitted on dev (pilot T≈1.6)</dd>
+        <dt>input</dt><dd>normalized words, first-subword readout</dd>
+        <dt>export</dt><dd>ONNX fp16 (GPU) · int8 (CPU) · planned</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- GUARD -->
+<section id="guard" aria-labelledby="guardh">
+  <span class="eyebrow">Data Guard · 10 gates · nothing reaches training or eval without passing</span>
+  <h2 id="guardh">Data Guard: الداتا لازم تبقى gold في كل نقطة</h2>
+  <p class="muted">كل بوابة ليها معيار نجاح بالأرقام، وليها مسؤول: <span class="pill y">Yahya</span> أو <span class="pill c">Claude</span> أو <span class="pill a">auto</span>. وحالة كل بوابة بتتحفظ في المتصفح بتاعك بس. لو أي بوابة فشلت، الداتا بترجع للخطوة اللي قبلها، مفيش استثناءات.</p>
+  <div class="progress"><span>البوابات اللي عدّت:</span><div class="ptrack"><i id="gprog" style="width:0"></i></div><span class="mono" id="gcount"></span></div>
+  <div class="gates" id="gates"></div>
+</section>
+
+<!-- PLAN -->
+<section id="plan" aria-labelledby="planh">
+  <span class="eyebrow">Plan · 13 → 17 Oct · buffer 18–19 · deadline 19 Oct 15:00 Cairo</span>
+  <h2 id="planh">الخطة يوم بيوم</h2>
+  <p class="muted">كل مهمة مكتوب جنبها البوابة بتاعتها. أي مهمة بتطلع داتا بتعدّي على بوابتها الأول. وعلّم على اللي بيخلص، الحالة بتتحفظ في المتصفح بتاعك.</p>
+  <div class="progress"><span>التقدم:</span><div class="ptrack"><i id="tprog" style="width:0"></i></div><span class="mono" id="tcount"></span></div>
+  <div class="days" id="days"></div>
+</section>
+
+<!-- EVIDENCE -->
+<section id="evidence" aria-labelledby="evh">
+  <span class="eyebrow">Evidence · what the decisions stand on</span>
+  <h2 id="evh">الأدلة</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Labels</th><th>Variant</th><th>Synthetic P / R / F1</th><th>ECE</th><th>Realistic P / R / F1</th><th>GPU p50</th></tr></thead>
+    <tbody>
+      <tr><td>D1 v1</td><td>MARBERTv2 · linear</td><td class="n">.817 / .866 / .841</td><td class="n">.020</td><td class="n">.46 / .91 / .61</td><td class="n">7.8 ms</td></tr>
+      <tr><td>D1 v1</td><td>ALDi-Token-DI · linear</td><td class="n">.799 / .876 / .836</td><td class="n">.012</td><td class="n">.48 / .91 / .63</td><td class="n">8.0 ms</td></tr>
+      <tr><td>D1 v1</td><td>ALDi-Token-DI · pointer</td><td class="n">.797 / .875 / .834</td><td class="n">.010</td><td class="n">.42 / .96 / .59</td><td class="n">8.9 ms</td></tr>
+      <tr><td>D1 v1</td><td>CAMeLBERT · linear</td><td class="n">.801 / .861 / .830</td><td class="n">.008</td><td class="n">.41 / .91 / .57</td><td class="n">8.1 ms</td></tr>
+      <tr class="best"><td>D1 v2</td><td>ALDi-Token-DI · linear</td><td class="n">.875 / .866 / .871</td><td class="n">.012</td><td class="n">.74 / .87 / .80</td><td class="n">8.0 ms</td></tr>
+      <tr class="best"><td>D1 v2</td><td>ALDi-Token-DI · pointer (A★)</td><td class="n">.879 / .868 / .874</td><td class="n">.008</td><td class="n">.69 / .87 / .77</td><td class="n">8.4 ms</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Synthetic test فيه 6,400 جملة من MADAR. وRealistic check فيه 30 جملة كتبتها أنا، فيهم 23 deviation، ومش gold. التكلفة الكلية للـ pilot حوالي $0.95 على L4.</p>
+  <div class="grid2">
+    <div class="box"><h3>من الأبحاث</h3><ul>
+      <li>AMIYA 2026: Llama-3.1-8B ردّ باللهجة الصح 11% بس في المصري، و0.9% في السعودي.</li>
+      <li>أعلى F1 منشور لـ word-level بين MSA واللهجة حوالي 0.92، وده أصعب زوج في كل الـ code-switching اللي اتدرس.</li>
+      <li>قوائم الكلمات المنشورة: دقة الخليجي 0.0، وتمييز المصري 0.35 (Keleg 2025).</li>
+      <li>AGS 2025: alignment على الـ MSA، وedit distance بيراعي أصل الكلمة.</li>
+      <li>NuNER: موديل كبير يعمل labels وموديل صغير يتعلّم منها بيشتغل، بشرط إن الـ labels تتراجع.</li>
+    </ul></div>
+    <div class="box"><h3>من الـ spikes بتاعتنا</h3><ul>
+      <li>Rule الـ morphology: F1 = 0.16. الـ analyzer المصري بيقبل 99% من الـ MSA.</li>
+      <li>ALDi-Token-DI كما هو: بيفوّت "سوف" لما تيجي لوحدها جوه جملة عامية.</li>
+      <li>MARBERT هو أنسب tokenizer (1.86 subword لكل كلمة)، وmmBERT 2.80.</li>
+      <li>LinCE مش متاح (السيرفر واقع)، وMADAR parallel متاح.</li>
+      <li>CPU fp32: 30 ms، فمحتاجين ONNX وint8.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- DECISIONS -->
+<section id="decisions" aria-labelledby="dech">
+  <span class="eyebrow">Decision log</span>
+  <h2 id="dech">سجل القرارات</h2>
+  <div class="tablebox"><table id="dtable"></table></div>
+</section>
+
+<!-- BEYOND -->
+<section id="beyond" aria-labelledby="byh">
+  <span class="eyebrow">Beyond the take-home</span>
+  <h2 id="byh">بعد Tuner: إزاي يبقى مشروع كبير</h2>
+  <div class="box key"><p><b>الترتيب مهم:</b> الـ repo اللي هيتسلّم لـ Tuner يفضل <b>private</b>، وندّيهم access ليه. وأي حاجة تتنشر للعامة تيجي <b>بعد</b> قرار التوظيف، وتكون معمولة من داتا رخصتها تسمح بالنشر بس. MADAR وAOC للأبحاث بس، وممنوع ننشر نصوصهم.</p></div>
+  <div class="phase" id="phases"></div>
+</section>
+</div>
+
+<script>
+// ===================== helpers =====================
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
+
+// ===================== SYSTEM MAP =====================
+const N={
+ // sources
+ s_madar:{x:20,y:50,w:150,h:50,t:"MADAR-6",s:"Cairo/Doha/MSA parallel",k:"io",v:["data"]},
+ s_web:{x:20,y:120,w:150,h:50,t:"Real text",s:"FineWeb2 · AOC",k:"io",v:["data"]},
+ s_router:{x:20,y:190,w:150,h:50,t:"HF router LLMs",s:"family set A ≠ B",k:"io",v:["data"]},
+ s_lex:{x:20,y:260,w:150,h:50,t:"Corpus stats",s:"validity per variety",k:"io",v:["data"]},
+ // factory
+ f_d1:{x:205,y:50,w:160,h:50,t:"D1 aligned mixing",s:"SimAlign · MSA anchor",k:"data",v:["data"]},
+ f_d2:{x:205,y:120,w:160,h:50,t:"D2 domain injection",s:"lexicon · grammar-safe",k:"data",v:["data"]},
+ f_d3:{x:205,y:190,w:160,h:50,t:"D3 teacher labels",s:"Claude · self-consistent",k:"data",v:["data"]},
+ f_gold:{x:205,y:260,w:160,h:50,t:"Gold candidates",s:"Claude pre-label",k:"data",v:["data","quality"]},
+ // guard
+ g:{x:400,y:40,w:120,h:280,t:"DATA GUARD",s:"G0 … G9",k:"guard",v:["quality","data"]},
+ yahya:{x:400,y:340,w:120,h:44,t:"Yahya review",s:"every gold token",k:"gold",v:["quality"]},
+ // datasets
+ ds_train:{x:555,y:70,w:150,h:56,t:"train / dev",s:"versioned · hashed",k:"io",v:["data","train"]},
+ ds_gold:{x:555,y:250,w:150,h:56,t:"GOLD",s:"frozen · never tuned on",k:"gold",v:["quality","train"]},
+ // training/eval
+ tr:{x:740,y:60,w:160,h:56,t:"Train A★",s:"HF Sandbox L4",k:"model",v:["train"]},
+ cart:{x:740,y:150,w:160,h:50,t:"Cartography + cleanlab",s:"label-error mining",k:"guard",v:["train","quality"]},
+ ev:{x:740,y:250,w:160,h:56,t:"Eval harness",s:"gold · CheckList · latency",k:"guard",v:["train","quality"]},
+ art:{x:935,y:60,w:150,h:56,t:"Model artifact",s:"ONNX · model card",k:"model",v:["train","runtime"]},
+ rep:{x:935,y:250,w:150,h:56,t:"Report",s:"P/R/F1 + CIs",k:"io",v:["train"]},
+ // runtime
+ r_in:{x:20,y:470,w:140,h:52,t:"Agent reply",s:"text + target",k:"io",v:["runtime"]},
+ r_norm:{x:190,y:470,w:130,h:52,t:"Normalize",s:"CODA* · offsets",k:"io",v:["runtime"]},
+ r_s1:{x:350,y:460,w:170,h:72,t:"A★ System 1",s:"1 pass · all words",k:"model",v:["runtime"]},
+ r_gate:{x:550,y:470,w:110,h:52,t:"conf < τ ?",s:"optional",k:"io",v:["runtime"]},
+ r_s2:{x:540,y:560,w:130,h:50,t:"System 2",s:"batch mode only",k:"s2",v:["runtime"]},
+ r_dec:{x:690,y:470,w:140,h:52,t:"Decision",s:"vs target + suggest",k:"io",v:["runtime"]},
+ r_out:{x:860,y:470,w:100,h:52,t:"JSON",s:"typed output",k:"io",v:["runtime"]},
+ c_tts:{x:985,y:440,w:105,h:46,t:"Pre-TTS guard",s:"real-time",k:"io",v:["runtime"]},
+ c_obs:{x:985,y:510,w:105,h:46,t:"Post-call eval",s:"observability",k:"io",v:["runtime"]},
+};
+const E=[
+ ["s_madar","f_d1","",[[170,75],[205,75]],"d"],
+ ["s_web","f_d2","",[[170,145],[205,145]],"d"],
+ ["s_web","f_d3","",[[185,145],[185,215],[205,215]],"d"],
+ ["s_router","f_gold","",[[185,215],[185,285],[205,285]],"d"],
+ ["s_lex","f_d1","",[[95,260],[95,240],[190,240],[190,90],[205,90]],"d"],
+ ["f_d1","g","",[[365,75],[400,75]],"d"],
+ ["f_d2","g","",[[365,145],[400,145]],"d"],
+ ["f_d3","g","",[[365,215],[400,215]],"d"],
+ ["f_gold","g","",[[365,285],[400,285]],"d"],
+ ["g","yahya","gold only",[[460,320],[460,340]],"q"],
+ ["g","ds_train","pass",[[520,98],[555,98]],"d"],
+ ["yahya","ds_gold","verified",[[520,362],[630,362],[630,306]],"q"],
+ ["ds_train","tr","",[[705,98],[740,88]],""],
+ ["tr","cart","dynamics",[[820,116],[820,150]],"q"],
+ ["cart","g","flags → re-review",[[740,175],[540,175],[540,200],[520,200]],"q"],
+ ["tr","art","",[[900,88],[935,88]],""],
+ ["art","ev","",[[1010,116],[1010,180],[860,180],[860,250]],""],
+ ["ds_gold","ev","eval only",[[705,278],[740,278]],"q"],
+ ["ev","rep","",[[900,278],[935,278]],""],
+ ["art","r_s1","deploy",[[1060,116],[1060,400],[435,400],[435,460]],"o"],
+ ["r_in","r_norm","",[[160,496],[190,496]],""],
+ ["r_norm","r_s1","words",[[320,496],[350,496]],""],
+ ["r_s1","r_gate","P(variety)",[[520,496],[550,496]],""],
+ ["r_gate","r_dec","confident",[[660,496],[690,496]],""],
+ ["r_gate","r_s2","uncertain",[[605,522],[605,560]],"o"],
+ ["r_s2","r_dec","",[[670,585],[760,585],[760,522]],"o"],
+ ["r_dec","r_out","",[[830,496],[860,496]],""],
+ ["r_out","c_tts","",[[960,490],[985,463]],""],
+ ["r_out","c_obs","",[[960,500],[985,533]],""],
+];
+const D={
+ s_madar:["MADAR-6 parallel corpus","11,600 جملة، كل واحدة بالمصري والخليجي (الدوحة) والـ MSA. مصدر D1. رخصته للأبحاث بس، فممنوع نوزّع النص.",[["rows","11,600"],["license","research"],["split","9k/1k/1.6k"]]],
+ s_web:["Real monolingual text","FineWeb2 (مصري ونجدي وMSA، ODC-BY) وتعليقات AOC. منه جمل حقيقية نحقن فيها (D2)، وجمل للـ teacher (D3).",[["license","ODC-BY / research"]]],
+ s_router:["HF router LLMs","بنستخدمه في مصدرين منفصلين تماماً. <b>Set A</b> (عيلات LLMs معينة وprompts معينة) للـ gold. و<b>Set B</b> (عيلات وprompts تانية خالص) لداتا التدريب الخاصة بالـ domain. ده بيمنع أي leakage بين التدريب والـ gold.",[["families","Qwen · Gemma · Llama · DeepSeek · Kimi · Aya"],["cost","cents"]]],
+ s_lex:["Corpus validity stats","r_v(w) = p_v(w) / max p. الكلمة valid في لهجة لو ظهرت 3 مرات أو أكتر وr ≥ 0.25. ده اللي رفع الـ realistic F1 من 0.63 لـ 0.80.",[["vocab","70k words"],["result","+17 F1 pts"]],true],
+ f_d1:["D1 · aligned mixing","SimAlign (itermax) على MARBERT، والـ MSA هو الـ anchor. بنحقن 1–3 كلمات مع الحفاظ على قواعد الجملة الأصلية، و30% من الجمل بتفضل من غير خلط.",[["sentences","46,400"],["build","~2 min on L4"]],true],
+ f_d2:["D2 · domain injection","جمل خدمة عملاء مصري حقيقية أو متولّدة من Set B، بنحقن فيها مقابلات من الـ lexicon في أماكن مناسبة نحوياً. ده هيعالج الـ FPs اللي على كلمات زي «تحدث» و«الخاصية» و«الشكوى».",[["target","~10–20k sentences"]]],
+ f_d3:["D3 · teacher labels","أنا (Claude) بعمل label لجمل حقيقية فيها خلط طبيعي. كل جملة بتتعلّم مرتين بترتيب مختلف، وأي اختلاف بين المرتين بيتشال. ولكل deviation سبب مكتوب.",[["target","1–2k sentences"],["gate","G4"]]],
+ f_gold:["Gold candidates","حوالي 300 جملة من Set A، أنا بعملها pre-label، وبعدين بتروح لـ Yahya.",[["egy","~250"],["msa","~60"],["glf","~60 (experimental)"]]],
+ g:["Data Guard","10 بوابات (G0 لـ G9) لكل داتا. التفاصيل في قسم Data Guard تحت.",[["rule","fail → back to source"]]],
+ yahya:["Yahya review","Yahya بيراجع كل كلمة في الـ gold في TSV على Google Sheets. وبعد 48 ساعة بيراجع 20% منهم تاني عشان نقيس ثباته (intra-annotator κ).",[["κ target","≥ 0.85 intra · ≥ 0.80 vs Claude"]]],
+ ds_train:["train / dev","Versioned، ولكل صف provenance (المصدر، والموديل اللي ولّده، ورقم الـ prompt، والرخصة). وكل نسخة ليها hash.",[["format","jsonl + data card"]]],
+ ds_gold:["GOLD","متجمّد ومعمول له hash. بنستخدمه في التقييم النهائي بس. مفيش tuning ولا اختيار موديل عليه، الـ dev للحاجات دي.",[["freeze","sha256 in repo"]]],
+ tr:["Train A★","MARBERT بيبدأ من ALDi-Token-DI، بـ pointer head، 2–3 epochs. على L4 الـ run بياخد حوالي 4 دقايق، يعني حوالي $0.06.",[["cost/run","≈$0.06"],["seeds","3 for CIs"]],true],
+ cart:["Cartography + cleanlab","بنحسب الـ training dynamics (الـ confidence والـ variability). والأمثلة اللي الموديل مش عارف يتعلّمها، ومعاها اللي cleanlab بيعلّم عليها، بترجع للـ guard عشان تتراجع.",[["review","top 300 flagged tokens"]]],
+ ev:["Eval harness","P/R/F1 على الـ gold، وbreakdown لكل label، وbootstrap CIs، وCheckList suite (MFT وINV وDIR)، وECE، والـ latency على CPU وGPU.",[["CI","bootstrap 1000×"]]],
+ art:["Model artifact","ONNX (fp16 للـ GPU، وint8 للـ CPU)، ومعاه model card وdata card.",[["target","p95 < 5 ms GPU · < 20 ms CPU"]]],
+ rep:["Report","جدول الـ ablation: rule، وبعده lexicon، وبعده ALDi-Token-DI كما هو، وبعده A، وبعده A★، وبعده A★+S2، كلهم على نفس الـ gold ومعاهم CIs.",[]],
+ r_in:["Agent reply","الـ input: نص الرد والـ target dialect.",[["api","detect(text, target)"],["cli","haseen-detect --target egy"]]],
+ r_norm:["Normalize","بنشيل التشكيل والتطويل، وبنوحّد الألف والياء والتاء المربوطة، وبنحتفظ بأماكن الحروف (offsets). بدونها 17% من الكلمات بتطلع UNK.",[["cost","≈0.3 ms"]],true],
+ r_s1:["A★ System 1","Forward pass واحد لكل الكلمات، وبيطلع احتمالات calibrated لكل كلمة.",[["GPU","8 ms eager · target 5"],["CPU","30 ms fp32 · target 20"]],true],
+ r_gate:["Confidence gate","Optional. الكلمات اللي احتمالها أقل من τ بتروح لـ System 2، في وضع الـ batch بس.",[]],
+ r_s2:["System 2","Encoder مركّز على كلمة واحدة بـ [TGT]، أو LLM local. بيتقيّم بعد D2 وD3.",[]],
+ r_dec:["Decision","بيقارن بالـ target، ويطبّق قاعدة «نعلّم على الدليل الموجود»، ويحط الاقتراح من الـ lexicon.",[]],
+ r_out:["JSON","الـ schema بتاع التاسك، وزودنا عليه offsets وvariety وsuggestion وmeta.",[]],
+ c_tts:["Pre-TTS guard","Real-time: قبل ما الرد يتنطق، يا إما نعلّم على الكلمة يا إما نبدّلها.",[]],
+ c_obs:["Post-call eval","Batch: درجة الالتزام باللهجة لكل مكالمة جوه الـ observability بتاع Tuner.",[]],
+};
+let view="all", selN=null;
+function drawMap(){
+  const fig=document.getElementById("mapfig"); fig.innerHTML="";
+  const svg=el("svg",{viewBox:"0 0 1100 630",class:"dg",role:"img","aria-label":"System map: offline data factory, Data Guard, training and evaluation above; online runtime path below"});
+  fig.appendChild(svg);
+  const defs=el("defs",{},svg);
+  [["m","currentColor"],["md","var(--data)"],["mq","var(--good)"],["mo","var(--s2)"]].forEach(([id,c])=>{const m=el("marker",{id,viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto-start-reverse"},defs);el("path",{d:"M0,0 L10,5 L0,10 z",fill:c},m);});
+  const lanes=el("g",{class:"lane"},svg);
+  el("rect",{x:8,y:20,width:1084,height:375,rx:12},lanes); const t1=el("text",{x:20,y:38},lanes); t1.textContent="OFFLINE · data → guard → train → eval";
+  el("rect",{x:8,y:425,width:1084,height:200,rx:12},lanes); const t2=el("text",{x:20,y:443},lanes); t2.textContent="ONLINE · runtime";
+  const gE=el("g",{},svg), gN=el("g",{},svg);
+  E.forEach(([f,t,lab,pts,k])=>{
+    const g=el("g",{class:"edge "+k,"data-f":f,"data-t":t},gE);
+    el("path",{d:"M"+pts.map(p=>p.join(",")).join(" L"),"marker-end":`url(#${k==="d"?"md":k==="q"?"mq":k==="o"?"mo":"m"})`},g);
+    if(lab){const a=pts[0],b=pts[1];const vert=Math.abs(a[0]-b[0])<2;const tx=el("text",{x:vert?a[0]+5:(a[0]+b[0])/2,y:vert?(a[1]+b[1])/2+4:a[1]-6,"text-anchor":vert?"start":"middle"},g);tx.textContent=lab;}
+  });
+  Object.entries(N).forEach(([id,n])=>{
+    const g=el("g",{class:"node "+n.k,"data-id":id,tabindex:"0",role:"button","aria-label":n.t+": "+n.s},gN);
+    el("rect",{x:n.x,y:n.y,width:n.w,height:n.h,rx:8},g);
+    const cx=n.x+n.w/2, cy=n.y+n.h/2;
+    if(id==="g"){
+      const a=el("text",{x:cx,y:n.y+28,"text-anchor":"middle",class:"t"},g);a.textContent=n.t;
+      ["G0 guideline","G1 provenance","G2 isolation","G3 gen QA","G4 teacher κ","G5 gold review","G6 label errors","G7 CheckList","G8 eval integrity","G9 repro"].forEach((s,i)=>{const x=el("text",{x:n.x+12,y:n.y+56+i*21.5,class:"s"},g);x.textContent=s;});
+    } else {
+      const a=el("text",{x:cx,y:cy-3,"text-anchor":"middle",class:"t"},g);a.textContent=n.t;
+      const b=el("text",{x:cx,y:cy+13,"text-anchor":"middle",class:"s"},g);b.textContent=n.s;
+    }
+    g.addEventListener("click",()=>{selN=id;applyView();drawer();});
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selN=id;applyView();drawer();}});
+  });
+  const cap=document.createElement("figcaption");
+  cap.textContent="كل داتا بتعدّي من الـ Data Guard. والـ gold بيروح مسار منفصل فيه مراجعة Yahya، ومش بيدخل التدريب أبداً. والـ cartography بيرجّع الأمثلة المشكوك فيها للـ guard تاني.";
+  fig.appendChild(cap);
+  applyView();
+}
+function applyView(){
+  document.querySelectorAll("#mapfig .node").forEach(g=>{const n=N[g.dataset.id];g.classList.toggle("dim",view!=="all"&&!n.v.includes(view));g.classList.toggle("sel",g.dataset.id===selN);});
+  document.querySelectorAll("#mapfig .edge").forEach(g=>{const a=N[g.dataset.f],b=N[g.dataset.t];g.classList.toggle("dim",view!=="all"&&!(a.v.includes(view)&&b.v.includes(view)));});
+}
+function drawer(){
+  const d=document.getElementById("drawer");
+  if(!selN){d.innerHTML=`<span class="eyebrow">click a box</span><h3>${{all:"النظام كله",data:"مصنع الداتا",quality:"بوابات الجودة",train:"التدريب والتقييم",runtime:"الـ Runtime"}[view]}</h3><p style="font-size:14.5px">${{all:"4 مصادر للداتا، وبعدها 4 مصانع، وبعدها Data Guard، وبعدها train/dev وgold منفصلين، وبعدها التدريب والتقييم، وفي الآخر موديل بيتعمله deploy على المسار الـ online.",data:"مصادر مختلفة، وكل واحد بيطلع داتا ليها provenance. وSet A وSet B منفصلين تماماً.",quality:"الأخضر هو الجودة: الـ guard، ومراجعة Yahya، والـ cartography، والـ eval. والـ gold مسار مقفول.",train:"التدريب على train/dev بس، والـ gold للتقييم النهائي. والـ cartography بيقفل الحلقة ويرجّع الأمثلة المشكوك فيها.",runtime:"Pass واحد بس للمسار الـ real-time. وSystem 2 للـ batch بس."}[view]}</p>`;return;}
+  const [h,p,kv,m]=D[selN]||[selN,"",[]];
+  d.innerHTML=`<span class="eyebrow">${selN}</span><h3>${h} ${m?'<span class="pill m">measured</span>':''}</h3><p style="font-size:14.5px">${p}</p>${kv.length?`<dl class="kv">${kv.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>`:""}<button type="button" id="clr">إغلاق</button>`;
+  document.getElementById("clr").onclick=()=>{selN=null;applyView();drawer();};
+}
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll("[data-view]").forEach(x=>x.setAttribute("aria-pressed",x===b));selN=null;applyView();drawer();});
+
+// ===================== MODEL INTERNALS =====================
+const OPTS=[["EGY","كلمة باللهجة المصرية"],["GLF","كلمة باللهجة الخليجية"],["MSA","كلمة بالعربية الفصحى"],["SHARED","كلمة مشتركة"],["OTHER","اسم علم / أجنبي / رقم"]];
+const WORDS=[
+ ["أنا",[.02,.01,.0,.97,.0]],["أبغى",[.01,.96,.02,.01,.0]],["أروح",[.05,.03,.02,.90,.0]],["الاجتماع",[.01,.0,.04,.95,.0]],
+ ["بكرة",[.93,.02,.0,.05,.0]],["بس",[.08,.05,.01,.86,.0]],["سوف",[.0,.02,.93,.05,.0]],["أتأخر",[.08,.03,.05,.84,.0]],["شوية",[.92,.03,.0,.05,.0]]];
+const LEV={"أنا":.01,"أبغى":.01,"أروح":.02,"الاجتماع":.0,"بكرة":.02,"بس":.06,"سوف":.0,"أتأخر":.02,"شوية":.04};
+let wi=6;
+function drawModel(){
+  const fig=document.getElementById("modelfig"); fig.innerHTML="";
+  const svg=el("svg",{viewBox:"0 0 980 300",class:"dg",role:"img","aria-label":"Pointer head: word vectors from the encoder are compared by dot product with cached option vectors, then temperature softmax gives calibrated probabilities"});
+  fig.appendChild(svg);
+  const defs=el("defs",{},svg);const m=el("marker",{id:"mm",viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto-start-reverse"},defs);el("path",{d:"M0,0 L10,5 L0,10 z",fill:"currentColor"},m);
+  const box=(x,y,w,h,t,s,k)=>{const g=el("g",{class:"node "+k},svg);el("rect",{x,y,width:w,height:h,rx:8},g);const a=el("text",{x:x+w/2,y:y+h/2-3,"text-anchor":"middle",class:"t"},g);a.textContent=t;if(s){const b=el("text",{x:x+w/2,y:y+h/2+13,"text-anchor":"middle",class:"s"},g);b.textContent=s;}};
+  const arr=(pts,lab)=>{const g=el("g",{class:"edge"},svg);el("path",{d:"M"+pts.map(p=>p.join(",")).join(" L"),"marker-end":"url(#mm)"},g);if(lab){const t=el("text",{x:(pts[0][0]+pts[1][0])/2,y:pts[0][1]-6,"text-anchor":"middle"},g);t.textContent=lab;}};
+  box(20,40,150,56,"normalized words","9 words · 1 sentence","io");
+  box(210,30,190,76,"MARBERT encoder","163M · warm start","model");
+  box(440,40,150,56,"h_word","first subword","io");
+  box(630,40,140,56,"proj_w","768 → 256 · L2","model");
+  box(20,190,150,56,"option texts","5 (+new) Arabic labels","io");
+  box(210,190,190,56,"same encoder","run once · cached","model");
+  box(440,190,150,56,"proj_o","768 → 256 · L2","model");
+  box(810,110,150,70,"dot · e^s / T","softmax per word","model");
+  arr([[170,68],[210,68]],"ids");arr([[400,68],[440,68]],"");arr([[590,68],[630,68]],"");
+  arr([[770,68],[885,68],[885,110]],"w");
+  arr([[170,218],[210,218]],"");arr([[400,218],[440,218]],"");arr([[590,218],[885,218],[885,180]],"options (cached)");
+  const cap=document.createElement("figcaption");cap.textContent="الفرق عن الـ linear head: الـ options هي نصوص بيقرأها نفس الـ encoder ويحفظ نتيجتها، فالـ head مش مربوط بعدد ثابت من الـ classes.";fig.appendChild(cap);
+}
+function renderWord(){
+  const add=document.getElementById("addLev").checked;
+  document.getElementById("wordpick").innerHTML=WORDS.map((w,i)=>`<button type="button" aria-pressed="${i===wi}" data-i="${i}">${w[0]}</button>`).join("");
+  document.querySelectorAll("#wordpick button").forEach(b=>b.onclick=()=>{wi=+b.dataset.i;renderWord();});
+  let probs=WORDS[wi][1].slice(); let opts=OPTS.slice();
+  if(add){const l=LEV[WORDS[wi][0]]??.02;probs=probs.map(p=>p*(1-l));probs.push(l);opts=opts.concat([["LEV","كلمة باللهجة الشامية"]]);}
+  const mx=Math.max(...probs);
+  document.getElementById("bars").innerHTML=opts.map(([k,txt],i)=>`<div class="brow ${probs[i]===mx?'win':''} ${k==='LEV'?'new':''}"><span class="lab">${k} · ${txt}</span><span class="btrack"><i style="width:${(probs[i]*100).toFixed(1)}%"></i></span><span class="v">${probs[i].toFixed(2)}</span></div>`).join("");
+  const devs=WORDS.filter(w=>{const p=w[1];const k=p.indexOf(Math.max(...p));return k===1||k===2;}).length;
+  document.getElementById("noulv").textContent=`→ ${devs?"no":"yes"} (p=${devs?0.04:0.95})`;
+  document.getElementById("scorev").textContent="→ 3.8 / 5";
+}
+document.getElementById("addLev").onchange=renderWord;
+
+// ===================== DATA GUARD =====================
+const GATES=[
+ {id:"G0",n:"Guideline + anchor set",who:"y",what:["Annotation guideline v1 مكتوبة، فيها 9 قواعد وأمثلة صح وغلط","Anchor set: 40 جملة صعبة، labels بتاعتها متفق عليها بيننا الاتنين","Ambiguity log: أي حالة جديدة بتتكتب وتتحل وتتضاف للـ guideline"],c:"guideline versioned · 40 anchors agreed 100%"},
+ {id:"G1",n:"Provenance + hygiene",who:"a",what:["كل صف فيه: المصدر، والموديل اللي ولّده، ورقم الـ prompt، والرخصة، والتاريخ","Dedup: exact وnear-duplicate (MinHash، Jaccard ≥ 0.8)","Filters: العربي ≥ 90%، وطول الجملة من 4 لـ 40 كلمة، ومفيش أرقام تليفونات أو إيميلات (PII)"],c:"0 rows without provenance · dup rate reported"},
+ {id:"G2",n:"Split isolation (no leakage)",who:"a",what:["الـ gold من Set A، والتدريب من Set B: عيلات LLMs مختلفة وprompts مختلفة","مفيش 8-gram مشترك بين train والـ gold، ومفيش near-duplicates","الـ gold متجمّد ومعمول له sha256 قبل أي تدريب"],c:"train∩gold 8-gram overlap = 0 · hash committed"},
+ {id:"G3",n:"Generation QA (D1/D2)",who:"y",what:["Spot-check على 100 alignment عشوائي في D1","Yahya يقيّم 100 جملة محقونة في D2: هل الجملة طبيعية؟ وهل الـ label صح؟","Sanity list: 60 كلمة معروفة لازم الإحصائيات تصنّفها صح"],c:"alignment acc ≥ 95% · injection natural ≥ 90% · sanity 60/60"},
+ {id:"G4",n:"Teacher consistency (D3)",who:"c",what:["كل جملة بتتعلّم مرتين بترتيب مختلف، وأي اختلاف بيتشال أو بيتراجع","لكل deviation سبب مكتوب","Calibration: أنا وYahya بنعلّم نفس الـ 200 جملة، ولازم κ يوصل للحد المطلوب قبل ما نكبّر"],c:"self-agreement ≥ 97% · κ(Claude,Yahya) ≥ 0.80 on deviation flag"},
+ {id:"G5",n:"Gold review",who:"y",what:["Yahya بيراجع كل كلمة في الـ gold، مش sample","بعد 48 ساعة بيراجع 20% منهم تاني (intra-annotator)","الحالات الغامضة بتتعلّم وبتتقاس لوحدها، ومش بتتحسب في الـ headline"],c:"intra κ ≥ 0.85 · 100% tokens reviewed · ambiguous ≤ 3%"},
+ {id:"G6",n:"Label-error mining",who:"a",what:["Dataset Cartography: الأمثلة اللي الموديل confidence فيها واطي والـ variability واطية = مرشّحة إنها label غلط","cleanlab find_label_issues لكل كلمة","أعلى 300 كلمة مشكوك فيها بتتراجع وتتصلّح، وبعدين نعيد التدريب"],c:"top-300 reviewed · fixed-rate logged · re-train delta reported"},
+ {id:"G7",n:"CheckList behavioral tests",who:"c",what:["MFT: كل marker معروف محقون في جملة مصري محايدة لازم يتمسك","INV: تغيير التشكيل أو علامات الترقيم أو اسم علم ميغيّرش القرار","DIR: تبديل هـ بـ سوف لازم يقلب القرار لـ deviation"],c:"MFT ≥ 95% · INV ≥ 98% · DIR ≥ 95% · runs in CI"},
+ {id:"G8",n:"Eval integrity",who:"a",what:["مفيش tuning ولا اختيار موديل على الـ gold، كله على الـ dev","Bootstrap CIs على الـ F1، و3 seeds","Breakdown لكل label ولكل target، ومعاه confusion matrix، والـ error analysis منشور كامل"],c:"report = mean ± 95% CI over 3 seeds"},
+ {id:"G9",n:"Reproducibility",who:"a",what:["Seeds ثابتة، والـ versions مثبّتة، ولكل dataset نسخة وhash","Data cards وmodel card","Fresh clone: أمر واحد بيعيد بناء الداتا وتشغيل التقييم"],c:"fresh clone → same numbers (±0.5 F1)"},
+];
+const WHO={y:["Yahya","y"],c:["Claude","c"],a:["auto","a"]};
+let gst=store("haseen-gates")||{};
+function renderGates(){
+  document.getElementById("gates").innerHTML=GATES.map(g=>`<article class="gate" data-st="${gst[g.id]||"todo"}">
+    <div class="gate-head"><div><span class="gid">${g.id}</span><h3>${g.n}</h3></div><span class="pill ${WHO[g.who][1]}">${WHO[g.who][0]}</span></div>
+    <ul>${g.what.map(w=>`<li>${w}</li>`).join("")}</ul>
+    <div class="crit">pass if: ${g.c}</div>
+    <label class="note" style="display:flex;gap:6px;align-items:center">الحالة:
+      <select id="gs-${g.id}" data-g="${g.id}"><option value="todo">لسه</option><option value="work">شغالين عليها</option><option value="pass">عدّت ✓</option><option value="fail">فشلت، ترجع</option></select></label>
+  </article>`).join("");
+  GATES.forEach(g=>{const s=document.getElementById("gs-"+g.id);s.value=gst[g.id]||"todo";s.onchange=()=>{gst[g.id]=s.value;store("haseen-gates",gst);renderGates();};});
+  const p=GATES.filter(g=>gst[g.id]==="pass").length;
+  document.getElementById("gprog").style.width=(100*p/GATES.length)+"%";
+  document.getElementById("gcount").textContent=`${p}/${GATES.length}`;
+}
+
+// ===================== PLAN =====================
+const DAYS=[
+ {d:"Mon 13 Oct",g:"الأساس: الـ guideline والـ gold والـ repo",t:[
+  ["Annotation guideline v1 + 40 anchor examples (we both agree)","c","G0"],
+  ["Repo skeleton: package, CLI, Python API, JSON schema, tests scaffold","c","G9"],
+  ["Gold Set A: generate ~400 Egyptian/MSA/Gulf replies via HF router (families A)","c","G2"],
+  ["Claude pre-labels gold batch 1 (100 sentences)","c","G5"],
+  ["Yahya labels the same 50-sentence calibration set blind → κ","y","G4"],
+  ["Fix guideline from disagreements (v1.1)","y","G0"]]},
+ {d:"Tue 14 Oct",g:"الـ gold يخلص، والـ lexicon، وD2",t:[
+  ["Yahya reviews all gold tokens (TSV, Google Sheets)","y","G5"],
+  ["Freeze gold v1 + sha256","c","G2"],
+  ["Lexicon EGY↔GLF↔MSA (function words first) checked against corpus stats","c","G3"],
+  ["D2 sources: Set B LLM families + AOC/FineWeb2 service-like sentences","c","G1"],
+  ["D2 injection + Yahya rates 100 samples for naturalness","y","G3"],
+  ["Provenance, dedup and leakage checks (train vs gold)","c","G2"]]},
+ {d:"Wed 15 Oct",g:"D3 teacher، والتدريب، والـ cartography",t:[
+  ["D3: Claude labels 1–2k real mixed sentences, double pass","c","G4"],
+  ["Train A★ + linear (3 seeds) on D1v2+D2+D3","c","G8"],
+  ["Cartography + cleanlab → top-300 flagged tokens","c","G6"],
+  ["Yahya + Claude review flagged tokens, fix, retrain","y","G6"],
+  ["First full eval on gold with CIs","c","G8"]]},
+ {d:"Thu 16 Oct",g:"الجودة، والسرعة، والهندسة",t:[
+  ["CheckList suite (MFT/INV/DIR) + CI","c","G7"],
+  ["Error analysis; decide linear vs pointer (rule: >2 F1)","y","G8"],
+  ["ONNX export; latency CPU int8 / GPU fp16","c","G9"],
+  ["System 2 (C) eval on low-confidence tokens (optional)","c","G8"],
+  ["CLI + Python API + typed /v1/systemone (if time)","c","G9"]]},
+ {d:"Fri 17 Oct",g:"التسليم",t:[
+  ["README: setup, exact commands, results, limitations, credits","c","G9"],
+  ["Production plan (licensing swap, serving, flywheel)","c",""],
+  ["Dockerfile + fresh-clone test on a clean sandbox","c","G9"],
+  ["Yahya final read-through + submit reply email","y",""]]},
+ {d:"Sat–Sun 18–19",g:"Buffer: مفيش شغل جديد هنا، بس إصلاحات",buffer:true,t:[
+  ["Only fixes from the fresh-clone test or Yahya's review","y",""],
+  ["Deadline: Sun 19 Oct 15:00 Cairo","y",""]]}
+];
+let tst=store("haseen-tasks")||{};
+function renderPlan(){
+  let total=0,done=0;
+  document.getElementById("days").innerHTML=DAYS.map((d,di)=>`<article class="day ${d.buffer?'buffer':''}"><h3>${d.d}</h3><p class="goal">${d.g}</p>${d.t.map((t,ti)=>{const id=`t${di}_${ti}`;total++;if(tst[id])done++;return `<div class="task ${tst[id]?'done':''}"><input type="checkbox" id="${id}" ${tst[id]?'checked':''}><div><label for="${id}" dir="ltr" style="display:block;text-align:right">${t[0]}</label><div class="meta"><span class="pill ${WHO[t[1]][1]}">${WHO[t[1]][0]}</span>${t[2]?`<span class="pill">${t[2]}</span>`:""}</div></div></div>`;}).join("")}</article>`).join("");
+  document.querySelectorAll(".task input").forEach(c=>c.onchange=()=>{tst[c.id]=c.checked;store("haseen-tasks",tst);renderPlan();});
+  document.getElementById("tprog").style.width=(100*done/total)+"%";
+  document.getElementById("tcount").textContent=`${done}/${total}`;
+}
+
+// ===================== DECISIONS =====================
+const DEC=[
+ ["Model","A★: MARBERT encoder، بيبدأ من ALDi-Token-DI، بـ pointer head، ومعاه calibration","Pilot: F1 0.874، وECE 0.008. والـ pointer ≈ الـ linear","الـ gold يطلّع الـ linear أحسن بأكتر من 2 F1"],
+ ["Not chosen","B decoder (Qwen3.5-2B)","الأخطاء سببها الـ domain والـ labels، مش حجم الموديل","الـ gold F1 أقل من 0.85 بعد D2 وD3"],
+ ["Not chosen","Jev / CLM لكل كلمة · LLM prompting · rules","N calls لكل جملة · الـ LLMs بترد باللهجة الصح 11% · الـ morphology F1 0.16","—"],
+ ["Labels","5 classes، والقرار مقارنةً بالـ target في الآخر","موديل واحد لكل الـ targets، والـ label الإضافي بييجي لوحده","—"],
+ ["SHARED","يتحدد بالـ validity على corpus كامل","Realistic F1 من 0.63 لـ 0.80","الإحصائيات تفشل في الـ sanity list (G3)"],
+ ["Targets","مصري أساسي، والـ MSA مدعوم، والخليجي experimental","مفيش حد خليجي يراجع الـ gold","نلاقي حد خليجي يراجع"],
+ ["Morphology rule","نعلّم على الدليل الموجود بس","متسق مع مثال Tuner (أتأخر = conforms)","—"],
+ ["Teacher","Claude في الـ session، والـ labels بتتراجع","LLMs بحجم 7B ضعيفة في اللهجات · NuNER · 2306.00176","κ(Claude,Yahya) أقل من 0.80"],
+ ["Compute","HF Sandbox/Jobs، وكل الصرف مسجّل","النت عندك 0.3 MB/s · الـ run على L4 حوالي $0.06","—"],
+ ["Aux heads","اتشالت (ALDi/DID)","مش متقاسة، والتصميم أبسط من غيرها","مشكلة في الكلمات المشتركة على الـ gold"],
+];
+document.getElementById("dtable").innerHTML=`<thead><tr><th>Area</th><th>Decision</th><th>Evidence</th><th>Revisit if</th></tr></thead><tbody>${DEC.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody>`;
+
+// ===================== BEYOND =====================
+const PH=[
+ ["Phase 1 · بعد التسليم","تنضيف ونشر",["نعيد تدريب HaSeen على داتا رخصتها تسمح بالنشر بس (FineWeb2 ODC-BY، وMIT/CC-BY، والداتا اللي Claude ولّدها)","Model card وdata card على HF","HF Space demo (ZeroGPU): تكتب جملة وتشوف لكل كلمة لهجتها والتصحيح"]],
+ ["Phase 2 · بحث","Technical report",["Benchmark مفتوح لـ word-level dialect fidelity في output الـ LLMs (Set A gold)","مقارنة بـ AMIYA ADI2 وALDi وALDi-Token-DI","Ablations: الـ labels، والـ head، والـ warm start، وSystem 2","نشره على arXiv مع ربطه بـ HF papers"]],
+ ["Phase 3 · توسّع","لهجات ووسائط أكتر",["Targets جديدة: الشامي والمغربي، بنفس الـ pointer options","STT transcripts (نص فيه noise ومن غير تشكيل)","Training data للـ LLMs: reward model للالتزام باللهجة (RL على ADI word-level)"]],
+ ["Phase 4 · منتج","Product",["Python SDK وCLI وREST /v1/systemone","Data flywheel: transcripts العملاء بتتعملها label من الـ teacher، والـ student بيتعاد تدريبه، والـ gold بيتعمل له refresh","Benchmarks على الـ latency والتكلفة للـ voice stacks (LiveKit وPipecat)"]],
+];
+document.getElementById("phases").innerHTML=PH.map(([a,b,l])=>`<div class="box"><span class="eyebrow">${a}</span><h3>${b}</h3><ul>${l.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("");
+
+// ===================== CONTRACT: stepper =====================
+const SW=[ // word, start, end, normalized, subwords, variety, p, suggestion
+ ["أنا",0,3,"انا",["انا"],"SHARED",.97,""],["أبغى",4,8,"ابغي",["ابغي"],"GLF",.96,"عايز"],["أروح",9,13,"اروح",["اروح"],"SHARED",.90,""],
+ ["الاجتماع",14,22,"الاجتماع",["الاجتماع"],"SHARED",.95,""],["بكرة",23,27,"بكره",["بكره"],"EGY",.93,""],["بس",28,30,"بس",["بس"],"SHARED",.86,""],
+ ["سوف",31,34,"سوف",["سوف"],"MSA",.93,"هـ"],["أتأخر",35,40,"اتاخر",["ات","##اخر"],"SHARED",.84,""],["شوية",41,45,"شويه",["شويه"],"EGY",.92,""]];
+const DEVSET=new Set(["GLF","MSA"]);
+const LOG={ // illustrative logits over [EGY,GLF,MSA,SHARED,OTHER] (after e^s, before /T)
+ "أبغى":[-1.9,6.1,-0.4,-1.1,-6.0],"سوف":[-4.2,-0.9,5.4,1.7,-5.8],"بكرة":[5.2,-0.6,-3.9,2.1,-6.2]};
+const STEPS=[
+ {t:"1 · Input",h:"النص والـ target زي ما وصلوا من الـ agent",shape:"text: str · target: str",
+  r:()=>`<pre class="code" dir="ltr">{"text": "أنا أبغى أروح الاجتماع بكرة بس سوف أتأخر شوية",
+ "target": "Arabic / Egyptian"}</pre>`},
+ {t:"2 · Split + offsets",h:"تقسيم على المسافات وعلامات الترقيم، ولكل كلمة مكانها بالحروف [start, end). الكلمة الأصلية مش بتتغيّر.",shape:"9 words · offsets[9][2]",
+  r:()=>`<div class="stgrid">${SW.map((w,i)=>`<div class="cell"><span class="w">${w[0]}</span><span class="a">#${i} [${w[1]},${w[2]})</span></div>`).join("")}</div>`},
+ {t:"3 · Normalize",h:"نشيل التشكيل والتطويل، ونخلّي أ/إ/آ ألف عادية، وى ياء، وة هاء (CODA*). ده الـ input اللي الموديل بيشوفه.",shape:"9 normalized words",
+  r:()=>`<div class="stgrid">${SW.map(w=>`<div class="cell ${w[3]!==w[0]?'first':''}"><span class="w">${w[3]}</span><span class="a">${w[3]!==w[0]?'changed':'same'}</span></div>`).join("")}</div>`},
+ {t:"4 · Subwords",h:"الـ tokenizer بتاع MARBERT بيقسّم الكلمات لـ subwords. الأزرق هو أول subword في كل كلمة، وده المكان اللي بنقرا منه قرار الكلمة. word_ids بيربط كل subword بكلمته.",shape:"input_ids, attention_mask: [1, 12] · word_ids: [None,0,1,…,7,7,8,None]",
+  r:()=>{let c=[`<div class="cell sub"><span class="w" dir="ltr">[CLS]</span><span class="a">None</span></div>`];SW.forEach((w,i)=>w[4].forEach((s,j)=>c.push(`<div class="cell ${j===0?'first':'sub'}"><span class="w">${s}</span><span class="a">w${i}${j===0?' · read':''}</span></div>`)));c.push(`<div class="cell sub"><span class="w" dir="ltr">[SEP]</span><span class="a">None</span></div>`);return `<div class="stgrid">${c.join("")}</div><p class="note">tokens هنا = 12 (توضيحي). متوسط الـ fertility المتقاس 1.86 subword لكل كلمة.</p>`;}},
+ {t:"5 · Encoder",h:"MARBERT بيطلع vector بـ 768 رقم لكل subword، وكل vector شايف الجملة كلها (bidirectional). بعدها بناخد vector أول subword بس من كل كلمة.",shape:"hidden: [1, 12, 768] → gather first subwords → h_word: [9, 768]",
+  r:()=>`<pre class="code" dir="ltr">hidden = encoder(input_ids, attention_mask).last_hidden_state   # [1, 12, 768]
+h_word = hidden[0, first_subword_index]                           # [9, 768]
+w      = normalize(proj_w(h_word))                                # [9, 256]</pre>`},
+ {t:"6 · Pointer head",h:"الخمس options نصوص عربي بتعدّي على نفس الـ encoder مرة واحدة وتتخزّن [5, 256]. والـ score هو dot product بين vector الكلمة وvector كل option.",shape:"logits = e^s · w @ o.T → [9, 5]",
+  r:()=>`<pre class="code" dir="ltr">o      = normalize(proj_o(encode(option_texts)))   # [5, 256]  cached once
+logits = exp(s) * w @ o.T                          # [9, 5]</pre><div class="tablebox"><table style="min-width:520px"><thead><tr><th>word</th><th>EGY</th><th>GLF</th><th>MSA</th><th>SHARED</th><th>OTHER</th></tr></thead><tbody>${Object.entries(LOG).map(([w,v])=>`<tr><td>${w}</td>${v.map(x=>`<td class="n">${x.toFixed(1)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p class="note">قيم توضيحية لـ 3 كلمات.</p>`},
+ {t:"7 · Calibrate",h:"softmax(logits / T)، وT اتحسبت على الـ dev (في الـ pilot طلعت حوالي 1.6). النتيجة احتمال حقيقي: لو 0.9، يبقى صح حوالي 90% من المرات.",shape:"probs: [9, 5] · each row sums to 1",
+  r:()=>`<div class="stgrid">${SW.map(w=>`<div class="cell"><span class="w">${w[0]}</span><span class="a">${w[5]} ${w[6].toFixed(2)}</span></div>`).join("")}</div>`},
+ {t:"8 · Decide",h:"القرار: الكلمة conforms لو لهجتها هي الـ target أو SHARED أو OTHER. غير كده deviation، ونجيب الاقتراح من الـ lexicon. ولو أعلى احتمال أقل من θ، الـ label بيبقى unknown.",shape:"conforms[9] · label · suggestion",
+  r:()=>`<div class="stgrid">${SW.map(w=>{const d=DEVSET.has(w[5]);return `<div class="cell ${d?'dev':''}"><span class="w">${w[0]}</span><span class="a">${d?(w[5]==="GLF"?"Arabic / Gulf":"Arabic / MSA"):"conforms"}</span>${w[7]?`<span class="a" style="color:var(--good)">→ ${w[7]}</span>`:""}</div>`}).join("")}</div>`},
+ {t:"9 · Output",h:"الـ JSON النهائي، بنفس شكل الـ Output اللي تحت.",shape:"dict (schema 1.0)",
+  r:()=>`<pre class="code" dir="ltr">{"target":"Arabic / Egyptian",
+ "tokens":[ …9 items with word, index, start, end, variety, conforms, confidence, label?, suggestion? ],
+ "deviations":["أبغى","سوف"],
+ "meta":{"latency_ms":4.1,"escalated_tokens":0}}</pre>`}
+];
+let st=0;
+function renderStep(){
+  document.getElementById("stTabs").innerHTML=STEPS.map((s,i)=>`<button type="button" role="tab" aria-selected="${i===st}" aria-pressed="${i===st}" data-s="${i}">${s.t}</button>`).join("");
+  document.querySelectorAll("#stTabs button").forEach(b=>b.onclick=()=>{st=+b.dataset.s;renderStep();});
+  const s=STEPS[st];
+  document.getElementById("stBody").innerHTML=`<p style="font-size:15px">${s.h}</p><span class="shape">${s.shape}</span>${s.r()}`;
+}
+document.getElementById("stPrev").onclick=()=>{st=Math.max(0,st-1);renderStep();};
+document.getElementById("stNext").onclick=()=>{st=Math.min(STEPS.length-1,st+1);renderStep();};
+
+// ===================== CONTRACT: dataset formats =====================
+const DS={
+ "Train row (D1/D2/D3)":{fmt:"jsonl · one sentence per line · data/{d1,d2,d3}/{train,dev}.jsonl",
+  ex:`{"id": "d1-train-000123-egy-1",
+ "tokens": ["بالتأكيد","كنا","مشغولين","واجد","امبارح","بس","النهارده","المكان","فاضي"],
+ "labels": ["MSA","SHARED","SHARED","GLF","EGY","SHARED","EGY","SHARED","EGY"],
+ "matrix": "EGY",            // variety of the host sentence = target used in eval
+ "n_dev": 2,                 // inserted deviations
+ "source": "madar6", "generator": "d1_align_inject@v2",
+ "prompt_id": null, "license": "madar-research",
+ "split": "train", "dataset_version": "d1v2", "seed": 13}`,
+  f:[["tokens","list[str]","الكلمات الأصلية بعد الـ split"],["labels","list[EGY|GLF|MSA|SHARED|OTHER]","label لكل كلمة، وطوله لازم يساوي tokens"],["matrix","EGY|GLF|MSA","لهجة الجملة الأصلية، وبتبقى هي الـ target في التقييم"],["n_dev","int","عدد الكلمات المحقونة"],["source / generator / prompt_id / license","str","الـ provenance (G1). أي صف ناقصه بيترفض"],["dataset_version / seed","str / int","عشان نقدر نعيد البناء بالظبط (G9)"]]},
+ "GOLD review TSV":{fmt:"tsv (CoNLL-style) · one word per row · blank line between sentences · opened in Google Sheets",
+  ex:`sent_id	idx	word	claude_variety	claude_conf	yahya_variety	deviates	label	suggestion	ambiguous	notes
+g-0007	0	تمام	SHARED	0.95	SHARED	0
+g-0007	1	يا	SHARED	0.97	SHARED	0
+g-0007	2	فندم	EGY	0.94	EGY	0
+g-0007	3	سوف	MSA	0.93	MSA	1	Arabic / MSA	هـ
+g-0007	4	أقوم	SHARED	0.71	SHARED	0			1	formal, no marker
+g-0007	5	بتحويلك	SHARED	0.80	SHARED	0				`,
+  f:[["claude_variety / claude_conf","pre-label","اقتراحي أنا. Yahya بيشوفه، بس قراره هو اللي بيتسجّل"],["yahya_variety","EGY|GLF|MSA|SHARED|OTHER","الـ label النهائي في الـ gold"],["deviates / label","0/1 · str","بيتحسبوا لوحدهم من yahya_variety والـ target"],["ambiguous","0/1","بيتقاس لوحده ومش بيتحسب في الرقم الرئيسي (G5)"],["notes","str","أي سبب، وبيروح للـ ambiguity log (G0)"]]},
+ "Calibration TSV (κ)":{fmt:"tsv · same columns, but Claude columns hidden from Yahya until both are done",
+  ex:`sent_id	idx	word	yahya_variety	(hidden) claude_variety
+c-0001	0	معلش	EGY	EGY
+c-0001	1	الطلب	SHARED	SHARED
+c-0001	2	ما	SHARED	SHARED
+c-0001	3	وصلش	EGY	EGY
+c-0001	4	ابغى	GLF	GLF
+→ kappa(deviates_yahya, deviates_claude) on all tokens; target ≥ 0.80`,
+  f:[["blind","—","Yahya بيعلّم من غير ما يشوف الـ labels بتاعتي"],["metric","Cohen κ","على الـ deviation flag، وعلى الـ variety كمان"]]},
+ "Lexicon TSV":{fmt:"tsv · data/lexicon.tsv · one concept per row",
+  ex:`concept	pos	egy	glf	msa	type	notes
+want	verb	عايز|عاوز	أبغى|أبي|أبا	أريد	function
+future	particle	هـ|حـ	بـ|راح	سوف|سـ	function	prefix on verb
+now	adv	دلوقتي	الحين|ذحين	الآن	content
+very	adv	أوي|قوي	وايد|واجد	جدا	content
+what	pron	إيه	وش|ايش	ماذا	function
+this.f	dem	دي	هذي	هذه	function`,
+  f:[["egy / glf / msa","alternatives (|)","المقابلات في كل لهجة، ومنها بنجيب الـ suggestion"],["type","function|content","الكلمات الوظيفية أولوية (Attia 2019)"],["check","G3","كل صف بيتأكد من إحصائيات الـ corpus"]]},
+ "Corpus stats JSON":{fmt:"json · lexstats.json (built, 70k words) · per word: [count, r] per variety",
+  ex:`"سوف":  {"EGY": [11, 0.0508], "GLF": [16, 0.2154], "MSA": [433, 1.0]},
+"وايد": {"EGY": [3, 0.0043],  "GLF": [273, 1.0],    "MSA": [6, 0.0042]},
+"خطا":  {"EGY": [26, 0.4046], "GLF": [16, 0.7441],  "MSA": [125, 1.0]},
+"عايز": {"EGY": [1077, 1.0],  "GLF": [14, 0.0398],  "MSA": [6, 0.0031]}
+// valid in v  ⇔  count ≥ 3 and r ≥ 0.25`,
+  f:[["count","int","عدد مرات الظهور في corpus اللهجة"],["r","float","p_v(w) ÷ أكبر p. لو قريب من 1 يبقى شائعة في اللهجة دي"]]},
+ "CheckList case":{fmt:"jsonl · tests/checklist/*.jsonl · run in CI",
+  ex:`{"type":"MFT","capability":"single MSA marker",
+ "text":"الشحنة سوف توصل بكرة","target":"egy",
+ "expect":{"deviations":["سوف"]}}
+{"type":"INV","capability":"diacritics",
+ "text":"الشحنة سَوفَ توصل بكرة","same_as":"previous"}
+{"type":"DIR","capability":"future marker swap",
+ "from":"الشحنة هتوصل بكرة","to":"الشحنة سوف توصل بكرة",
+ "expect":"deviation count increases"}`,
+  f:[["MFT","—","حالة بسيطة لازم تنجح"],["INV","—","تغيير صغير ميغيّرش القرار"],["DIR","—","تغيير بيقلب القرار في اتجاه معروف"]]},
+ "Eval report JSON":{fmt:"json · results/{model}/{gold_version}.json",
+  ex:`{"model":"HaSeen-V1-a-star@v1","gold":"gold-v1@sha256:…",
+ "seeds":[0,1,2],
+ "deviation":{"P":[0.0,0.0,0.0],"R":[…],"F1":{"mean":…,"ci95":[…,…]}},
+ "label_acc_on_TP":…, "ECE":…,
+ "by_target":{"EGY":…,"MSA":…,"GLF":…},
+ "checklist":{"MFT":…,"INV":…,"DIR":…},
+ "latency_ms":{"gpu_p50":…,"cpu_p95":…}}`,
+  f:[["ci95","[lo, hi]","bootstrap 1000× على الجمل (G8)"],["gold","version@hash","بيضمن إن الـ gold اللي اتقيّم عليه هو نفسه اللي اتجمّد"]]}
+};
+let dsk=Object.keys(DS)[0];
+function renderDS(){
+  document.getElementById("dsTabs").innerHTML=Object.keys(DS).map(k=>`<button type="button" role="tab" aria-pressed="${k===dsk}" data-k="${k}">${k}</button>`).join("");
+  document.querySelectorAll("#dsTabs button").forEach(b=>b.onclick=()=>{dsk=b.dataset.k;renderDS();});
+  const d=DS[dsk];
+  const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  document.getElementById("dsBody").innerHTML=`<div class="panel"><span class="shape">${d.fmt}</span><pre class="code" dir="ltr">${esc(d.ex)}</pre></div><div class="panel"><h3>Fields</h3><dl class="kv">${d.f.map(([a,b,c])=>`<dt dir="ltr">${a}</dt><dd style="direction:rtl;text-align:right;font-family:var(--f-body);font-size:13.5px"><span class="mono" dir="ltr">${b}</span> · ${c}</dd>`).join("")}</dl></div>`;
+}
+
+// ===================== boot =====================
+renderStep(); renderDS();
+drawMap(); drawer(); drawModel(); renderWord(); renderGates(); renderPlan();
+</script>

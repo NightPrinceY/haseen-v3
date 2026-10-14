@@ -1,0 +1,480 @@
+<title>HaSeen Training Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a lab notebook for one model — wide reading column, full-bleed figures, sticky section rail on desktop. */
+:root{
+  --bg:#f6f7f4; --surface:#ffffff; --sunk:#eef0ea; --ink:#1b2321; --muted:#5d6864; --line:#d9ddd5;
+  --egy:#0e8a7e; --egy-soft:#d5efe9; --glf:#c97a06; --glf-soft:#f8e7c8; --msa:#4656c9; --msa-soft:#dfe3fa;
+  --dia:#b83b78; --dia-soft:#f6d9e7; --oth:#6b7280; --unk:#a7aca5; --unk-soft:#e7e9e3;
+  --bad:#c8402b; --bad-soft:#fbe0da; --ok:#2f8a3f; --ok-soft:#dcf0df; --warn:#b77905;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-ar:"IBM Plex Sans Arabic","Readex Pro",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111615; --surface:#182120; --sunk:#0d1211; --ink:#e7ece9; --muted:#9aa7a2; --line:#2b3633;
+  --egy:#3cc2b3; --egy-soft:#123a35; --glf:#f0a83a; --glf-soft:#3d2c0e; --msa:#8a98ff; --msa-soft:#232a55;
+  --dia:#ee77ad; --dia-soft:#43182d; --oth:#9aa1ad; --unk:#69716d; --unk-soft:#232b29;
+  --bad:#ff7a63; --bad-soft:#47201a; --ok:#6fd283; --ok-soft:#173a20; --warn:#f2b442; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111615; --surface:#182120; --sunk:#0d1211; --ink:#e7ece9; --muted:#9aa7a2; --line:#2b3633;
+  --egy:#3cc2b3; --egy-soft:#123a35; --glf:#f0a83a; --glf-soft:#3d2c0e; --msa:#8a98ff; --msa-soft:#232a55;
+  --dia:#ee77ad; --dia-soft:#43182d; --oth:#9aa1ad; --unk:#69716d; --unk-soft:#232b29;
+  --bad:#ff7a63; --bad-soft:#47201a; --ok:#6fd283; --ok-soft:#173a20; --warn:#f2b442; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--f-body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 80px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(30px,5vw,48px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(22px,3vw,30px);font-weight:600}
+h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:72ch}
+.ar{font-family:var(--f-ar)}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;display:flex;flex-direction:column;gap:2px}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)} .rail{display:none}}
+.rail a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-left:2px solid var(--line)}
+.rail a:hover,.rail a:focus-visible{color:var(--ink);border-left-color:var(--msa);outline:none}
+section{display:flex;flex-direction:column;gap:18px;padding-block:44px 8px;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0;padding-top:8px}
+.hero{display:flex;flex-direction:column;gap:16px;padding-block:6px 30px}
+.vlegend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px}
+.sw{display:inline-flex;align-items:center;gap:6px}
+.sw i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.stat b{font:600 26px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.grid2>*{min-width:0}
+.fig{overflow-x:auto}
+.fig svg{display:block;max-width:none}
+.cap{font-size:13px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--sunk)}
+.seg button{font:500 13px var(--f-body);border:0;background:transparent;color:var(--muted);padding:7px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--msa);outline-offset:-2px}
+.exlist{display:flex;flex-wrap:wrap;gap:6px}
+.exlist button{font:500 12px var(--f-mono);border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;padding:5px 9px;cursor:pointer}
+.exlist button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink)}
+.sentence{direction:rtl;display:flex;flex-wrap:wrap;gap:6px;font:500 20px/1.4 var(--f-ar);padding:14px 4px}
+.tok{border-radius:8px;padding:4px 10px 6px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;gap:2px;background:var(--sunk)}
+.tok small{font:500 10px/1 var(--f-mono);letter-spacing:.04em;direction:ltr;color:var(--muted)}
+.tok.ok{background:var(--ok-soft)}
+.tok.dev{background:var(--bad-soft);border-color:var(--bad)}
+.tok.dev small{color:var(--bad)}
+.tok.unk{background:repeating-linear-gradient(135deg,var(--unk-soft) 0 6px,transparent 6px 12px)}
+.tok.inj{box-shadow:inset 0 -3px 0 var(--msa)}
+.tok.sel{outline:2px solid var(--ink)}
+.bits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.bit{border-radius:8px;padding:10px;text-align:center;border:1px solid var(--line)}
+.bit b{display:block;font:600 18px var(--f-display)}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;font-size:13.5px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+pre.json{font:12px/1.5 var(--f-mono);background:var(--sunk);border-radius:8px;padding:12px;overflow-x:auto;margin:0;white-space:pre}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tablewrap{overflow-x:auto}
+.pill{display:inline-block;font:500 11.5px var(--f-mono);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.pill.done{background:var(--ok-soft);color:var(--ok)}
+.pill.next{background:var(--msa-soft);color:var(--msa)}
+.pill.later{background:var(--unk-soft);color:var(--muted)}
+.pill.risk{background:var(--bad-soft);color:var(--bad)}
+.words{display:flex;flex-wrap:wrap;gap:5px;direction:rtl}
+.words span{font:500 14px var(--f-ar);padding:2px 8px;border-radius:6px}
+.formula{font:13px/1.7 var(--f-mono);background:var(--sunk);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:pre}
+.range{position:relative;height:22px;background:var(--sunk);border-radius:6px}
+.range .band{position:absolute;top:4px;bottom:4px;border-radius:4px;background:var(--msa-soft);border:1px solid var(--msa)}
+.range .tgt{position:absolute;top:0;bottom:0;width:2px;background:var(--bad)}
+.range .act{position:absolute;top:4px;width:12px;height:12px;border-radius:50%;background:var(--ok);border:2px solid var(--surface)}
+.range .pil{position:absolute;top:2px;width:10px;height:18px;border-radius:2px;background:var(--glf)}
+a{color:var(--msa)}
+@media (prefers-reduced-motion:no-preference){.tok{transition:background .15s,border-color .15s}}
+</style>
+<div class="wrap">
+<header class="hero">
+  <span class="eyebrow">HaSeen · dialect deviation detector · pre-training review · 12 Oct 2026</span>
+  <h1>Training blueprint</h1>
+  <p>What the model will learn from, how it is built, how it will be trained, and the results we expect before we see any. Every number on this page comes from the files in <span class="mono">HaSeen-V1/data/train_v3</span> and the scripts that built them.</p>
+  <div class="vlegend" aria-label="colour key">
+    <span class="sw"><i style="background:var(--egy)"></i>Egyptian</span>
+    <span class="sw"><i style="background:var(--glf)"></i>Gulf</span>
+    <span class="sw"><i style="background:var(--msa)"></i>MSA</span>
+    <span class="sw"><i style="background:var(--dia)"></i>Other dialect (Levantine, Maghrebi)</span>
+    <span class="sw"><i style="background:var(--unk)"></i>Unknown, masked in the loss</span>
+    <span class="sw"><i style="background:var(--bad)"></i>Deviates for the chosen target</span>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div class="layout">
+<nav class="rail" aria-label="sections">
+  <a href="#row">1 · One training row</a>
+  <a href="#pipeline">2 · How the data was built</a>
+  <a href="#data">3 · What is in it</a>
+  <a href="#guard">4 · Data Guard</a>
+  <a href="#model">5 · Model</a>
+  <a href="#head">6 · Heads, loss, decision</a>
+  <a href="#training">7 · Training plan</a>
+  <a href="#happened">7b · What happened</a>
+  <a href="#expected">8 · Expected vs actual</a>
+</nav>
+<main>
+
+<section id="row">
+  <span class="eyebrow">1 · the label</span>
+  <h2>One training row: three yes/no questions per word</h2>
+  <p>A word is not given one dialect label. It gets three bits: is it natural in Egyptian (the customer-service register Yahya validated), in Gulf, in MSA? A bit can be <b>unknown</b>; unknown bits are masked out of the loss, so the labeler never has to guess. The target is chosen at inference: a word deviates when its bit for the target is 0. One row therefore serves all three targets.</p>
+  <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div class="seg" role="group" aria-label="target variety" id="tseg">
+        <button type="button" data-t="EGY" aria-pressed="true">Target: Egyptian</button>
+        <button type="button" data-t="GLF" aria-pressed="false">Gulf</button>
+        <button type="button" data-t="MSA" aria-pressed="false">MSA</button>
+      </div>
+      <span class="cap">Underlined = word substituted by the builder · striped = unknown for this target · click a word</span>
+    </div>
+    <div class="exlist" id="exlist" aria-label="examples"></div>
+    <div class="sentence" id="sentence" aria-live="polite"></div>
+    <div class="grid2">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h3 id="wtitle">Word</h3>
+        <div class="bits" id="wbits"></div>
+        <dl class="kv" id="wkv"></dl>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+        <h3>The row as stored (train.jsonl)</h3>
+        <pre class="json" id="json"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline">
+  <span class="eyebrow">2 · pipeline</span>
+  <h2>How the data was built</h2>
+  <p>Real sentences come in on the left. A labeler that never guesses tags every word in its own sentence. Word alignment against MSA translations lets the builder swap single words between varieties while keeping the host grammar. Seven families of rows come out, pass the guards and are split. No API model was called; the only compute was 9 minutes on an L4 for alignment.</p>
+  <div class="panel fig"><svg id="pipe" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-label="Data pipeline: sources, labeler, alignment, row families, guards, splits"></svg></div>
+</section>
+
+<section id="data">
+  <span class="eyebrow">3 · contents</span>
+  <h2>What is in the training set</h2>
+  <div class="grid2">
+    <div class="panel"><h3>Rows by family and host variety</h3><div class="fig" id="famchart"></div><p class="cap">A = natural sentences; B = word swaps from aligned translations (B3 pivots Egyptian↔Gulf through the shared MSA sentence of MADAR); C/C2 = Lahga dictionary swaps checked against the translation; D = rule transforms that copy the leaks seen in the gold stress set.</p></div>
+    <div class="panel"><h3>Naturalness bits per variety (train, words)</h3><div class="fig" id="bitchart"></div><p class="cap">Gulf has the most unknown bits: the Gulf corpora are small, so a missing word is not taken as evidence that Gulf avoids it.</p></div>
+    <div class="panel"><h3>Sentences by source</h3><div class="fig" id="srcchart"></div></div>
+    <div class="panel"><h3>Sentence length (words)</h3><div class="fig" id="lenchart"></div><p class="cap">Kept: 4 to 40 words. Gold sentences have a median of about 17.</p></div>
+  </div>
+  <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+    <h3>Most frequent words the model learns as <span style="color:var(--bad)">not natural</span> in each variety</h3>
+    <div class="grid2" id="topwords"></div>
+  </div>
+  <div class="tablewrap panel"><table id="splits"><thead><tr><th>Split</th><th>Sentences</th><th>Words</th><th>What it is for</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="guard">
+  <span class="eyebrow">4 · quality gates</span>
+  <h2>Data Guard: where each gate stands</h2>
+  <div class="tablewrap panel"><table><thead><tr><th>Gate</th><th>Check</th><th>Result</th><th>Status</th></tr></thead><tbody id="guardrows"></tbody></table></div>
+</section>
+
+<section id="model">
+  <span class="eyebrow">5 · architecture</span>
+  <h2>Model: an Arabic encoder with three naturalness heads</h2>
+  <p>System 1 is a single forward pass. MARBERTv2 (163M parameters, trained on a billion Arabic tweets, dialect-heavy) is warm-started from ALDi-Token-DI, a MARBERT tagger already trained to tell dialect words from MSA words. Each word is read at its first subword. The heads are small; almost all capacity is in the encoder.</p>
+  <div class="panel fig"><svg id="arch" width="1080" height="700" viewBox="0 0 1080 700" role="img" aria-label="Model architecture from input text to JSON output"></svg></div>
+</section>
+
+<section id="head">
+  <span class="eyebrow">6 · heads, loss, decision</span>
+  <h2>What we add on top of the encoder</h2>
+  <div class="grid2">
+    <div class="panel" style="display:flex;flex-direction:column;gap:10px">
+      <h3>Variety pointer head (the main head)</h3>
+      <p>Each variety is a short option text ("مصري", "خليجي", "فصحى"), encoded once by the same encoder and cached. A word scores against each option by scaled cosine, so new varieties can later be added as new options. Each score goes through a sigmoid: the three answers are independent.</p>
+      <div class="formula">z_w = normalize(W_w · h_w)          W_w: 768 → 256
+o_v = normalize(W_o · enc(text_v))   W_o: 768 → 256, cached
+p(natural in v | w) = σ( e^s · z_w·o_v + b_v )
+v ∈ {EGY, GLF, MSA}                  s: learned scale</div>
+      <p class="cap">Ablation twin: a plain linear layer 768 → 3. In the pilot both reached the same F1; the pointer head was better calibrated (ECE 0.008).</p>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;gap:10px">
+      <h3>Small heads and the loss</h3>
+      <div class="formula">p_dia(w)   = σ(u_dia · h_w)    other dialect → "unknown"
+p_other(w) = σ(u_oth · h_w)    names, digits, Latin
+p_frm(w)   = σ(u_frm · h_w)    formal-register word (aux)
+
+L = Σ_w Σ_v m_wv · BCE(p_v, y_wv)      m_wv = 0 if unknown
+  + λ_dia · BCE_dia + λ_oth · BCE_oth + 0.2 · BCE_frm
+pos_weight on the 0-class (deviation) ≈ 3</div>
+      <p class="cap">Masked BCE is what makes the unknown bits safe: they contribute nothing, in either direction.</p>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;gap:10px">
+      <h3>Decision layer (no training, a few lines)</h3>
+      <div class="formula">deviates(w, t) = p_dia > τ_dia  or  p_t(w) < τ_t
+label(w, t)    = "unknown" if dia, else the variety v ≠ t
+                 with the highest p_v (order: Egyptian→MSA,Gulf;
+                 MSA→Egyptian,Gulf; Gulf→MSA,Egyptian)
+confidence     = calibrated 1 − p_t(w)   (temperature on dev)</div>
+      <p class="cap">τ is tuned on dev, never on gold. A later "strict colloquial Egyptian" policy can flag frm words without retraining.</p>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;gap:10px">
+      <h3>Input → output (the task's JSON)</h3>
+      <pre class="json">{"target": "Arabic / Egyptian",
+ "text": "حضرتك سوف يوصلك الطلب الحين",
+ "words": [
+  {"word":"حضرتك","conforms":true},
+  {"word":"سوف","conforms":false,"label":"Arabic / MSA","confidence":0.98},
+  {"word":"يوصلك","conforms":true},
+  {"word":"الطلب","conforms":true},
+  {"word":"الحين","conforms":false,"label":"Arabic / Gulf","confidence":0.97}]}</pre>
+    </div>
+  </div>
+</section>
+
+<section id="training">
+  <span class="eyebrow">7 · training plan</span>
+  <h2>Where it runs, what it costs, what is kept</h2>
+  <div class="grid2">
+    <div class="panel"><h3>Runs</h3><div class="tablewrap"><table id="runs"><thead><tr><th>Run</th><th>Head</th><th>Init</th><th>Seeds</th><th>Purpose</th></tr></thead><tbody></tbody></table></div></div>
+    <div class="panel"><h3>Settings</h3><dl class="kv" id="settings"></dl></div>
+    <div class="panel"><h3>Compute</h3><dl class="kv" id="compute"></dl></div>
+    <div class="panel"><h3>Everything that is saved</h3><dl class="kv" id="saved"></dl></div>
+  </div>
+</section>
+
+<section id="happened">
+  <span class="eyebrow">7b · the night of 13 October</span>
+  <h2>What happened in training</h2>
+  <div class="tablewrap panel"><table><thead><tr><th>Run</th><th>What</th><th>Result</th><th>Lesson</th></tr></thead><tbody>
+  <tr><td class="mono">R1-s13</td><td>pointer head v1, train_v3</td><td><span class="pill risk">collapsed</span> 466 false alarms on natural Egyptian</td><td>Option texts "كلمة طبيعية في اللهجة المصرية / الخليجية" encoded to the same vector, so the three bits moved together. Fix: each option gets its own learnable, orthogonally initialised vector.</td></tr>
+  <tr><td class="mono">R2-s13</td><td>linear head, train_v3</td><td><span class="pill done">works</span> Egyptian F1 0.958, MSA 0.58</td><td>Error analysis: the corpus test had marked service nouns (الفاتورة، الموظف) "not MSA"; ممكن + verb needs context. Also a decision-layer bug (label by max probability instead of the preference order).</td></tr>
+  <tr><td class="mono">R1v2-s13</td><td>pointer v2, train_v3</td><td><span class="pill done">works</span> dev 0.9865 vs 0.9845 linear</td><td>Pre-set rule chose the pointer head for the final runs.</td></tr>
+  <tr><td class="mono">R4v5 ×3</td><td>pointer v2, train_v5 (labeler fixes) + 193 service templates ×4</td><td><span class="pill done">best</span> Egyptian 0.970 ± 0.003 · MSA 0.70 · Gulf 0.76</td><td>Data fixes, not model changes, moved MSA and Gulf. CheckList INV and DIR 100%, MFT 24/26 (أبغى labeled MSA, أبعثلك missed).</td></tr>
+  <tr><td class="mono">R5v6 ×3</td><td>pointer v2, train_v6 (أبغى MSA bit 0, ث-spelling transforms)</td><td><span class="pill done">shipping</span> Egyptian 0.966 ± 0.005 · MSA 0.70 · Gulf 0.78 · MFT 24–25/26</td><td>Same as R4v5 within the CIs; أبغى now labeled Gulf. Shipping model chosen by dev score only: R5v6-s42. ONNX int8 on CPU: 11.3 ms p50, 99.8% same decisions.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="expected">
+  <span class="eyebrow">8 · pre-registered</span>
+  <h2>Expected results, written before training — and what happened</h2>
+  <p>These ranges are our prediction from the pilot (synthetic F1 0.87, realistic 0.80 with older labels) and from what the new data covers. After training we put the real number next to each band. A miss in either direction is information: too high on the challenge set means the substitutions are too easy; too low on egy_natural precision means formal words are still being flagged.</p>
+  <div class="tablewrap panel"><table><thead><tr><th>Gold file</th><th>What it measures</th><th>Metric</th><th style="min-width:220px">Expected band <span class="muted">(0 → 1)</span></th><th>Expected</th><th>Actual (R4v5, 3 seeds)</th></tr></thead><tbody id="exp"></tbody></table></div>
+  <div class="grid2">
+    <div class="panel"><h3>Risks we already see</h3><table><tbody id="risks"></tbody></table></div>
+    <div class="panel"><h3>Decision rules after the first run</h3><table><tbody id="rules"></tbody></table></div>
+  </div>
+</section>
+</main>
+</div>
+</div>
+<script>
+const D = {"train": {"rows": 89713, "tokens": 934739, "family_host": {"A|EGY": 25005, "A|GLF": 34090, "A|MSA": 6979, "B2|GLF": 924, "B2|EGY": 6130, "B1|MSA": 3842, "B3|EGY": 351, "B3|GLF": 323, "C|EGY": 103, "C2|EGY": 520, "D|EGY": 11446}, "source": {"madar6": 11796, "dial2msa_egy": 2044, "dial2msa_glf": 3254, "dial2msa_lev": 243, "dial2msa_mgr": 200, "oasst2_9k": 22875, "arabic_sts": 1212, "arabic_sts_saudi": 440, "nilechat_egy_msa_test": 2759, "nilechat_egy_msa_train": 18756, "saudi_conv": 24467, "saudi_cs": 1399, "lahga_examples": 268}, "bits": {"EGY:1": 847030, "GLF:1": 661082, "MSA:1": 661853, "dia": 537, "other": 2941, "frm": 17595, "GLF:-1": 228100, "MSA:-1": 70895, "MSA:0": 201991, "GLF:0": 45557, "EGY:0": 50625, "EGY:-1": 37084}, "len_hist": {"0": 9217, "5": 41338, "10": 21722, "15": 9204, "20": 4486, "25": 2129, "30": 986, "35": 562, "40": 69}, "top": {"EGY": [["وش", 5041], ["هذا", 2556], ["هذه", 2180], ["تدري", 1912], ["الحين", 1887], ["وربي", 1498], ["ياخي", 1381], ["يبه", 1307], ["يالبي", 1289], ["ابي", 1152], ["اشلون", 1150], ["شلون", 1098], ["ابغي", 1023], ["وين", 985]], "GLF": [["ده", 4623], ["مش", 3825], ["دي", 3148], ["كده", 1408], ["عايز", 1369], ["هل", 1214], ["دلوقتي", 802], ["ازاي", 742], ["اوي", 721], ["التي", 613], ["وده", 593], ["مفيش", 384], ["لن", 368], ["سيكون", 325]], "MSA": [["اللي", 9051], ["بس", 5756], ["وش", 5041], ["عشان", 4629], ["ده", 4623], ["مش", 3825], ["ايه", 3464], ["دي", 3148], ["لازم", 2689], ["زي", 2662], ["تدري", 1912], ["الحين", 1887], ["اكتر", 1593], ["كده", 1408]]}, "dia_top": [["بدي", 116], ["هون", 105], ["هيك", 70], ["شو", 42], ["علاش", 20], ["كيفاش", 17], ["هوني", 13], ["زلمه", 12], ["بده", 11], ["جوج", 10]]}, "dev": {"rows": 6691, "tokens": 63866, "family_host": {"A|MSA": 787, "A|GLF": 2259, "A|EGY": 1788, "B2|GLF": 141, "B2|EGY": 375, "B1|MSA": 259, "B3|EGY": 110, "B3|GLF": 91, "C|EGY": 6, "C2|EGY": 33, "D|EGY": 842}, "source": {"madar6": 3399, "dial2msa_egy": 111, "dial2msa_glf": 158, "dial2msa_lev": 8, "dial2msa_mgr": 9, "oasst2_9k": 1213, "arabic_sts": 48, "arabic_sts_saudi": 35, "nilechat_egy_msa_test": 113, "nilechat_egy_msa_train": 997, "saudi_cs_dev": 600}, "bits": {"EGY:1": 58045, "GLF:-1": 15091, "MSA:1": 45818, "dia": 123, "other": 238, "frm": 1404, "GLF:1": 45420, "EGY:-1": 2659, "MSA:-1": 5342, "MSA:0": 12706, "EGY:0": 3162, "GLF:0": 3355}, "len_hist": {"0": 930, "5": 3379, "10": 1243, "15": 613, "20": 303, "25": 134, "30": 43, "35": 39, "40": 7}, "top": {"EGY": [["الحين", 239], ["هذا", 208], ["هذه", 160], ["ابغي", 156], ["هذي", 151], ["شلون", 119], ["وين", 114], ["بغيت", 100], ["شنو", 70], ["دحين", 61], ["وش", 60], ["مو", 52], ["واجد", 51], ["اكثر", 50]], "GLF": [["ده", 343], ["مش", 263], ["دي", 209], ["هل", 185], ["عايز", 138], ["كده", 87], ["دلوقتي", 54], ["ازاي", 45], ["فين", 45], ["اوي", 44], ["يمكنك", 37], ["التي", 36], ["وده", 32], ["تلاته", 31]], "MSA": [["اللي", 550], ["بس", 374], ["ده", 343], ["عشان", 281], ["مش", 263], ["الحين", 239], ["دي", 209], ["لازم", 153], ["هذي", 151], ["ايه", 140], ["عايز", 138], ["زي", 123], ["شلون", 119], ["وين", 114]]}, "dia_top": [["هون", 39], ["بدي", 21], ["شو", 14], ["هونيك", 6], ["بزاف", 6], ["بسباب", 3], ["هيك", 3], ["كيفاش", 3], ["بدنا", 3], ["اشمن", 3]]}, "heldout": {"rows": 4283, "tokens": 47054, "family_host": {"A|GLF": 2644, "A|EGY": 631, "A|MSA": 230, "B1|MSA": 124, "B2|GLF": 67, "B2|EGY": 178, "B3|GLF": 14, "B3|EGY": 5, "C|EGY": 3, "C2|EGY": 76, "D|EGY": 311}, "source": {"madar6": 766, "dial2msa_egy": 22, "dial2msa_glf": 290, "dial2msa_lev": 10, "dial2msa_mgr": 9, "oasst2_9k": 643, "arabic_sts": 17, "nilechat_egy_msa_test": 79, "nilechat_egy_msa_train": 584, "saudi_conv": 1574, "saudi_cs": 195, "saudi_cs_dev": 84, "lahga_examples": 10}, "bits": {"EGY:1": 39766, "GLF:1": 37278, "MSA:1": 31937, "dia": 18, "other": 158, "frm": 919, "EGY:0": 4268, "MSA:-1": 3601, "MSA:0": 11516, "GLF:-1": 8260, "EGY:-1": 3020, "GLF:0": 1516}, "len_hist": {"0": 278, "5": 2042, "10": 1059, "15": 433, "20": 228, "25": 132, "30": 73, "35": 36, "40": 2}, "top": {"EGY": [["بنسوي", 440], ["خلنا", 260], ["وش", 246], ["يالبي", 140], ["الحين", 124], ["هذا", 104], ["وربي", 101], ["قصرتي", 99], ["اشلونج", 80], ["تدري", 70], ["هذه", 68], ["اشلون", 66], ["شلون", 65], ["ياخي", 65]], "GLF": [["ده", 162], ["مش", 128], ["هل", 101], ["دي", 101], ["عايز", 52], ["كده", 50], ["ازاي", 29], ["دلوقتي", 23], ["يمكنك", 22], ["التي", 19], ["وده", 19], ["اوي", 18], ["ماذا", 14], ["لم", 14]], "MSA": [["بنسوي", 440], ["اللي", 381], ["بس", 354], ["خلنا", 260], ["وش", 246], ["عشان", 165], ["ده", 162], ["ايه", 142], ["يالبي", 140], ["خلاص", 137], ["العافيه", 136], ["مش", 128], ["الحين", 124], ["يعطيك", 120]]}, "dia_top": [["هون", 4], ["بدي", 4], ["شو", 2], ["علاش", 2], ["هنايا", 1], ["تمانه", 1], ["هيك", 1], ["بزاف", 1], ["جوج", 1], ["صباط", 1]]}, "examples": [{"tokens": ["رقم", "الطلب", "هو", "بس", "وش", "بتسوون", "يعني"], "bits": [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 0], [0, 1, 0], [-1, 1, 0], [1, 1, 1]], "frm": [0, 0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0, 0], "inj": [], "family": "A", "host": "GLF", "source": "saudi_cs"}, {"tokens": ["مش", "كل", "المغنيات", "سيتغير", "صوتهم", "خلال", "فتره", "الحمل"], "bits": [[1, 0, 0], [1, 1, 1], [1, -1, -1], [0, 0, 1], [1, -1, -1], [1, 1, 1], [1, 1, 1], [1, 1, 1]], "frm": [0, 0, 0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0, 0, 0], "inj": [3], "family": "D", "host": "EGY", "source": "nilechat_egy_msa_train"}, {"tokens": ["لن", "ننسي", "لطفك", "ابدا"], "bits": [[0, 0, 1], [1, 1, 1], [1, -1, 1], [1, 1, 1]], "frm": [0, 0, 0, 0], "dia": [0, 0, 0, 0], "other": [0, 0, 0, 0], "inj": [0, 1], "family": "D", "host": "EGY", "source": "nilechat_egy_msa_train"}, {"tokens": ["هذا", "الفيلم", "يستحق", "الفرجه", "مره", "تانيه"], "bits": [[0, 1, 1], [1, 1, 1], [1, 1, 1], [1, -1, -1], [1, 1, 1], [1, -1, 0]], "frm": [0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0], "inj": [0], "family": "D", "host": "EGY", "source": "nilechat_egy_msa_train"}, {"tokens": ["أبغى", "سندوتش", "روز", "بيف", "وشويه", "قهوه"], "bits": [[0, 1, -1], [1, -1, 0], [1, 1, 1], [1, -1, -1], [1, 1, 0], [1, 1, 0]], "frm": [0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0], "inj": [0], "family": "D", "host": "EGY", "source": "nilechat_egy_msa_train"}, {"tokens": ["الله", "يشفيكم", "لن", "أقول", "غير", "هيك"], "bits": [[1, 1, 1], [1, -1, 1], [0, 0, 1], [1, 1, 1], [1, 1, 1], [0, 0, 0]], "frm": [0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 1], "other": [0, 0, 0, 0, 0, 0], "inj": [5], "family": "B1", "host": "MSA", "source": "dial2msa_lev"}, {"tokens": ["محتاج", "أعرف", "معلومات", "أكثر", "من", "كده"], "bits": [[1, -1, 0], [1, 1, 1], [1, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 0]], "frm": [0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0], "inj": [3], "family": "B2", "host": "EGY", "source": "oasst2_9k"}, {"tokens": ["بدي", "لعبة", "حق", "بنت", "عمرها", "خمس", "سنوات"], "bits": [[0, 0, 0], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1]], "frm": [0, 0, 0, 0, 0, 0, 0], "dia": [1, 0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0, 0], "inj": [0], "family": "B3", "host": "GLF", "source": "madar6"}, {"tokens": ["احنا", "متأخرين", "شوي", "بس", "ما", "تقلقش"], "bits": [[1, 1, 0], [1, 1, -1], [0, 1, 0], [1, 1, 0], [1, 1, 1], [1, -1, -1]], "frm": [0, 0, 0, 0, 0, 0], "dia": [0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0], "inj": [2], "family": "C2", "host": "EGY", "source": "madar6"}, {"tokens": ["هو", "في", "صناعه", "العربيات"], "bits": [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 0, 0]], "frm": [0, 0, 0, 0], "dia": [0, 0, 0, 0], "other": [0, 0, 0, 0], "inj": [3], "family": "B1", "host": "MSA", "source": "nilechat_egy_msa_train"}, {"tokens": ["والمبلغ", "صار", "متاح", "في", "حسابك", "الحين", "تقدرين", "تستخدمينه", "فورا", "لو", "حبيتي"], "bits": [[-1, 1, -1], [1, 1, 0], [1, 1, 1], [1, 1, 1], [1, 1, 1], [0, 1, 0], [0, 1, 0], [-1, 1, 0], [1, -1, 1], [1, 1, 1], [1, 1, 0]], "frm": [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], "dia": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "other": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "inj": [], "family": "A", "host": "GLF", "source": "saudi_cs"}, {"tokens": ["ممكن", "اسأل", "شو", "أسمك"], "bits": [[1, -1, -1], [1, 1, 1], [0, 0, 0], [1, 1, 1]], "frm": [0, 0, 0, 0], "dia": [0, 0, 1, 0], "other": [0, 0, 0, 0], "inj": [2], "family": "B3", "host": "EGY", "source": "madar6"}]};
+const V = ["EGY","GLF","MSA"], VN = {EGY:"Egyptian",GLF:"Gulf",MSA:"MSA"}, VC = {EGY:"var(--egy)",GLF:"var(--glf)",MSA:"var(--msa)"};
+const fmt = n => n.toLocaleString("en-US");
+const el = (t, a={}, h="") => { const e=document.createElement(t); for (const k in a) e.setAttribute(k,a[k]); if (h) e.innerHTML=h; return e; };
+const S = "http://www.w3.org/2000/svg";
+const s = (t,a={},txt) => { const e=document.createElementNS(S,t); for (const k in a) e.setAttribute(k,a[k]); if (txt!==undefined) e.textContent=txt; return e; };
+
+// ---------- hero stats
+const tr = D.train, dv = D.dev, ho = D.heldout;
+const fh = D.train.family_host;
+const goldTok = 4761+2824+2859+2952+1138;
+[[fmt(tr.rows),"training sentences"],[fmt(tr.tokens),"labeled words (train)"],["3 bits","per word: EGY · GLF · MSA"],
+ [fmt(dv.rows)+" / "+fmt(ho.rows),"dev / held-out sentences"],["0","8-grams shared with gold"],["$0.12","compute spent on this data"]]
+ .forEach(([b,t]) => document.getElementById("stats").append(el("div",{class:"stat"},`<b>${b}</b><span>${t}</span>`)));
+
+// ---------- example viewer
+let target="EGY", exi=0, sel=null;
+const fams = {A:"A · natural",B1:"B1 · MSA host + dialect word",B2:"B2 · dialect host + MSA word",B3:"B3 · MADAR pivot",C2:"C2 · Lahga swap",D:"D · rule transform"};
+const exlist=document.getElementById("exlist");
+D.examples.forEach((x,i)=>{ const b=el("button",{type:"button","aria-pressed":i===0?"true":"false"}, `${x.family} · ${x.host}`); b.onclick=()=>{exi=i;sel=null;[...exlist.children].forEach((c,j)=>c.setAttribute("aria-pressed",j===i?"true":"false"));draw();}; exlist.append(b); });
+document.querySelectorAll("#tseg button").forEach(b=>b.onclick=()=>{target=b.dataset.t;document.querySelectorAll("#tseg button").forEach(c=>c.setAttribute("aria-pressed",c===b?"true":"false"));draw();});
+function devOf(x,i,t){ if (x.dia[i]) return 1; const b=x.bits[i][V.indexOf(t)]; return b===-1?null:(b===0?1:0); }
+function labelOf(x,i,t){ if (x.dia[i]) return "unknown"; const ord={EGY:["MSA","GLF"],MSA:["EGY","GLF"],GLF:["MSA","EGY"]}[t]; for (const v of ord) if (x.bits[i][V.indexOf(v)]===1) return VN[v]; return "unknown"; }
+function draw(){
+  const x=D.examples[exi], box=document.getElementById("sentence"); box.innerHTML="";
+  x.tokens.forEach((w,i)=>{
+    const d=devOf(x,i,target), c=["tok", d===1?"dev":d===0?"ok":"unk", x.inj.includes(i)?"inj":"", sel===i?"sel":""].join(" ");
+    const tag = d===1 ? labelOf(x,i,target) : d===0 ? "conforms" : "unknown";
+    const b=el("button",{type:"button",class:c,"aria-label":w+": "+tag}, `${w}<small>${tag}</small>`);
+    b.onclick=()=>{sel=i;draw();}; box.append(b);
+  });
+  const i = sel===null ? (x.inj[0] ?? 0) : sel;
+  document.getElementById("wtitle").innerHTML = `Word <span class="ar" style="font-size:20px">${x.tokens[i]}</span>`;
+  const wb=document.getElementById("wbits"); wb.innerHTML="";
+  V.forEach((v,k)=>{ const b=x.bits[i][k]; const txt=b===1?"natural":b===0?"not natural":"unknown";
+    const bg=b===1?`var(--${v.toLowerCase()}-soft)`:b===0?"var(--bad-soft)":"var(--unk-soft)"; const fg=b===1?VC[v]:b===0?"var(--bad)":"var(--muted)";
+    wb.append(el("div",{class:"bit",style:`background:${bg}`},`<span class="eyebrow">${VN[v]}</span><b style="color:${fg}">${b===-1?"?":b}</b><span class="cap">${txt}</span>`)); });
+  document.getElementById("wkv").innerHTML = `<dt>other dialect</dt><dd>${x.dia[i]?"yes → label unknown":"no"}</dd><dt>formal register</dt><dd>${x.frm[i]?"yes":"no"}</dd><dt>name / digits</dt><dd>${x.other[i]?"yes":"no"}</dd><dt>substituted</dt><dd>${x.inj.includes(i)?"yes, by family "+x.family:"no, original word"}</dd><dt>row</dt><dd>${fams[x.family]||x.family} · host ${VN[x.host]} · ${x.source}</dd>`;
+  document.getElementById("json").textContent = JSON.stringify({family:x.family,host:x.host,source:x.source,tokens:x.tokens,bits:x.bits,dia:x.dia,frm:x.frm,other:x.other,inj:x.inj}).replace(/\],\[/g,"], [").replace(/,"/g,',\n "').replace(/^\{/,"{ ");
+}
+draw();
+
+// ---------- pipeline diagram
+(function(){
+  const g=document.getElementById("pipe");
+  g.append(s("defs",{}));
+  g.querySelector("defs").innerHTML='<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>';
+  g.style.color="var(--muted)";
+  const box=(x,y,w,h,fill,stroke,lines,opt={})=>{ g.append(s("rect",{x,y,width:w,height:h,rx:8,fill,stroke,"stroke-width":1.4}));
+    lines.forEach((t,i)=>g.append(s("text",{x:x+10,y:y+18+i*15,fill:i===0?"var(--ink)":"var(--muted)","font-size":i===0?12.5:11,"font-weight":i===0?600:400,"font-family":"IBM Plex Sans, IBM Plex Sans Arabic, sans-serif"},t))); };
+  const arrow=(x1,y1,x2,y2,lab)=>{ g.append(s("path",{d:`M${x1},${y1} C${(x1+x2)/2},${y1} ${(x1+x2)/2},${y2} ${x2},${y2}`,fill:"none",stroke:"currentColor","stroke-width":1.2,"marker-end":"url(#ar)"})); if(lab) g.append(s("text",{x:(x1+x2)/2,y:(y1+y2)/2-5,"text-anchor":"middle",fill:"var(--muted)","font-size":10.5,"font-family":"IBM Plex Mono, monospace"},lab)); };
+  const col=(x,t)=>g.append(s("text",{x,y:16,fill:"var(--muted)","font-size":11,"letter-spacing":"1.2","font-family":"IBM Plex Mono, monospace"},t));
+  col(10,"SOURCES"); col(250,"LABELER"); col(500,"ALIGN + BUILD"); col(740,"ROW FAMILIES"); col(940,"OUT");
+  const src=[["oasst2 EGY/MSA","9.4k assistant replies","var(--egy-soft)","var(--egy)"],["Nile-Chat EGY↔MSA","45k translation pairs","var(--egy-soft)","var(--egy)"],
+   ["Dial2MSA-Verified","EGY · GLF · LEV · MGR tweets","var(--glf-soft)","var(--glf)"],["MADAR-6","6 cities, one MSA sentence","var(--msa-soft)","var(--msa)"],
+   ["Najdi + Saudi CS","24k Gulf turns, customer service","var(--glf-soft)","var(--glf)"],["Arabic STS","EGY/MSA + Saudi, professional","var(--msa-soft)","var(--msa)"],
+   ["Lahga dictionary","25k forms, 2k MSA meanings","var(--dia-soft)","var(--dia)"]];
+  src.forEach((r,i)=>box(10,30+i*72,200,56,r[2],r[3],[r[0],r[1]]));
+  const lab=[["Core lexicon","245 hand-checked words, 20 context rules"],["Morphology","سـ+verb → MSA · هـ+verb, ما…ش → EGY"],["Corpus evidence","web lexstats + matched-domain counts"],["Lahga evidence","claims checked against corpora"],["Never guesses","weak evidence → bit unknown"]];
+  g.append(s("rect",{x:240,y:30,width:220,height:420,rx:12,fill:"var(--sunk)",stroke:"var(--line)"}));
+  lab.forEach((r,i)=>box(252,44+i*80,196,64,"var(--surface)",i===4?"var(--bad)":"var(--line)",[r[0],r[1]]));
+  box(490,60,210,70,"var(--msa-soft)","var(--msa)",["Word alignment","158k dialect↔MSA pairs","MARBERTv2 layer 8, L4, 9 min"]);
+  box(490,170,210,70,"var(--surface)","var(--line)",["Safe swap rule","confident 1-to-1 link, both","neighbours identical in host + donor"]);
+  box(490,280,210,70,"var(--surface)","var(--line)",["Hold-out","25% of Gulf lexical forms","never in train → challenge v2"]);
+  const fam=[["A natural",D.train.family_host],["B1 MSA host + dialect word"],["B2 dialect host + MSA word"],["B3 MADAR pivot EGY↔GLF"],["C/C2 Lahga swaps"],["D rule transforms"]];
+  const sumF=f=>Object.entries(fh).filter(([k])=>k.split("|")[0]===f||(f==="C"&&k.startsWith("C"))).reduce((a,[,n])=>a+n,0);
+  const fcount=["A","B1","B2","B3","C","D"].map(sumF);
+  fam.forEach((r,i)=>box(730,30+i*70,190,54,"var(--surface)","var(--line)",[r[0],fmt(fcount[i])+" rows"]));
+  box(940,40,130,60,"var(--ok-soft)","var(--ok)",["train",fmt(D.train.rows)+" rows"]);
+  box(940,120,130,60,"var(--msa-soft)","var(--msa)",["dev",fmt(D.dev.rows)+" rows"]);
+  box(940,200,130,60,"var(--glf-soft)","var(--glf)",["held-out",fmt(D.heldout.rows)+" rows"]);
+  box(940,300,130,96,"var(--surface)","var(--line)",["Guards","G1 provenance","G2 0 gold 8-grams","G3 Yahya 100/100"]);
+  src.forEach((r,i)=>arrow(210,58+i*72,240,240));
+  arrow(460,240,490,95,"tags"); arrow(460,240,490,205); arrow(460,240,490,315);
+  [95,205,315].forEach(y=>arrow(700,y,730,240));
+  arrow(920,240,940,70); arrow(920,240,940,150); arrow(920,240,940,230);
+  g.append(s("text",{x:10,y:548,fill:"var(--muted)","font-size":11,"font-family":"IBM Plex Mono, monospace"},"Every row keeps its source, family, host variety and the indices of substituted words."));
+})();
+
+// ---------- charts
+function hbar(id, rows, opts={}){
+  const W=opts.w||460, rh=24, pad=opts.pad||150, H=rows.length*rh+30, max=Math.max(...rows.map(r=>r.total||r.v));
+  const g=s("svg",{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":opts.label||"bar chart"});
+  const sc=v=>(W-pad-60)*v/max;
+  [0,.25,.5,.75,1].forEach(f=>{ const x=pad+sc(max*f); g.append(s("line",{x1:x,x2:x,y1:4,y2:H-22,stroke:"var(--line)"})); g.append(s("text",{x,y:H-6,"text-anchor":"middle","font-size":10,fill:"var(--muted)","font-family":"IBM Plex Mono, monospace"},fmt(Math.round(max*f/1000))+"k")); });
+  rows.forEach((r,i)=>{ const y=6+i*rh; g.append(s("text",{x:pad-8,y:y+14,"text-anchor":"end","font-size":11.5,fill:"var(--ink)","font-family":"IBM Plex Sans, sans-serif"},r.k));
+    let x=pad; (r.parts||[{v:r.v,c:r.c}]).forEach(p=>{ const w=sc(p.v); g.append(s("rect",{x,y:y+3,width:Math.max(w,0.5),height:rh-8,fill:p.c,rx:2})); x+=w; });
+    g.append(s("text",{x:x+6,y:y+14,"font-size":10.5,fill:"var(--muted)","font-family":"IBM Plex Mono, monospace"},fmt(r.total||r.v))); });
+  document.getElementById(id).append(g);
+}
+const fhRows = ["A","B1","B2","B3","C","C2","D"].map(f=>{ const parts=V.map(v=>({v:fh[f+"|"+v]||0,c:VC[v]})); return {k:{A:"A natural",B1:"B1 MSA+dialect",B2:"B2 dialect+MSA",B3:"B3 MADAR pivot",C:"C Lahga",C2:"C2 Lahga+align",D:"D transforms"}[f],parts,total:parts.reduce((a,p)=>a+p.v,0)}; });
+hbar("famchart", fhRows, {label:"rows by family, split by host variety"});
+document.getElementById("famchart").append(el("div",{class:"vlegend",style:"margin-top:6px"},V.map(v=>`<span class="sw"><i style="background:${VC[v]}"></i>${VN[v]} host</span>`).join("")));
+const B=tr.bits; const bitRows=V.map(v=>({k:VN[v],parts:[{v:B[v+":1"]||0,c:VC[v]},{v:B[v+":0"]||0,c:"var(--bad)"},{v:B[v+":-1"]||0,c:"var(--unk)"}],total:(B[v+":1"]||0)+(B[v+":0"]||0)+(B[v+":-1"]||0)}));
+hbar("bitchart", bitRows, {pad:90,label:"natural / not natural / unknown per variety"});
+document.getElementById("bitchart").append(el("div",{class:"vlegend",style:"margin-top:6px"},`<span class="sw"><i style="background:var(--egy)"></i>natural (variety colour)</span><span class="sw"><i style="background:var(--bad)"></i>not natural</span><span class="sw"><i style="background:var(--unk)"></i>unknown (masked)</span>`));
+const bitTbl=el("table",{style:"margin-top:8px"}); bitTbl.innerHTML="<thead><tr><th>Variety</th><th>natural</th><th>not natural</th><th>unknown</th></tr></thead><tbody>"+V.map(v=>{const t=(B[v+":1"]+B[v+":0"]+B[v+":-1"]);return `<tr><td>${VN[v]}</td><td class="num">${(100*B[v+":1"]/t).toFixed(1)}%</td><td class="num">${(100*B[v+":0"]/t).toFixed(1)}%</td><td class="num">${(100*B[v+":-1"]/t).toFixed(1)}%</td></tr>`}).join("")+`</tbody>`; document.getElementById("bitchart").append(bitTbl);
+const srcName={oasst2_9k:"oasst2 (EGY / MSA)",nilechat_egy_msa_train:"Nile-Chat train",nilechat_egy_msa_test:"Nile-Chat test",saudi_conv:"Najdi conversations",saudi_cs:"Saudi customer service",madar6:"MADAR-6",dial2msa_egy:"Dial2MSA EGY",dial2msa_glf:"Dial2MSA GLF",dial2msa_lev:"Dial2MSA LEV",dial2msa_mgr:"Dial2MSA MGR",arabic_sts:"Arabic STS EGY",arabic_sts_saudi:"Arabic STS Saudi",lahga_examples:"Lahga examples"};
+const srcCol={oasst2_9k:"var(--egy)",nilechat_egy_msa_train:"var(--egy)",nilechat_egy_msa_test:"var(--egy)",saudi_conv:"var(--glf)",saudi_cs:"var(--glf)",madar6:"var(--msa)",dial2msa_egy:"var(--egy)",dial2msa_glf:"var(--glf)",dial2msa_lev:"var(--dia)",dial2msa_mgr:"var(--dia)",arabic_sts:"var(--msa)",arabic_sts_saudi:"var(--glf)",lahga_examples:"var(--dia)"};
+hbar("srcchart", Object.entries(tr.source).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({k:srcName[k]||k,v,c:srcCol[k]||"var(--oth)"})), {label:"rows per source"});
+(function(){ const h=tr.len_hist, ks=Object.keys(h).map(Number).sort((a,b)=>a-b), W=460,H=200,max=Math.max(...Object.values(h)),bw=(W-60)/ks.length;
+  const g=s("svg",{width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"sentence length histogram"});
+  [0,.5,1].forEach(f=>{const y=H-30-(H-50)*f; g.append(s("line",{x1:40,x2:W-10,y1:y,y2:y,stroke:"var(--line)"})); g.append(s("text",{x:34,y:y+4,"text-anchor":"end","font-size":10,fill:"var(--muted)","font-family":"IBM Plex Mono, monospace"},fmt(Math.round(max*f/1000))+"k"));});
+  ks.forEach((k,i)=>{const bh=(H-50)*h[k]/max; g.append(s("rect",{x:44+i*bw,y:H-30-bh,width:bw-6,height:bh,fill:"var(--msa)",rx:2,opacity:.85})); g.append(s("text",{x:44+i*bw+(bw-6)/2,y:H-14,"text-anchor":"middle","font-size":10,fill:"var(--muted)","font-family":"IBM Plex Mono, monospace"},k===40?"40":k+"–"+(k+4)));});
+  document.getElementById("lenchart").append(g); })();
+const tw=document.getElementById("topwords");
+V.forEach(v=>{ const d=el("div",{style:"display:flex;flex-direction:column;gap:8px;min-width:0"}); d.append(el("div",{class:"eyebrow",style:`color:${VC[v]}`},"not natural in "+VN[v]));
+  const w=el("div",{class:"words"}); tr.top[v].forEach(([word,n])=>w.append(el("span",{style:`background:var(--bad-soft);color:var(--bad)`,title:fmt(n)+" times"},word))); d.append(w); tw.append(d); });
+{ const d=el("div",{style:"display:flex;flex-direction:column;gap:8px;min-width:0"}); d.append(el("div",{class:"eyebrow",style:"color:var(--dia)"},"other dialect → unknown")); const w=el("div",{class:"words"}); tr.dia_top.forEach(([word,n])=>w.append(el("span",{style:"background:var(--dia-soft);color:var(--dia)",title:fmt(n)+" times"},word))); d.append(w); d.append(el("p",{class:"cap"},"Only "+fmt(tr.bits.dia)+" words: the weakest part of the data.")); tw.append(d); }
+const sp=document.querySelector("#splits tbody");
+[["train",tr,"weights"],["dev",dv,"early stopping, temperature, thresholds τ (MADAR dev+test, 5% of the rest, 30 Saudi CS conversations)"],["held-out",ho,"challenge v2: sentences with Gulf words never seen in training"],["gold v1 (frozen)",{rows:794,tokens:goldTok},"final evaluation only; never used for tuning"]]
+ .forEach(([n,d,w])=>sp.append(el("tr",{},`<td>${n}</td><td class="num">${fmt(d.rows)}</td><td class="num">${fmt(d.tokens)}</td><td>${w}</td>`)));
+
+// ---------- guard table
+[["G0","Guideline v1.2 + v1.3 bits, 40 anchors","Labeler on anchors: 14 of 16 deviations caught, 1 unknown, 1 missed (وش read as «face»), 0 false alarms","done"],
+ ["G1","Provenance, licence and dedup on every row","13 sources, 1,722 duplicates removed","done"],
+ ["G2","Split isolation, gold frozen with sha256","0 shared 8-grams between any training row and gold","done"],
+ ["G3","Yahya reviews 100 Egyptian training sentences","100 / 100 accepted","done"],
+ ["G4","Teacher consistency","Labeler audited in 5 rounds on ~800k host words; about 30 homograph, loanword and over-reach errors fixed","done"],
+ ["G5","Gold reviewed by a native speaker","42 register checks; gold v1 frozen","done"],
+ ["G6","Label-error mining","cartography + cleanlab on the first run; review top 300 words","next"],
+ ["G7","CheckList behaviour tests","MFT markers, INV punctuation/diacritics, DIR هـ→سـ","next"],
+ ["G8","Evaluation integrity","3 seeds, bootstrap 95% CIs, no tuning on gold","next"],
+ ["G9","Reproducibility","pinned versions, seeds, one-command rebuild","later"]]
+ .forEach(([g,c,r,st])=>document.getElementById("guardrows").append(el("tr",{},`<td class="mono">${g}</td><td>${c}</td><td>${r}</td><td><span class="pill ${st}">${st}</span></td>`)));
+
+// ---------- architecture diagram
+(function(){
+  const g=document.getElementById("arch"); g.style.color="var(--muted)";
+  g.innerHTML='<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>';
+  const T=(x,y,t,o={})=>g.append(s("text",Object.assign({x,y,fill:"var(--ink)","font-size":12,"font-family":"IBM Plex Sans, IBM Plex Sans Arabic, sans-serif"},o),t));
+  const R=(x,y,w,h,f,st,r=8)=>g.append(s("rect",{x,y,width:w,height:h,rx:r,fill:f,stroke:st,"stroke-width":1.4}));
+  const A=(x1,y1,x2,y2)=>g.append(s("line",{x1,y1,x2,y2,stroke:"currentColor","stroke-width":1.3,"marker-end":"url(#ar2)"}));
+  const words=["حضرتك","سوف","يوصلك","الطلب","الحين"], cols=["var(--egy)","var(--msa)","var(--egy)","var(--oth)","var(--glf)"];
+  // input
+  T(20,24,"INPUT",{fill:"var(--muted)","font-size":11,"font-family":"IBM Plex Mono, monospace"});
+  words.slice().reverse().forEach((w,i)=>{R(180+i*150,8,130,32,"var(--surface)","var(--line)"); T(245+i*150,29,w,{"text-anchor":"middle","font-size":15,"font-family":"IBM Plex Sans Arabic, sans-serif"});});
+  T(950,29,"target = Egyptian",{"font-size":11,fill:"var(--muted)","font-family":"IBM Plex Mono, monospace"});
+  A(520,44,520,62);
+  R(160,64,720,36,"var(--sunk)","var(--line)"); T(176,87,"Normalize  (remove diacritics + tatweel · أإآ→ا · ى→ي · ة→ه)  →  MARBERTv2 WordPiece, 100k vocab, max 128 subwords",{"font-size":11.5});
+  A(520,100,520,118);
+  // encoder
+  R(160,120,720,190,"var(--msa-soft)","var(--msa)",12);
+  T(176,142,"Encoder · MARBERTv2 · 12 layers × 768 hidden × 12 heads · 162.6M params (HaSeen-1 V1)",{"font-weight":600});
+  T(176,160,"warm start: ALDi-Token-DI (MARBERT already fine-tuned to tag dialect vs MSA words)",{"font-size":11,fill:"var(--muted)"});
+  for(let l=0;l<12;l++){ R(176+l*58,174,50,84,"var(--surface)","var(--msa)",5); T(201+l*58,220,"L"+(l+1),{"text-anchor":"middle","font-size":11,"font-family":"IBM Plex Mono, monospace"}); }
+  T(176,284,"self-attention sees the whole sentence: the same word can be natural in one context and not in another (ممكن + verb in MSA)",{"font-size":11,fill:"var(--muted)"});
+  A(520,310,520,330);
+  R(160,332,720,36,"var(--sunk)","var(--line)"); T(176,355,"First-subword readout  h_w ∈ ℝ⁷⁶⁸  for each of the 5 words   (subword pieces of the same word are not scored)",{"font-size":11.5});
+  // heads
+  const hy=400;
+  [[20,"Variety pointer head","W_w 768→256 · cosine vs cached","option texts مصري · خليجي · فصحى","3 independent sigmoids","var(--surface)","var(--msa)"],
+   [300,"Other-dialect head","768→1 · sigmoid","Levantine / Maghrebi","→ label unknown","var(--dia-soft)","var(--dia)"],
+   [560,"Name / digit head","768→1 · sigmoid","names, brands, Latin","never deviates","var(--sunk)","var(--oth)"],
+   [820,"Formal-register head","768→1 · aux, weight 0.2","هل · يمكنك · نحن","for a strict policy later","var(--sunk)","var(--line)"]]
+   .forEach(([x,t1,t2,t3,t4,f,st])=>{ R(x,hy,240,108,f,st); T(x+12,hy+22,t1,{"font-weight":600}); T(x+12,hy+42,t2,{"font-size":11,fill:"var(--muted)"}); T(x+12,hy+60,t3,{"font-size":11,fill:"var(--muted)"}); T(x+12,hy+78,t4,{"font-size":11,fill:"var(--muted)"}); A(520,368,x+120,hy); });
+  // per word outputs
+  const oy=546; T(20,oy-8,"PER-WORD OUTPUT  p(natural in EGY · GLF · MSA)",{fill:"var(--muted)","font-size":11,"font-family":"IBM Plex Mono, monospace"});
+  const P=[[.97,.92,.30],[.03,.05,.99],[.95,.70,.20],[.98,.97,.97],[.04,.99,.02]];
+  words.slice().reverse().forEach((w,i)=>{ const j=words.length-1-i, x=180+i*150; R(x,oy,130,74,"var(--surface)","var(--line)");
+    T(x+65,oy+18,w,{"text-anchor":"middle","font-size":13,"font-family":"IBM Plex Sans Arabic, sans-serif"});
+    ["EGY","GLF","MSA"].forEach((v,k)=>{ const p=P[j][k]; R(x+10,oy+28+k*14,110,10,"var(--sunk)","none",3); R(x+10,oy+28+k*14,110*p,10,v==="EGY"?(p<.5?"var(--bad)":"var(--egy)"):VC[v],"none",3); }); });
+  A(90,508,90,640); A(520,620,520,640);
+  R(160,642,720,48,"var(--ok-soft)","var(--ok)"); T(176,662,"Decision layer for target = Egyptian:  سوف → p_EGY 0.03 → deviates, label MSA  ·  الحين → p_EGY 0.04 → deviates, label Gulf",{"font-size":11.5});
+  T(176,680,"thresholds τ and temperature are fitted on dev · output is the task JSON with per-word confidence",{"font-size":11,fill:"var(--muted)"});
+})();
+
+// ---------- training plan
+[["R1","pointer (3 bits)","ALDi-Token-DI","13 · 21 · 42","main model"],["R2","linear 768→3","ALDi-Token-DI","13","head ablation (pilot: equal F1)"],["R3","pointer","MARBERTv2 (no warm start)","13","does the warm start still help?"],["R4","R1 retrained","ALDi-Token-DI","13","after G6 label-error fixes, if any"]]
+ .forEach(r=>document.querySelector("#runs tbody").append(el("tr",{},r.map((c,i)=>`<td${i===3?' class="num"':""}>${c}</td>`).join(""))));
+const kv=(id,rows)=>document.getElementById(id).innerHTML=rows.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("");
+kv("settings",[["epochs","3 (best dev checkpoint kept)"],["batch","32 sentences, max 128 subwords"],["learning rate","4e-5 encoder · 1e-3 heads · 6% warmup · linear decay"],["precision","fp16 mixed"],["loss","masked BCE on 3 bits + dia + other + 0.2 × frm"],["class balance","pos_weight ≈ 3 on the not-natural class"],["dev check","every 500 steps: per-target F1 on dev"],["calibration","temperature per head on dev, then τ per target"]]);
+kv("compute",[["where","HF Sandbox, NVIDIA L4 (24 GB) — the local GPU has 3.7 GB"],["why remote","local internet ~0.3 MB/s; the L4 downloads the model and data in seconds"],["time","≈ 20 min per run · 6 runs ≈ 2 h"],["cost","≈ $0.80 / h → about $1.6, logged in compute-budget.md"],["safety","each run writes checkpoints + logs as it goes; a dropped connection loses nothing"]]);
+kv("saved",[["data","train_v3 (train / dev / held-out) + stats + sha256 manifest"],["config","every hyper-parameter, seed, library version, git commit"],["logs","loss and dev F1 every 500 steps (jsonl + plot)"],["model","best checkpoint per run + calibration file"],["predictions","per-word outputs on dev, held-out and gold (for error analysis)"],["where","private HF repo NightPrince/HaSeen-V1 (model + logs) and a local copy in HaSeen-V1/runs/"]]);
+
+// ---------- expected results
+const E=[["egy_natural","precision: natural Egyptian output","false alarms / words",[0,0.02],0.006,"≤ 0.6% of 4,761 words flagged (≤ ~30)",0.0003,"1–2 / 4,761"],
+ ["egy_challenge","recall: controlled Gulf / MSA swaps","F1",[0.90,0.96],0.93,"markers seen in training",0.988,"0.988 ± 0.003"],
+ ["egy_stress","real MSA leaks (سيتم، لن)","F1",[0.70,0.88],0.80,"only 12 deviations: wide CI",0.878,"0.878 ± 0.021"],
+ ["msa","Egyptian words inside MSA","F1",[0.70,0.82],0.76,"context cases like ممكن + verb",0.698,"0.698 ± 0.025"],
+ ["glf_experimental","strict Gulf target","F1",[0.55,0.72],0.63,"small Gulf data, 25% unknown bits",0.762,"0.762 ± 0.019"],
+ ["challenge v2 (held-out)","Gulf words never seen in training","recall",[0.55,0.72],0.63,"tests generalization beyond the lexicon",0.841,"0.841 ± 0.032"],
+ ["all deviations","label correct (MSA vs Gulf vs Egyptian)","accuracy",[0.93,0.98],0.96,"pilot: 0.92–1.00",0.96,"0.92–1.00"],
+ ["calibration","confidence matches accuracy","ECE",[0,0.03],0.015,"pilot 0.008 before the bit heads",0.0006,"0.0006"]];
+const et=document.getElementById("exp");
+E.forEach(([f,w,m,band,pt,note,act,actTxt])=>{ const tr=el("tr");
+  tr.innerHTML=`<td class="mono">${f}</td><td>${w}<div class="cap">${note}</div></td><td>${m}</td><td><div class="range" role="img" aria-label="expected ${band[0]} to ${band[1]}"><div class="band" style="left:${band[0]*100}%;width:${(band[1]-band[0])*100}%"></div><div class="pil" style="left:calc(${pt*100}% - 5px)"></div>${f==="egy_challenge"||f==="egy_stress"?'<div class="tgt" style="left:85%"></div>':""}<div class="act" style="left:calc(${Math.min(act,1)*100}% - 6px)"></div></div></td><td class="num">${band[0]}–${band[1]}</td><td class="num"><b>${actTxt}</b></td>`; et.append(tr); });
+et.parentElement.parentElement.append(el("p",{class:"cap",style:"margin-top:8px"},`<span class="sw"><i style="background:var(--msa-soft);border:1px solid var(--msa)"></i>expected band</span> &nbsp; <span class="sw"><i style="background:var(--glf)"></i>point estimate</span> &nbsp; <span class="sw"><i style="background:var(--bad)"></i>PRD target F1 0.85 (Egyptian)</span> &nbsp; <span class="sw"><i style="background:var(--ok);border-radius:50%"></i>actual</span> &nbsp; Latency target unchanged: p95 &lt; 20 ms CPU, &lt; 5 ms GPU (pilot: 8 ms GPU eager, before ONNX).`));
+[["Formal words flagged in Egyptian","The register rule is subtle; B2 rows teach conforming formal swaps, but this is still the most likely error.","risk"],
+ ["Other dialects are rare","537 words of Levantine / Maghrebi: the 'unknown' label will be weak.","risk"],
+ ["Gulf bits often unknown","24% of Gulf bits are masked; Gulf target quality depends on Najdi and Saudi CS data.","risk"],
+ ["Lahga swaps are noisier","C2 review found about 1 bad sense in 12; C + C2 are under 1% of rows.","risk"]]
+ .forEach(([a,b,c])=>document.getElementById("risks").append(el("tr",{},`<td><b>${a}</b><div class="cap">${b}</div></td><td><span class="pill ${c}">${c}</span></td>`)));
+[["egy_natural false alarms > 1%","inspect flagged words → add to core lexicon or B2 conform swaps → R4"],
+ ["Egyptian F1 < 0.85","error analysis first; decoder System 1 (B) only if errors need world knowledge"],
+ ["pointer ≈ linear (±1 F1)","ship pointer (calibration, open options)"],
+ ["held-out recall < 0.5","more Gulf hosts in Egyptian contexts (B3) before any model change"]]
+ .forEach(([a,b])=>document.getElementById("rules").append(el("tr",{},`<td class="mono" style="white-space:normal">${a}</td><td>${b}</td>`)));
+</script>

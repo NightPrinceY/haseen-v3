@@ -1,0 +1,424 @@
+# Claude labels for gold candidates v1. Default label = SHARED. Format: id: idx=LABEL ... | note
+# X = drop sentence (corrupted / incoherent). ? = pending native-speaker / corpus decision. DA_OTHER noted.
+g-egy-0000:
+g-egy-0001: 4=EGY 11=EGY 16=EGY
+g-egy-0002: 0=EGY 2=EGY 10=EGY 12=EGY 18=EGY 19=EGY
+g-egy-0003: 6=? | تؤكد pending Q14 (corpus r_EGY=0.16)
+g-egy-0004: 9=EGY 13=EGY
+g-egy-0005: 2=EGY 3=EGY 8=EGY 9=EGY 16=EGY
+g-egy-0006: 27=EGY
+g-egy-0007: 0=EGY 1=EGY
+g-egy-0008: 1=EGY 2=EGY 4=EGY 7=EGY 8=EGY
+g-egy-0009: 2=EGY 3=EGY 4=EGY 7=EGY 10=EGY 16=EGY 18=EGY
+g-egy-0010: 1=EGY 5=EGY 18=EGY
+g-egy-0011:
+g-egy-0012: X | corrupted CJK char + incoherent
+g-egy-0013: X | corrupted CJK/Latin mix
+g-egy-0014: 0=GLF 1=EGY 4=EGY 6=EGY 14=EGY 18=EGY 23=EGY | صافي=okay DA_OTHER:MAG ; أستطيع MSA (Egy أقدر)
+g-egy-0015: 3=? 6=EGY 12=? | دراية pending Q15 ; يمكن in بأسرع ما يمكن pending Q16 ; "بأسرع ما يمكن" MSA construction
+g-egy-0016: 3=? 5=EGY 8=EGY 10=EGY | عزيزي Q20
+g-egy-0017: 2=EGY 5=EGY 6=EGY 8=EGY 16=EGY 18=EGY
+g-egy-0018: 2=EGY 3=EGY 5=EGY 7=EGY 8=EGY
+g-egy-0019: 4=EGY 6=? 9=EGY | تؤكدلي pending Q14
+g-egy-0020: 0=EGY 2=EGY 3=EGY 4=EGY 10=EGY 13=EGY 21=EGY
+g-egy-0021: 2=EGY 5=EGY 18=EGY 22=EGY
+g-egy-0022: 0=EGY 2=EGY 3=EGY 4=EGY 10=EGY 16=EGY 20=EGY
+g-egy-0023: 2=EGY 4=EGY
+g-egy-0024: 13=EGY
+g-egy-0025: 1=EGY
+g-egy-0026: 5=EGY
+g-egy-0027: 9=EGY
+g-egy-0028: 1=EGY 2=EGY 5=EGY 6=EGY 12=EGY
+g-egy-0029: 4=EGY 7=EGY 8=EGY 13=EGY
+g-egy-0030: 2=EGY 15=EGY 16=EGY
+g-egy-0031: 6=EGY
+g-egy-0032: 0=EGY
+g-egy-0033: 1=? 2=EGY 4=EGY 5=EGY 8=EGY 9=EGY | جدا pending Q6
+g-egy-0034: 0=EGY 6=EGY 7=EGY
+g-egy-0035: | تنلغي garbled verb, kept SHARED
+g-egy-0036:
+g-egy-0037: 1=EGY 4=EGY 8=EGY
+g-egy-0038: 3=EGY 9=EGY 17=EGY 20=EGY 21=EGY
+g-egy-0039: 4=EGY 6=EGY
+g-egy-0040: 0=EGY 2=EGY 3=EGY 4=EGY 7=EGY 8=EGY 16=EGY
+g-egy-0041: 2=EGY 5=EGY 24=EGY
+g-egy-0042: 0=EGY 2=EGY 4=EGY 6=EGY 16=EGY 17=EGY 21=EGY 22=EGY 23=EGY
+g-egy-0043: 0=EGY
+g-egy-0044: 1=EGY 7=EGY 8=EGY 9=EGY 11=EGY 12=EGY
+g-egy-0045: 1=? | "أهلا بك" vs Egyptian "أهلا بيك" pending
+g-egy-0046: 1=EGY 2=EGY 18=EGY 23=EGY 25=EGY 28=EGY 31=EGY
+g-egy-0047: 0=EGY
+g-egy-0048: 1=EGY 5=EGY
+g-egy-0049: 1=EGY 2=EGY 5=EGY 6=EGY 8=EGY 10=EGY 11=EGY
+g-egy-0050: 2=EGY 4=EGY 11=EGY
+g-egy-0051: 0=EGY 1=EGY
+g-egy-0052: 0=EGY 4=EGY 7=EGY 11=EGY | تفضل used oddly, kept SHARED
+g-egy-0053: X | CJK char
+g-egy-0054: X | Hangul + Latin mid-word
+g-egy-0055: X | incoherent (بلقسم)
+g-egy-0056: 2=EGY 5=EGY 6=EGY 11=EGY
+g-egy-0057: 2=EGY 5=EGY 11=EGY
+g-egy-0058: 7=EGY
+g-egy-0059: 2=EGY 5=EGY 6=EGY
+g-egy-0060: 0=EGY 2=EGY 14=EGY 37=EGY
+g-egy-0061: 0=EGY 2=EGY 3=EGY 13=EGY 16=EGY 26=EGY 32=EGY
+g-egy-0062: 0=EGY 2=EGY 3=EGY 4=EGY 7=EGY 8=EGY 12=EGY 13=EGY 15=EGY
+g-egy-0063: 2=EGY 6=EGY
+g-egy-0064: 10=EGY 15=EGY 16=EGY
+g-egy-0065: 0=EGY 2=EGY 6=EGY 8=EGY 9=EGY 10=EGY 11=EGY
+g-egy-0066: 1=EGY 5=EGY 15=EGY 18=EGY
+g-egy-0067: 4=EGY
+g-egy-0068: 1=EGY 2=EGY 3=EGY 11=EGY 12=EGY
+g-egy-0069: 3=EGY 6=EGY 12=EGY
+g-egy-0070: 0=EGY 6=EGY 9=EGY 12=EGY
+g-egy-0071: 5=EGY
+g-egy-0072: 3=EGY 6=EGY | أعطيني (Egy: اديني)
+g-egy-0073: | موعد corpus r_EGY=0.17 (Egy ميعاد/معاد) ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0074: | هاتفك corpus r_EGY=0.04 (Egy تليفونك/موبايلك) ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0075: X | incoherent (وهين رسولوه)
+g-egy-0076: 2=EGY
+g-egy-0077: 2=EGY 3=EGY 5=EGY 8=EGY 9=EGY
+g-egy-0078: 5=EGY
+g-egy-0079: 5=? | تؤكدلي pending Q14
+g-egy-0080: 0=EGY 2=EGY 3=EGY 10=EGY 21=EGY 23=EGY 27=EGY
+g-egy-0081: 2=EGY 17=EGY 25=EGY 27=EGY
+g-egy-0082: 2=EGY 5=EGY 14=EGY
+g-egy-0083: 0=EGY
+g-egy-0084: 1=? 6=EGY | جدا Q6
+g-egy-0085: 10=EGY
+g-egy-0086: 1=EGY 2=EGY 4=EGY 8=EGY 9=EGY
+g-egy-0087: 0=EGY
+g-egy-0088: 1=EGY 2=? 6=EGY 10=EGY | جدا Q6
+g-egy-0089: 8=EGY
+g-egy-0090: 1=EGY 9=OTHER | فوري = payment brand
+g-egy-0091: 2=EGY 4=EGY 7=EGY
+g-egy-0092: 1=EGY 5=MSA 8=EGY 13=EGY 14=EGY | أكثر (ث) spoken Egy أكتر; corpus r=0.31 overruled (written-register bias), logged
+g-egy-0093: 2=? 11=EGY 15=EGY 21=EGY | تزودنا (=provide) Q18
+g-egy-0094: 4=EGY 8=EGY 15=EGY
+g-egy-0095: 5=EGY | قادمة (Egy الجاية); corpus r=0.48 overruled, logged ; طلابتك typo kept SHARED
+g-egy-0096: 7=EGY 12=EGY | موعد ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0097: 1=EGY 3=EGY 5=EGY 7=GLF | البناية (Egy العمارة) Gulf/Levantine
+g-egy-0098: 14=EGY
+g-egy-0099: 5=EGY 6=EGY
+g-egy-0100: 0=EGY 2=EGY 24=EGY 32=EGY 33=EGY
+g-egy-0101: 2=EGY 7=EGY 24=EGY
+g-egy-0102: 0=EGY 2=EGY 3=EGY 4=EGY 8=EGY 10=EGY 13=? 19=EGY 20=EGY 21=EGY 29=EGY 33=EGY | عبر Q17
+g-egy-0103: 0=EGY
+g-egy-0104: 17=EGY 18=EGY
+g-egy-0105: 2=EGY 3=EGY 6=EGY 10=? 11=EGY 14=EGY 16=EGY | لا=no SHARED ; احذر Q19
+g-egy-0106: 2=EGY 3=EGY 5=EGY 13=EGY 19=EGY 20=EGY 27=EGY
+g-egy-0107: 1=EGY 8=EGY
+g-egy-0108: 0=EGY 5=EGY 10=EGY
+g-egy-0109: 1=EGY 2=EGY 5=EGY 11=EGY
+g-egy-0110: 3=EGY 6=EGY 10=EGY 14=EGY
+g-egy-0111: 5=EGY
+g-egy-0112: | هاتف corpus r=0.39 valid → SHARED
+g-egy-0113: 4=EGY 5=EGY 17=OTHER
+g-egy-0114: X | Latin + Cyrillic mid-sentence
+g-egy-0115: X | incoherent (كل ما فيه السبل)
+g-egy-0116: 3=EGY | تعطيني → SHARED (Yahya Q40 أعطيني natural)
+g-egy-0117: 3=? 7=EGY 9=EGY 11=EGY 14=EGY 18=EGY 19=EGY 20=EGY | عزيزي Q20
+g-egy-0118: 3=EGY 6=EGY 15=EGY
+g-egy-0119: 1=EGY
+g-egy-0120: 9=EGY 12=EGY 14=EGY
+g-egy-0121: 0=EGY 14=EGY 17=EGY 22=EGY 23=EGY
+g-egy-0122: 0=EGY 2=EGY 3=EGY 10=EGY 24=EGY 32=EGY
+g-egy-0123: 2=EGY 3=EGY 9=EGY
+g-egy-0124: 1=? 3=EGY 5=EGY 6=EGY 9=EGY | للغاية Q21 (corpus r=0.50 vs intuition MSA)
+g-egy-0125: 1=? 8=EGY 10=EGY 16=EGY | جدا Q6
+g-egy-0126: 5=EGY
+g-egy-0127: 0=EGY 1=EGY
+g-egy-0128: 1=EGY 5=EGY 8=EGY
+g-egy-0129: 0=EGY 1=EGY 3=EGY 6=EGY 15=EGY
+g-egy-0130: 1=EGY 2=EGY 10=EGY 19=EGY
+g-egy-0131: 2=EGY 5=EGY 7=EGY
+g-egy-0132: 0=EGY 3=EGY 4=EGY 6=EGY 11=EGY
+g-egy-0133: X | Latin inside word + garbled
+g-egy-0134: X | CJK
+g-egy-0135: X | Hangul + garbled
+g-egy-0136: 7=EGY 11=EGY 13=EGY 15=EGY 18=EGY
+g-egy-0137: 2=EGY 10=EGY 15=EGY 16=EGY
+g-egy-0138: 4=EGY 6=EGY 11=EGY 13=EGY
+g-egy-0139: 3=EGY 10=EGY
+g-egy-0140: 2=EGY 3=EGY 4=EGY 8=EGY 15=EGY 23=EGY
+g-egy-0141: 0=EGY 2=EGY 4=EGY 9=EGY 12=EGY
+g-egy-0142: 2=EGY 4=EGY 5=EGY 17=EGY 23=? 24=EGY | لكن Q7
+g-egy-0143: 0=EGY
+g-egy-0144: 3=EGY 5=EGY 6=EGY 8=EGY 10=EGY 12=EGY 15=EGY 17=EGY 20=EGY 21=EGY
+g-egy-0145:
+g-egy-0146: 2=EGY 5=EGY 6=EGY 8=EGY 12=EGY 14=EGY
+g-egy-0147: 1=EGY 2=EGY
+g-egy-0148: 1=EGY 3=EGY 7=EGY
+g-egy-0149: 0=EGY
+g-egy-0150: 3=EGY 8=EGY 11=EGY 13=EGY
+g-egy-0151: 0=EGY 1=? 5=EGY | جدا Q6
+g-egy-0152: X | garbled token (زنان)
+g-egy-0153: 1=EGY 5=EGY 12=EGY 26=EGY | معنا ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0154: 0=EGY 3=EGY 6=EGY 7=EGY 17=EGY 19=EGY 20=EGY | أخبرك corpus r_EGY=0.05 ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0155: 2=EGY 5=EGY 6=EGY
+g-egy-0156:
+g-egy-0157: 8=? 11=EGY | معنا ; عبر Q17 ; نفيدك (Egy نقولك) ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0158: 6=? 7=EGY | إذا Q8
+g-egy-0159: 1=EGY
+g-egy-0160: 2=EGY 3=EGY 4=EGY 8=EGY 14=EGY
+g-egy-0161: 2=EGY 17=EGY 19=EGY 20=EGY 21=EGY 24=EGY | على قد ما = Egyptian
+g-egy-0162: 2=EGY 3=? 18=EGY 20=EGY | هل Q4 ; "يمكنك تزويدي ... حتى أتمكن" MSA inside a natural-style reply
+g-egy-0163: 2=EGY 5=EGY 6=EGY
+g-egy-0164: 11=EGY 14=EGY 16=EGY | أعد (imperative, Egy اعمل ريستارت)
+g-egy-0165: 2=EGY 3=EGY 5=EGY 6=EGY 7=EGY 8=EGY 12=EGY | لا تقلق (Egy متقلقش)
+g-egy-0166: 1=EGY 6=EGY 10=EGY 13=EGY 16=EGY 19=EGY
+g-egy-0167: 0=EGY
+g-egy-0168: 0=EGY 1=? 6=EGY | جدا Q6
+g-egy-0169: 0=EGY 1=? 2=EGY 6=EGY | جدا Q6
+g-egy-0170: 0=EGY 10=EGY
+g-egy-0171: 3=EGY 6=EGY 7=EGY
+g-egy-0172: X | nonsense word (أسعار العنف) + garbled
+g-egy-0173: X | garbled verb (نفسحلك)
+g-egy-0174: 0=EGY 2=EGY 8=EGY 14=EGY
+g-egy-0175: 3=? 6=EGY 12=? | Q15 Q16
+g-egy-0176: 6=EGY
+g-egy-0177: 4=EGY 9=EGY 10=EGY | متى (Egy إمتى)
+g-egy-0178: 2=EGY 5=EGY 6=EGY 8=EGY
+g-egy-0179: 1=EGY 8=EGY
+g-egy-0180: 4=EGY 10=EGY 17=EGY 18=EGY
+g-egy-0181: 0=EGY 2=EGY 5=EGY 6=EGY 10=EGY 11=EGY 21=EGY 24=EGY | تعطينا → SHARED (Q40)
+g-egy-0182: 6=? 7=EGY 8=EGY | جدا Q6 ; نقدًا tanween
+g-egy-0183: 6=EGY 13=EGY 16=EGY | لا تقلق
+g-egy-0184: 5=EGY 10=EGY
+g-egy-0185: 3=EGY 6=EGY 7=EGY 12=EGY 14=EGY 15=EGY 24=EGY 25=EGY
+g-egy-0186: 0=EGY
+g-egy-0187: 1=EGY 2=EGY 6=EGY 14=EGY
+g-egy-0188: 1=EGY 2=EGY 3=EGY 8=EGY
+g-egy-0189: 2=EGY
+g-egy-0190: 5=EGY 7=EGY
+g-egy-0191: X | garbled verb (هسنتلك)
+g-egy-0192: 1=EGY 10=EGY 16=? | عبر Q17
+g-egy-0193: X | CJK
+g-egy-0194: X | garbled
+g-egy-0195: 1=EGY 2=EGY | كيف يمكنني
+g-egy-0196: 3=EGY 6=EGY 10=EGY
+g-egy-0197: 5=EGY
+g-egy-0198: 1=EGY 22=EGY 26=EGY 27=EGY
+g-egy-0199: 1=EGY 3=EGY 8=EGY 19=EGY 23=EGY 24=EGY
+g-egy-0200:
+g-egy-0201:
+g-egy-0202: 1=EGY 3=EGY 10=EGY
+g-egy-0203: 4=EGY 5=EGY 6=EGY 8=EGY 10=EGY 11=EGY 15=EGY 23=EGY 24=EGY
+g-egy-0204: 4=EGY
+g-egy-0205: 1=EGY 2=EGY 3=EGY 5=EGY 13=EGY
+g-egy-0206: 1=EGY 2=EGY 5=EGY 13=EGY
+g-egy-0207: 1=EGY 2=EGY 12=EGY
+g-egy-0208: 2=EGY 4=EGY 6=EGY
+g-egy-0209: X | garbled (يبقى قد الرحلة، أنتا)
+g-egy-0210: X | Latin inside word (.Fill)
+g-egy-0211: 2=EGY 5=EGY 6=EGY | فی with Persian yeh, kept
+g-egy-0212: 3=EGY 5=EGY 6=EGY 7=EGY 10=EGY 12=EGY 13=EGY 19=EGY
+g-egy-0213: 12=EGY | معنا ; موعد ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0214: 0=EGY 1=EGY
+g-egy-0215: 4=EGY 21=EGY
+g-egy-0216: 0=EGY 2=EGY 3=EGY 9=EGY 13=EGY 17=EGY 18=EGY 26=EGY
+g-egy-0217: 16=EGY 17=EGY 24=EGY
+g-egy-0218: 2=EGY 5=EGY 6=EGY
+g-egy-0219: 14=EGY
+g-egy-0220: 0=EGY 2=EGY 3=EGY 5=EGY 6=EGY 7=EGY 18=MSA | أبعثلك (ث; Egy أبعتلك)
+g-egy-0221: 2=EGY 6=EGY
+g-egy-0222: 1=EGY
+g-egy-0223: 1=EGY 2=EGY 3=EGY 9=EGY
+g-egy-0224: 2=EGY 6=EGY 7=EGY 10=EGY 11=EGY
+g-egy-0225: 6=EGY 8=EGY
+g-egy-0226: X | garbled (انتكتبتها)
+g-egy-0227: 1=EGY 9=EGY | هاتفك ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0228: 2=? | عزيزي Q20 ; تمامًا tanween ; تخبرنا
+g-egy-0229: 1=EGY 4=EGY 9=EGY
+g-egy-0230: 4=EGY 10=EGY
+g-egy-0231: 2=EGY 3=EGY 5=EGY 12=EGY 22=EGY 23=EGY
+g-egy-0232: 0=EGY 2=EGY 3=EGY 4=EGY 14=EGY 15=EGY 18=EGY 20=EGY 32=EGY 34=EGY 37=EGY | مسبقًا tanween
+g-egy-0233: 0=EGY 2=EGY 4=EGY 6=EGY 7=EGY 12=? 16=EGY 22=EGY | وهل Q4 ; توفرلي (=provide)
+g-egy-0234: 1=EGY 2=EGY 6=EGY 13=EGY
+g-egy-0235: 3=EGY 4=EGY 5=EGY 9=EGY 18=EGY | لا تقلق
+g-egy-0236: 1=EGY 4=EGY 6=EGY 11=EGY 15=EGY 26=EGY
+g-egy-0237:
+g-egy-0238: 1=EGY 11=EGY
+g-egy-0239: 0=EGY 3=EGY 9=EGY
+g-egy-0240:
+g-egy-0241: 0=EGY 2=EGY 6=EGY
+g-egy-0242: X | garbled (يجيولك، ويرجعلهك)
+g-egy-0243: 2=? 11=EGY | عزيزي Q20
+g-egy-0244: 1=EGY 4=EGY 11=EGY 16=EGY
+g-egy-0245: 2=EGY 5=EGY 7=EGY
+g-egy-0246: 0=EGY 2=EGY 5=EGY 6=EGY 10=EGY
+g-egy-0247: 20=EGY 23=EGY
+g-egy-0248: 1=? 3=EGY 4=EGY 7=EGY 10=EGY 15=EGY 17=EGY | جدا Q6
+g-egy-0249: 2=EGY 4=EGY 10=EGY
+g-egy-0250: 2=EGY 4=EGY 9=EGY 11=EGY 16=EGY 17=EGY 19=EGY 25=EGY
+g-egy-0251:
+g-egy-0252: 1=EGY 2=? 3=EGY 6=EGY 8=EGY 14=EGY | جدا Q6
+g-egy-0253: 1=EGY 2=EGY 9=EGY
+g-egy-0254: 5=EGY 6=EGY
+g-egy-0255: X | CJK
+g-egy-0256: 2=? 12=EGY | عزيزي Q20
+g-egy-0257: 1=EGY 4=EGY 5=EGY 8=EGY 11=EGY
+g-egy-0258: 15=EGY 16=EGY 19=EGY
+g-egy-0259: 0=EGY 2=EGY 3=EGY 4=EGY 14=EGY 20=EGY
+g-egy-0260: 1=? 5=EGY 8=EGY 11=EGY 14=EGY | جدا Q6
+g-egy-0261: 3=EGY 4=EGY 6=? 14=EGY 16=EGY | جدا Q6
+g-egy-0262: 1=? 4=EGY 6=EGY 10=? 11=EGY 14=EGY 19=EGY 21=EGY | جدا Q6 ; حاليا Q9
+g-egy-0263: 1=EGY 4=? 9=EGY 16=EGY 20=EGY | جدا Q6
+g-egy-0264:
+g-egy-0265: 8=EGY 13=EGY 14=? | اليوم(=today), الثانية/الخامسة ordinals, موعد ; الآن Q2 ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0266: 1=EGY 8=EGY 14=EGY
+g-egy-0267: 2=? 5=EGY 7=EGY 11=EGY | عزيزي Q20
+g-egy-0268: 0=EGY 2=EGY 3=EGY 15=EGY 16=EGY 17=EGY 27=EGY 30=EGY 38=EGY
+g-egy-0269: 1=EGY 2=EGY
+g-egy-0270: 1=EGY 5=EGY 8=EGY
+g-egy-0271: 1=EGY 3=EGY 10=EGY 12=EGY 17=EGY
+g-egy-0272: 2=EGY 4=EGY 5=EGY 7=EGY 8=EGY 9=EGY 11=EGY 17=EGY
+g-egy-0273: 1=? 3=EGY 5=? 8=? 15=EGY | بك Q13 ; حاليا Q9 ; جدا Q6
+g-egy-0274: X | Latin inside word (postupلنا)
+g-egy-0275: 7=EGY
+g-egy-0276: | full-MSA refusal: ذلك، ولا أستطيع
+g-egy-0277: 2=EGY 11=EGY 16=EGY 21=EGY 24=EGY | ترسلها (Egy تبعتها)
+g-egy-0278: 1=EGY 3=EGY 4=EGY
+g-egy-0279: 1=EGY 2=EGY 14=EGY
+g-egy-0280: 1=EGY 5=EGY 7=? 10=EGY 30=EGY 31=EGY 35=EGY | حاليا Q9
+g-egy-0281: 1=EGY 2=EGY 7=EGY 9=EGY
+g-egy-0282: 9=EGY 10=EGY 17=? 26=EGY | وإذا Q8 ; تتعلق
+g-egy-0283: 1=EGY 2=EGY 4=EGY 5=EGY 9=EGY 10=EGY 17=EGY 21=EGY
+g-egy-0284: 0=EGY 7=? 17=EGY 18=EGY | لكن Q7 ; يفضل (passive) ; أولًا tanween
+g-egy-0285: 1=EGY 3=EGY 11=EGY 12=EGY 13=EGY 16=EGY 17=EGY
+g-egy-0286: 3=EGY 4=EGY 5=EGY 6=EGY 11=EGY
+g-egy-0287: 1=EGY 2=EGY 4=EGY 5=EGY 7=EGY 8=EGY 13=EGY 24=EGY
+g-egy-0288: 1=? 3=EGY 5=EGY 11=EGY 13=EGY | بك Q13
+g-egy-0289: 3=EGY 8=OTHER 9=OTHER 16=OTHER 17=EGY 23=OTHER 24=OTHER 25=EGY 30=EGY | place names
+g-egy-0290: 3=EGY 4=EGY 11=EGY 12=EGY 14=EGY 15=EGY 18=EGY
+g-egy-0291: 0=EGY 2=EGY 3=EGY 31=EGY
+g-egy-0292: 1=EGY 9=EGY 10=EGY 11=EGY 13=EGY
+g-egy-0293: 1=EGY 12=EGY 14=EGY 15=EGY
+g-egy-0294: 0=EGY 4=EGY 5=EGY 12=EGY
+g-egy-0295: 2=? 4=EGY 7=EGY 8=EGY 10=EGY 12=EGY 15=EGY 19=EGY | جدا Q6
+g-egy-0296: 2=EGY 5=EGY 7=? | عزيزي Q20
+g-egy-0297: 2=EGY 6=EGY 13=EGY 14=EGY 17=EGY 21=EGY 23=EGY | ظهرًا/مساءً tanween adverbs ; موعد ; Yahya Q24/25/27/28 yes → SHARED
+g-egy-0298: 4=OTHER 5=EGY 11=EGY | ل٥ digit
+g-egy-0299: 1=EGY 13=EGY 14=EGY 20=EGY 28=EGY
+# MSA-target sentences: only deviations (EGY/GLF) are marked; MSA vs SHARED collapsed to SHARED (both conform for the MSA target)
+g-msa-0300:
+g-msa-0301:
+g-msa-0302:
+g-msa-0303: X | corrupted (foreign script) or garbled
+g-msa-0304:
+g-msa-0305:
+g-msa-0306:
+g-msa-0307:
+g-msa-0308:
+g-msa-0309:
+g-msa-0310:
+g-msa-0311:
+g-msa-0312:
+g-msa-0313:
+g-msa-0314:
+g-msa-0315:
+g-msa-0316:
+g-msa-0317:
+g-msa-0318: X | corrupted (foreign script) or garbled
+g-msa-0319:
+g-msa-0320:
+g-msa-0321:
+g-msa-0322:
+g-msa-0323: X | corrupted (foreign script) or garbled
+g-msa-0324:
+g-msa-0325:
+g-msa-0326:
+g-msa-0327:
+g-msa-0328: X | corrupted (foreign script) or garbled
+g-msa-0329: 20=EGY | الفلوس (MSA: المبلغ/الأموال)
+g-msa-0330:
+g-msa-0331:
+g-msa-0332:
+g-msa-0333: 9=EGY | المضروب = defective (Egyptian slang)
+g-msa-0334:
+g-msa-0335:
+g-msa-0336:
+g-msa-0337:
+g-msa-0338: X | corrupted (foreign script) or garbled
+g-msa-0339:
+g-msa-0340:
+g-msa-0341:
+g-msa-0342:
+g-msa-0343:
+g-msa-0344: 16=EGY | كهربا
+g-msa-0345:
+g-msa-0346:
+g-msa-0347:
+g-msa-0348: 4=EGY | معاد (MSA موعد)
+g-msa-0349:
+g-msa-0350:
+g-msa-0351:
+g-msa-0352:
+g-msa-0353:
+g-msa-0354:
+g-msa-0355:
+g-msa-0356:
+g-msa-0357:
+g-msa-0358: X | corrupted (foreign script) or garbled
+g-msa-0359:
+# GLF-target sentences (experimental, no native Gulf annotator): only deviations marked (EGY / MSA / DA_OTHER); GLF vs SHARED collapsed
+g-glf-0360:
+g-glf-0361:
+g-glf-0362:
+g-glf-0363: 2=EGY | سيبوه (Gulf خلوه)
+g-glf-0364: 3=EGY 12=EGY | ده، الأوضة
+g-glf-0365:
+g-glf-0366: 5=MSA | يتم
+g-glf-0367:
+g-glf-0368: X | garbled / foreign script
+g-glf-0369: 0=MSA 1=MSA 6=MSA 7=MSA | fully MSA reply
+g-glf-0370:
+g-glf-0371:
+g-glf-0372:
+g-glf-0373: 3=MSA 4=MSA 9=MSA 13=MSA 14=MSA | أخبرني ماذا عندما هل هناك
+g-glf-0374: 0=MSA 6=MSA 10=MSA 14=MSA 15=MSA 19=MSA | fully MSA reply
+g-glf-0375: 31=MSA | ثم
+g-glf-0376: 7=MSA 13=MSA | tanween adverbs
+g-glf-0377:
+g-glf-0378: X | garbled / foreign script
+g-glf-0379: 0=MSA | حسنا
+g-glf-0380:
+g-glf-0381:
+g-glf-0382:
+g-glf-0383: 1=MSA | يمكنك
+g-glf-0384:
+g-glf-0385: 14=MSA 23=MSA | tanween adverbs
+g-glf-0386: 15=MSA | يتم
+g-glf-0387:
+g-glf-0388: 8=MSA 9=MSA 10=MSA 11=MSA | لديك ماذا تريد أن
+g-glf-0389:
+g-glf-0390: 22=EGY | معانا
+g-glf-0391: 3=EGY | معاك
+g-glf-0392:
+g-glf-0393: X | garbled / foreign script
+g-glf-0394:
+g-glf-0395:
+g-glf-0396:
+g-glf-0397:
+g-glf-0398: 6=MSA 11=MSA | سوف، وأزودك
+g-glf-0399: 8=EGY 15=EGY | معاك، ونرجعلك
+g-glf-0400:
+g-glf-0401:
+g-glf-0402:
+g-glf-0403: 7=MSA | وتنقضي
+g-glf-0404: 3=MSA 8=MSA | القادم، صباحا
+g-glf-0405:
+g-glf-0406: 9=MSA | أعطني (Gulf عطني)
+g-glf-0407:
+g-glf-0408: 12=GLF 13=MSA | شو DA_OTHER:LEV ; الذي
+g-glf-0409: 10=EGY | ماكينات
+g-glf-0410:
+g-glf-0411:
+g-glf-0412:
+g-glf-0413: X | garbled / foreign script
+g-glf-0414:
+g-glf-0415:
+g-glf-0416: 16=MSA | وسنتواصل
+g-glf-0417:
+g-glf-0418: 2=MSA 4=MSA | قُل لي، ماذا
+g-glf-0419:

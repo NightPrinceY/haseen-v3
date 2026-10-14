@@ -1,0 +1,195 @@
+<title>HaSeen Agent Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Figtree:wght@500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one review column; each agent reply is a card of tappable word chips; a sticky progress bar on top. */
+:root{
+  --ground:#f5ead8; --surface:#fbf5ea; --sunk:#ebddc5; --ink:#201e1d; --muted:#645c50; --rule:color-mix(in srgb,#201e1d 14%,transparent);
+  --dev:#b2622d; --dev-soft:#ffe1d0; --unsure:#9e710c; --unsure-soft:#f6e6cc; --ok:#56633f; --ok-soft:#e1eecc; --ign:#82796a;
+  --f-ar:'IBM Plex Sans Arabic','Figtree',system-ui,sans-serif; --f-disp:'Reem Kufi','IBM Plex Sans Arabic',sans-serif;
+  --f-lat:'Figtree',system-ui,sans-serif; --f-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#1a1613; --surface:#27211c; --sunk:#120f0d; --ink:#f1e6d4; --muted:#b5a994; --rule:color-mix(in srgb,#f1e6d4 14%,transparent);
+  --dev:#f6a06b; --dev-soft:#402310; --unsure:#dfaf5a; --unsure-soft:#392809; --ok:#aebf92; --ok-soft:#272e1b; --ign:#a19786; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#1a1613; --surface:#27211c; --sunk:#120f0d; --ink:#f1e6d4; --muted:#b5a994; --rule:color-mix(in srgb,#f1e6d4 14%,transparent);
+  --dev:#f6a06b; --dev-soft:#402310; --unsure:#dfaf5a; --unsure-soft:#392809; --ok:#aebf92; --ok-soft:#272e1b; --ign:#a19786; color-scheme:dark}
+body{background:var(--ground);color:var(--ink);font:16px/1.7 var(--f-ar)}
+.page{direction:rtl;max-width:860px;margin-inline:auto;padding-inline:16px;padding-block:24px 80px;display:flex;flex-direction:column;gap:16px}
+h1{font:700 clamp(26px,5vw,36px)/1.25 var(--f-disp);margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0;max-width:62ch}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:10px;border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.prog{flex:1 1 200px;height:8px;border-radius:99px;background:var(--sunk);overflow:hidden;min-width:0}
+.prog i{display:block;height:100%;width:0;background:var(--ok);border-radius:99px;transition:width .2s}
+.pill{font:600 13px var(--f-lat);padding:4px 12px;border-radius:99px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.tog{font:500 14px var(--f-ar);border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:99px;padding:5px 14px;cursor:pointer}
+.tog[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;color:var(--muted)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:14px;height:14px;border-radius:5px;display:inline-block;border:2px solid transparent}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card.done{border-color:var(--ok)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;font:500 12.5px var(--f-lat);color:var(--muted);direction:ltr;justify-content:flex-end}
+.cust{color:var(--muted);font-size:14.5px}
+.words{display:flex;flex-wrap:wrap;gap:6px}
+.w{font:500 19px/1.4 var(--f-ar);padding:5px 10px 6px;border-radius:12px;border:2px solid transparent;background:var(--sunk);color:var(--ink);cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;gap:0}
+.w small{font:600 10.5px var(--f-lat);letter-spacing:.04em}
+.w.ok{background:var(--sunk)}
+.w.dev{background:var(--dev-soft);border-color:var(--dev);color:var(--ink)} .w.dev small{color:var(--dev)}
+.w.unsure{border-style:dashed;border-color:var(--unsure)}
+.w.ign,.w.other{opacity:.55;cursor:default;text-decoration:line-through;text-decoration-thickness:1px}
+.w.other{text-decoration:none;font-family:var(--f-lat);font-size:15px}
+.w:focus-visible,.tog:focus-visible,.lab button:focus-visible,.done-btn:focus-visible{outline:2px solid var(--unsure);outline-offset:2px}
+.lab{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px;color:var(--muted)}
+.lab button{font:600 13px var(--f-lat);border:1px solid var(--rule);background:var(--ground);color:var(--ink);border-radius:99px;padding:4px 11px;cursor:pointer}
+.lab button[aria-pressed="true"]{background:var(--dev);color:var(--ground);border-color:var(--dev)}
+.note{font-size:14px;color:var(--muted);background:var(--sunk);border-radius:12px;padding:6px 12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+textarea{width:100%;min-height:40px;border-radius:12px;border:1px solid var(--rule);background:var(--ground);color:var(--ink);font:15px var(--f-ar);padding:8px 12px;resize:vertical;direction:rtl}
+.done-btn{font:600 14px var(--f-ar);border:0;border-radius:99px;padding:8px 18px;cursor:pointer;background:var(--ink);color:var(--ground)}
+.card.done .done-btn{background:var(--ok)}
+.status{font-size:13.5px;color:var(--muted)}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+</style>
+
+<div class="page">
+  <div>
+    <h1>مراجعة ردود الوكلاء · المصري</h1>
+    <p class="lede">٤٠ ردّ كتبتها نماذج مفتوحة لما اتطلب منها ترد "باللهجة المصرية فقط". أنا علّمت الكلمات اللي خارج المصري. اضغط على أي كلمة عشان تقلبها: <b>مطابقة ⇄ مخالفة</b>، ولو مخالفة اختار هي من أنهي لهجة. الكلمات بإطار منقّط أنا مش متأكد منها، ركّز عليها. لما تخلص الرد اضغط «تمام».</p>
+  </div>
+  <div class="bar">
+    <span class="pill" id="count">0 / 40</span>
+    <div class="prog" aria-hidden="true"><i id="progI"></i></div>
+    <button class="tog" id="onlyOpen" aria-pressed="false" type="button">اللي فاضل بس</button>
+    <span class="status" id="status">بيحمّل…</span>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--sunk)"></i>مطابقة</span>
+    <span><i class="sw" style="background:var(--dev-soft);border-color:var(--dev)"></i>مخالفة</span>
+    <span><i class="sw" style="border-color:var(--unsure);border-style:dashed"></i>مش متأكد</span>
+    <span><i class="sw" style="background:var(--sunk);opacity:.5"></i>مش عربي / كلمة مكسورة (مش بتتحسب)</span>
+  </div>
+  <div id="list"><div class="empty">بيحمّل الردود…</div></div>
+</div>
+
+<script>
+(function () {
+  const LABELS = [["MSA", "فصحى"], ["GLF", "خليجي"], ["SAU", "سعودي"], ["LEV", "شامي"], ["IRQ", "عراقي"], ["MAG", "مغاربي"], ["OTHER", "لهجة تانية"]];
+  const LNAME = Object.fromEntries(LABELS);
+  const $ = (id) => document.getElementById(id);
+  let db = null, items = [], reviews = {}, open = {}, canWrite = true;
+  const pending = {}, timers = {};
+
+  function state(it, i) {  // effective label of word i: reviewer's choice over Claude's
+    const r = reviews[it.id] || {}, m = (r.marks || {})[i];
+    const base = it.words[i];
+    if (base.c === "ign" || base.c === "other") return { c: base.c };
+    if (m) return { c: m.c, src: m.src || null };
+    return { c: base.c, src: base.src || null };
+  }
+
+  function render() {
+    const list = $("list");
+    if (!items.length) { list.innerHTML = '<div class="empty">مفيش ردود لسه. لو الصفحة لسه جديدة، استنى ثواني.</div>'; return; }
+    const onlyOpen = $("onlyOpen").getAttribute("aria-pressed") === "true";
+    const nDone = items.filter((it) => (reviews[it.id] || {}).done).length;
+    $("count").textContent = `${nDone} / ${items.length}`;
+    $("progI").style.width = (100 * nDone / items.length).toFixed(1) + "%";
+    list.innerHTML = "";
+    items.forEach((it) => {
+      const r = reviews[it.id] || {};
+      if (onlyOpen && r.done) return;
+      const card = document.createElement("section");
+      card.className = "card" + (r.done ? " done" : "");
+      const meta = document.createElement("div"); meta.className = "meta";
+      meta.textContent = `${it.model} · ${it.company} · ${it.id}`;
+      const cust = document.createElement("div"); cust.className = "cust"; cust.textContent = "العميل: " + it.customer;
+      const words = document.createElement("div"); words.className = "words";
+      it.words.forEach((w, i) => {
+        const s = state(it, i);
+        const b = document.createElement("button"); b.type = "button";
+        b.className = "w " + s.c + (w.unsure && s.c !== "ign" && s.c !== "other" ? " unsure" : "");
+        b.textContent = w.w;
+        if (s.c === "dev") { const sm = document.createElement("small"); sm.textContent = LNAME[s.src] || "؟"; b.appendChild(sm); }
+        if (s.c === "ign" || s.c === "other") { b.disabled = true; }
+        else b.addEventListener("click", () => { open[it.id] = i; toggle(it, i); });
+        words.appendChild(b);
+      });
+      card.append(meta, cust, words);
+      const oi = open[it.id];
+      if (oi !== undefined && state(it, oi).c === "dev") {
+        const lab = document.createElement("div"); lab.className = "lab";
+        lab.append(`«${it.words[oi].w}» من: `);
+        LABELS.forEach(([k, v]) => {
+          const bt = document.createElement("button"); bt.type = "button"; bt.textContent = v;
+          bt.setAttribute("aria-pressed", String(state(it, oi).src === k));
+          bt.addEventListener("click", () => setMark(it, oi, { c: "dev", src: k }));
+          lab.appendChild(bt);
+        });
+        card.appendChild(lab);
+      }
+      if (it.note) { const n = document.createElement("div"); n.className = "note"; n.textContent = "ملاحظتي: " + it.note; card.appendChild(n); }
+      const ta = document.createElement("textarea"); ta.id = "c-" + it.id; ta.placeholder = "تعليق (اختياري)"; ta.value = r.comment || "";
+      ta.addEventListener("input", () => save(it.id, { comment: ta.value }, 900));
+      const row = document.createElement("div"); row.className = "row";
+      const done = document.createElement("button"); done.type = "button"; done.className = "done-btn";
+      done.textContent = r.done ? "✓ اتراجع" : "تمام";
+      done.addEventListener("click", () => save(it.id, { done: !r.done }, 0));
+      row.append(done);
+      card.append(ta, row);
+      list.appendChild(card);
+    });
+  }
+
+  function toggle(it, i) {
+    const s = state(it, i);
+    if (s.c === "dev") setMark(it, i, { c: "ok" });
+    else setMark(it, i, { c: "dev", src: it.words[i].src || "MSA" });
+  }
+
+  function setMark(it, i, m) {
+    const r = reviews[it.id] || {};
+    const marks = { ...(r.marks || {}) }; marks[i] = m;
+    save(it.id, { marks }, 300);
+  }
+
+  function save(id, patch, delay) {
+    reviews[id] = { ...(reviews[id] || {}), ...patch };
+    render();
+    if (!db || !canWrite) { $("status").textContent = "الحفظ مش متاح في العرض ده"; return; }
+    pending[id] = reviews[id];
+    clearTimeout(timers[id]);
+    timers[id] = setTimeout(async () => {
+      const body = { ...pending[id], updatedAt: new Date().toISOString() }; delete pending[id];
+      try { await db.doc("reviews/" + id).set(body); $("status").textContent = "اتحفظ ✓"; }
+      catch (e) {
+        if (e && e.code === "invalid_argument") { canWrite = false; $("status").textContent = "مش مسموح لك تحفظ هنا"; }
+        else $("status").textContent = "ماتحفظش، جرّب تاني";
+      }
+    }, delay);
+  }
+
+  $("onlyOpen").addEventListener("click", (e) => {
+    const b = e.currentTarget; b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true")); render();
+  });
+
+  (async () => {
+    db = window.claude ? await window.claude.use("db") : null;
+    if (!db) { $("status").textContent = "قاعدة البيانات مش متاحة في العرض ده"; render(); return; }
+    const user = await window.claude.use("user");
+    const cw = user ? await user.can("data.write") : null;
+    if (cw === false) { canWrite = false; }
+    db.collection("items").orderBy("order").onSnapshot((snap) => {
+      items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      $("status").textContent = canWrite ? "جاهز · اختياراتك بتتحفظ لوحدها" : "عرض فقط";
+      render();
+    }, () => { $("status").textContent = "مقدرتش أقرا الردود"; });
+    db.collection("reviews").onSnapshot((snap) => {
+      snap.docs.forEach((d) => { if (!pending[d.id]) reviews[d.id] = d.data(); });
+      render();
+    }, () => {});
+  })();
+})();
+</script>

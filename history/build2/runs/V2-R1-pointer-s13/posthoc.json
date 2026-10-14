@@ -1,0 +1,123 @@
+{
+ "policy": {
+  "T_var": 1.3319741487503052,
+  "T_odia": 1.3458110094070435,
+  "tau": {
+   "MSA": 0.01,
+   "EGY": 0.475,
+   "SAU": 0.125,
+   "KHL": 0.005,
+   "LEV": 0.3,
+   "IRQ": 0.005,
+   "YEM": 0.04,
+   "MOR": 0.02,
+   "TUN": 0.005
+  },
+  "tau_odia": 0.95,
+  "fa_max": 0.01,
+  "fitted_on": "gold_v2 dev (natural + challenge)",
+  "label_rule": "set {v != t: p_v >= 0.5}; MSA first"
+ },
+ "dev": {
+  "MSA": {
+   "FA": 0.00081,
+   "P": 0.9508,
+   "R": 0.9508,
+   "F1": 0.9508,
+   "label_top1": 0.5086,
+   "label_set_hit": 0.931,
+   "label_set_size": 3.28,
+   "heldout_recall": 0.6667,
+   "heldout_n": 12
+  },
+  "EGY": {
+   "FA": 0.00772,
+   "P": 0.9866,
+   "R": 0.9609,
+   "F1": 0.9736,
+   "label_top1": 0.461,
+   "label_set_hit": 0.9288,
+   "label_set_size": 2.54,
+   "heldout_recall": 0.75,
+   "heldout_n": 24
+  },
+  "SAU": {
+   "FA": 0.00998,
+   "P": 0.9194,
+   "R": 0.9344,
+   "F1": 0.9268,
+   "label_top1": 0.5088,
+   "label_set_hit": 0.9509,
+   "label_set_size": 2.62,
+   "heldout_recall": 0.8,
+   "heldout_n": 45
+  },
+  "KHL": {
+   "FA": 0.0088,
+   "P": 0.919,
+   "R": 0.8853,
+   "F1": 0.9019,
+   "label_top1": 0.4301,
+   "label_set_hit": 0.8601,
+   "label_set_size": 2.62,
+   "heldout_recall": 0.6071,
+   "heldout_n": 28
+  },
+  "LEV": {
+   "FA": 0.0023,
+   "P": 0.9948,
+   "R": 0.8391,
+   "F1": 0.9104,
+   "label_top1": 0.6736,
+   "label_set_hit": 0.9378,
+   "label_set_size": 1.73,
+   "heldout_recall": 0.5714,
+   "heldout_n": 35
+  },
+  "IRQ": {
+   "FA": 0.01146,
+   "P": 0.9388,
+   "R": 0.7977,
+   "F1": 0.8625,
+   "label_top1": 0.529,
+   "label_set_hit": 0.9203,
+   "label_set_size": 2.35,
+   "heldout_recall": 0.375,
+   "heldout_n": 16
+  },
+  "YEM": {
+   "FA": 0.00868,
+   "P": 0.9355,
+   "R": 0.8923,
+   "F1": 0.9134,
+   "label_top1": 0.5345,
+   "label_set_hit": 0.9569,
+   "label_set_size": 2.05,
+   "heldout_recall": 0.0909,
+   "heldout_n": 11
+  },
+  "MOR": {
+   "FA": 0.00638,
+   "P": 0.9607,
+   "R": 0.8907,
+   "F1": 0.9244,
+   "label_top1": 0.4275,
+   "label_set_hit": 0.9182,
+   "label_set_size": 3.07,
+   "heldout_recall": 0.4878,
+   "heldout_n": 41
+  },
+  "TUN": {
+   "FA": 0.00976,
+   "P": 0.9575,
+   "R": 0.8522,
+   "F1": 0.9018,
+   "label_top1": 0.3911,
+   "label_set_hit": 0.9153,
+   "label_set_size": 3.21,
+   "heldout_recall": 0.72,
+   "heldout_n": 25
+  }
+ },
+ "dev_mean_F1": 0.9184
+}

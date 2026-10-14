@@ -1,0 +1,411 @@
+<title>معمارية HaSeen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one RTL reading column (~70ch) with full-width "plates" for the pipeline, equations and the decision demo. */
+:root {
+  --ground: #f5ead8; --surface: #ebddc5; --raised: #fbf5ea; --ink: #201e1d; --muted: #645c50; --rule: color-mix(in srgb, #201e1d 16%, transparent);
+  --terracotta: #b2622d; --terracotta-soft: #ffe1d0;
+  --sage: #56633f; --sage-soft: #e1eecc;
+  --nile: #32647d; --nile-soft: #d8ebf6;
+  --saffron: #9e710c; --saffron-soft: #f6e6cc;
+  --plum: #7a4e63; --plum-soft: #f6e1ea;
+  --code-bg: #efe3cd;
+  --f-display: 'Reem Kufi', 'IBM Plex Sans Arabic', sans-serif;
+  --f-body: 'IBM Plex Sans Arabic', 'Figtree', system-ui, sans-serif;
+  --f-latin: 'Figtree', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --r-sm: 8px; --r-md: 16px; --r-lg: 28px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #1a1613; --surface: #27211c; --raised: #211c18; --ink: #f1e6d4; --muted: #b5a994; --rule: color-mix(in srgb, #f1e6d4 16%, transparent);
+  --terracotta: #f6a06b; --terracotta-soft: #402310; --sage: #aebf92; --sage-soft: #272e1b; --nile: #85c1e1; --nile-soft: #192e39;
+  --saffron: #dfaf5a; --saffron-soft: #392809; --plum: #dea4be; --plum-soft: #38252e; --code-bg: #2a231d; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #1a1613; --surface: #27211c; --raised: #211c18; --ink: #f1e6d4; --muted: #b5a994; --rule: color-mix(in srgb, #f1e6d4 16%, transparent);
+  --terracotta: #f6a06b; --terracotta-soft: #402310; --sage: #aebf92; --sage-soft: #272e1b; --nile: #85c1e1; --nile-soft: #192e39;
+  --saffron: #dfaf5a; --saffron-soft: #392809; --plum: #dea4be; --plum-soft: #38252e; --code-bg: #2a231d; color-scheme: dark }
+
+body { background: var(--ground); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.85; }
+.page { direction: rtl; max-width: 980px; margin-inline: auto; padding-inline: 20px; padding-block: 40px 80px; }
+.col { max-width: 70ch; }
+.en { font-family: var(--f-latin); direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+.m { font-family: var(--f-mono); font-size: .86em; direction: ltr; unicode-bidi: isolate; background: var(--code-bg); padding: 1px 6px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.3; margin: 0; }
+h1 { font-size: clamp(34px, 6vw, 54px); font-weight: 700; }
+h2 { font-size: 28px; font-weight: 700; display: flex; gap: 12px; align-items: baseline; }
+h2 .no { font-family: var(--f-mono); font-size: 14px; color: var(--saffron); font-weight: 600; }
+h3 { font-size: 20px; font-weight: 500; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+section { display: flex; flex-direction: column; gap: 18px; padding-block: 44px; border-top: 1px solid var(--rule); }
+.eyebrow { font-family: var(--f-latin); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: var(--muted); font-weight: 600; direction: ltr; text-align: right; }
+.lede { font-size: 20px; color: var(--muted); max-width: 62ch; }
+.muted { color: var(--muted); }
+
+/* hero */
+header { display: flex; flex-direction: column; gap: 22px; padding-bottom: 36px; }
+.brandline { display: flex; align-items: center; gap: 14px; }
+.brandline svg { width: 46px; height: 46px; flex: none; }
+.specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: var(--r-md); overflow: hidden; background: var(--raised); }
+.spec { padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; border-inline-start: 1px solid var(--rule); }
+.spec:first-child { border-inline-start: 0; }
+.spec b { font-family: var(--f-latin); font-size: 26px; font-variant-numeric: tabular-nums; direction: ltr; text-align: right; }
+.spec span { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* pipeline plate */
+.plate { background: var(--raised); border: 1px solid var(--rule); border-radius: var(--r-lg); padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+.stage { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; align-items: start; padding: 14px 16px; border-radius: var(--r-md); background: var(--surface); }
+.stage .k { font-family: var(--f-latin); font-weight: 600; direction: ltr; text-align: right; font-size: 15px; }
+.stage .k small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+.stage p { font-size: 15.5px; line-height: 1.7; }
+.arrow { text-align: center; color: var(--muted); font-size: 18px; line-height: 1; }
+.heads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.head { border-radius: var(--r-md); padding: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; line-height: 1.6; }
+.head .k { font-family: var(--f-latin); font-weight: 600; direction: ltr; text-align: right; }
+.h-ptr { background: var(--saffron-soft); } .h-ptr .k { color: var(--saffron); }
+.h-odia { background: var(--plum-soft); } .h-odia .k { color: var(--plum); }
+.h-oth { background: var(--surface); } .h-oth .k { color: var(--muted); }
+.h-frm { background: var(--nile-soft); } .h-frm .k { color: var(--nile); }
+.head .shape { font-family: var(--f-mono); font-size: 12px; direction: ltr; text-align: right; color: var(--muted); }
+
+/* math */
+.eq { direction: ltr; text-align: left; font-family: var(--f-mono); font-size: 14.5px; line-height: 1.9; background: var(--code-bg); border-radius: var(--r-md); padding: 18px 20px; overflow-x: auto; white-space: pre; }
+.eq .c { color: var(--muted); }
+.eq .hl { color: var(--terracotta); font-weight: 600; }
+
+/* two-up */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.card { background: var(--raised); border: 1px solid var(--rule); border-radius: var(--r-md); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.card h3 { font-size: 18px; }
+.card p, .card li { font-size: 15.5px; line-height: 1.75; }
+ul { margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 6px; }
+
+/* tables */
+.tw { overflow-x: auto; border: 1px solid var(--rule); border-radius: var(--r-md); background: var(--raised); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.6; }
+th { font-family: var(--f-display); font-weight: 500; font-size: 14px; color: var(--muted); background: var(--surface); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--f-mono); direction: ltr; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* decision demo */
+.demo { display: flex; flex-direction: column; gap: 16px; }
+.targets { display: flex; flex-wrap: wrap; gap: 8px; }
+.targets button { font-family: var(--f-latin); font-weight: 600; font-size: 14px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+.targets button[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+.targets button:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
+.words { display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--f-display); font-size: 24px; }
+.w { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 14px 6px; border-radius: 14px; background: var(--surface); border: 2px solid transparent; min-width: 64px; }
+.w small { font-family: var(--f-latin); font-size: 11.5px; font-weight: 600; color: var(--muted); letter-spacing: .04em; }
+.w.dev-MSA { border-color: var(--nile); background: var(--nile-soft); } .w.dev-MSA small { color: var(--nile); }
+.w.dev-SAU { border-color: var(--sage); background: var(--sage-soft); } .w.dev-SAU small { color: var(--sage); }
+.w.dev-EGY { border-color: var(--terracotta); background: var(--terracotta-soft); } .w.dev-EGY small { color: var(--terracotta); }
+.trace { font-size: 15px; color: var(--muted); }
+
+.algo { direction: ltr; text-align: left; font-family: var(--f-mono); font-size: 14px; line-height: 1.9; background: var(--code-bg); border-radius: var(--r-md); padding: 18px 20px; overflow-x: auto; white-space: pre; }
+.algo .kw { color: var(--terracotta); font-weight: 600; }
+.algo .c { color: var(--muted); }
+
+.callout { border-inline-start: 4px solid var(--saffron); background: var(--saffron-soft); padding: 14px 18px; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 15.5px; }
+footer { padding-top: 30px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .page { padding-inline: 16px; }
+  .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spec:nth-child(3) { border-inline-start: 0; }
+  .spec:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .stage { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .stage .k { text-align: right; }
+  .heads, .two { grid-template-columns: minmax(0, 1fr); }
+  .plate { padding: 16px; }
+  .words { font-size: 20px; }
+}
+@media (prefers-reduced-motion: no-preference) { .w { transition: background .2s, border-color .2s; } }
+</style>
+
+<div class="page" lang="ar">
+
+<header>
+  <div class="brandline">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--terracotta)"/><path d="M20 38c0-8 6-14 12-14s12 6 12 14" fill="none" stroke="var(--ground)" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="44" r="4" fill="var(--saffron)"/></svg>
+    <span class="eyebrow">HaSeen · Model Architecture</span>
+  </div>
+  <h1>معمارية HaSeen: مُرمِّز واحد يحكم على كل كلمة مقابل تسع لهجات عربية</h1>
+  <p class="lede">نموذج <span class="en">token-level</span> يأخذ ردّ وكيل صوتي ويقرّر لكل كلمة: هل هي طبيعية في اللهجة المطلوبة؟ وإن لم تكن، فمن أي لهجة جاءت. كل ذلك في <span class="en">forward pass</span> واحد، بلا <span class="en">LLM</span>، وعلى <span class="en">CPU</span>.</p>
+  <div class="specs">
+    <div class="spec"><b>162.6M</b><span>معامل: <span class="en">encoder</span> بحجم <span class="en">BERT-base</span> (162.25M) + <span class="en">heads</span> (0.4M)</span></div>
+    <div class="spec"><b>9 + 1</b><span>لهجات مستهدفة + فئة «لهجة أخرى»</span></div>
+    <div class="spec"><b>1 pass</b><span>تمريرة واحدة تُخرج قرار الكلمة لكل اللهجات معًا</span></div>
+    <div class="spec"><b>≈ 11 ms</b><span>لكل جملة على <span class="en">CPU</span> بصيغة <span class="en">ONNX int8</span> (مقيس على نفس الـ <span class="en">backbone</span>)</span></div>
+  </div>
+</header>
+
+<section id="problem">
+  <h2><span class="no">01</span>صياغة المسألة</h2>
+  <div class="col stack">
+    <p>لكل كلمة <span class="m">w</span> في الجملة، ولكل لهجة <span class="m">t</span> من التسع (<span class="en">MSA, EGY, SAU, KHL, LEV, IRQ, YEM, MOR, TUN</span>)، نسأل سؤالًا ثنائيًا واحدًا: هل يقول متحدّث أصلي بلهجة <span class="m">t</span>، في سجلّ خدمة العملاء، هذه الكلمة بهذا الشكل في هذه الجملة؟</p>
+    <p>الهدف لكل كلمة متّجه من تسع قيم: <span class="m">y ∈ {1, 0, ∅}⁹</span>. القيمة 1 تعني طبيعية، و0 تعني غير طبيعية (انحراف)، و∅ تعني أنه لا يوجد دليل موثّق، فتُستبعد من التدريب ولا تُخمَّن.</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>لماذا <span class="en">multi-label</span> وليس <span class="en">multi-class</span>؟</h3>
+      <p>معظم الكلام العربي مشترك. كلمة «كيف» طبيعية في السعودية والشام واليمن في الوقت نفسه، و«الفاتورة» طبيعية في كل اللهجات. لو أجبرنا النموذج على اختيار لهجة واحدة لكل كلمة لصار كل لفظ مشترك خطأً محتملًا. القرار المستقل لكل لهجة يعبّر عن الواقع اللغوي.</p>
+    </div>
+    <div class="card">
+      <h3>اللهجة المطلوبة ليست مدخلًا للنموذج</h3>
+      <p>النموذج يُخرج التسع إجابات دائمًا، واللهجة المستهدفة مجرد معامل في طبقة القرار وقت التشغيل. نموذج واحد يخدم أي وكيل بأي لهجة، ولا حاجة لنموذج لكل لهجة، ويمكن تقدير لهجة المتّصل من المخرجات نفسها.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline">
+  <h2><span class="no">02</span>المسار من النص إلى القرار</h2>
+  <div class="plate" role="list">
+    <div class="stage" role="listitem"><div class="k">Normalization<small>text → canonical form</small></div><p>توحيد أشكال الحروف: أ إ آ ← ا، ى ← ي، ة ← ه، وحذف التشكيل والتطويل. بذلك تصبح «إبغى» و«ابغي» الكلمة نفسها، فلا يتشتّت الدليل بين التهجئات.</p></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="stage" role="listitem"><div class="k">WordPiece<small>words → subwords, ≤ 128</small></div><p>تُقسَّم الكلمة إلى وحدات فرعية (مثل «هيوصل» ← «هيو» + «##صل»). السياق الأقصى 128 وحدة، وهو أطول بكثير من دور الوكيل المعتاد.</p></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="stage" role="listitem"><div class="k">Encoder<small>12 layers · 768-d · bidirectional</small></div><p><span class="en">Transformer</span> من عائلة <span class="en">BERT</span>، مُهيّأ من <span class="en">ALDi-Token-DI</span>. ينتج لكل وحدة متّجهًا سياقيًا من 768 بُعدًا يرى الجملة كلها قبل الكلمة وبعدها.</p></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="stage" role="listitem"><div class="k">First-subword pooling<small>one vector per word: h_w</small></div><p>تمثيل الكلمة هو متّجه أول وحدة فرعية فيها. على هذا الموضع وحده تُحسب الـ <span class="en">labels</span> والـ <span class="en">loss</span> والقرار.</p></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="heads" role="listitem">
+      <div class="head h-ptr"><div class="k">Pointer head</div><div class="shape">h_w → 9 logits</div><p>هل الكلمة طبيعية في كل لهجة من التسع؟ هذا هو القرار الأساسي.</p></div>
+      <div class="head h-odia"><div class="k">Other-dialect head</div><div class="shape">h_w → 1 logit</div><p>هل الكلمة من لهجة خارج التسع (عُماني، سوداني، ليبي، جزائري، حسّاني)؟</p></div>
+      <div class="head h-oth"><div class="k">Non-Arabic head</div><div class="shape">h_w → 1 logit</div><p>اسم علم، رقم، حروف لاتينية، رمز. هذه لا تُعدّ انحرافًا أبدًا.</p></div>
+      <div class="head h-frm"><div class="k">Register head</div><div class="shape">h_w → 9 logits</div><p>كلمة رسمية مقبولة في سجلّ الخدمة لكل لهجة («هل»، «فقط»، «يمكنك»).</p></div>
+    </div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="stage" role="listitem"><div class="k">Calibration<small>temperature T · threshold τ_t</small></div><p>معايرة الاحتمالات وعتبة لكل لهجة، تُستخرج من بيانات <span class="en">dev</span> فقط.</p></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="stage" role="listitem"><div class="k">Decision policy<small>target t chosen at runtime</small></div><p>لكل كلمة: مطابقة أو انحراف، ومع الانحراف تسمية مصدره (فصحى، لهجة من التسع، لهجة أخرى) ودرجة ثقة.</p></div>
+  </div>
+</section>
+
+<section id="backbone">
+  <h2><span class="no">03</span>الـ <span class="en">Backbone</span> ولماذا اخترناه</h2>
+  <div class="col stack">
+    <p>السلسلة: <span class="en">MARBERT</span> ← <span class="en">ALDi-Token-DI</span> ← <span class="en">HaSeen</span>.</p>
+    <ul>
+      <li><span class="en">MARBERT</span> (UBC): <span class="en">BERT-base</span> مدرّب مسبقًا على نحو مليار تغريدة عربية، أغلبها بالعاميات ومن كل الدول. لذلك يعرف المفردات العامية وتهجئاتها الشائعة، على عكس النماذج المدرّبة أساسًا على نصوص فصحى.</li>
+      <li><span class="en">ALDi-Token-DI</span> (EMNLP 2023): <span class="en">MARBERT</span> بعد <span class="en">fine-tuning</span> على وسم كل كلمة فصحى أو عامية في نصوص مختلطة. أي أنه يبدأ وقد تعلّم أن القرار يُتخذ على مستوى الكلمة لا الجملة، وهذه أقرب مهمة منشورة لمهمتنا.</li>
+      <li>نضيف فوقه الـ <span class="en">heads</span> الأربعة وندرّب النموذج كاملًا (<span class="en">full fine-tuning</span>) على التسع لهجات.</li>
+    </ul>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>السياق: <span class="en">self-attention</span> وليس <span class="en">n-gram</span></h3>
+      <p>نموذج الـ <span class="en">n-gram</span> يرى نافذة ثابتة من كلمتين أو ثلاث قبل الكلمة. هنا يمرّ تمثيل كل كلمة باثنتي عشرة طبقة <span class="en">bidirectional self-attention</span>، وفي كل طبقة يوزّع النموذج انتباهه على كل كلمات الدور بأوزان متعلَّمة. لذلك يختلف تمثيل «زين» في «زين، أقدر أساعدك بشي ثاني؟» (خليجي: تمام) عن تمثيلها في «الأستاذ زين هيكلمك» (اسم علم).</p>
+    </div>
+    <div class="card">
+      <h3>لماذا <span class="en">encoder</span> وليس <span class="en">LLM</span>؟</h3>
+      <ul>
+        <li>الزمن: قرار لكل كلمة في جزء من مئة ثانية على <span class="en">CPU</span>، فيصلح للمراقبة المباشرة وقبل الـ <span class="en">TTS</span>.</li>
+        <li>البيئة: يعمل دون اتصال (<span class="en">air-gapped</span>)، بلا استدعاء خارجي.</li>
+        <li>الدقة: نماذج اللغة الكبيرة ضعيفة موثّقًا في تمييز اللهجات على مستوى الكلمة.</li>
+        <li>المعايرة: احتمالات قابلة للمعايرة والقياس، لا نصّ حرّ يحتاج إلى تفسير.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="pointer">
+  <h2><span class="no">04</span>الـ <span class="en">Pointer head</span>: اللهجات كنصوص لا كأرقام</h2>
+  <div class="col stack">
+    <p>بدل طبقة خطية تعامل اللهجات كأرقام من 0 إلى 8، نصف كل لهجة بجملة عربية («كلمة طبيعية في اللهجة المصرية»، «كلمة طبيعية في الدارجة المغربية»…) ونمرّرها في نفس الـ <span class="en">encoder</span>. القرار يصبح تشابهًا بين متّجه الكلمة ومتّجه اللهجة.</p>
+  </div>
+  <div class="eq"><span class="c"># word side</span>
+u_w  = normalize( W_p · h_w )                                  <span class="c"># 768 → 256</span>
+
+<span class="c"># option side (one per target t, computed once and cached at inference)</span>
+e_t  = meanpool( Encoder( "كلمة طبيعية في اللهجة …" ) )
+o_t  = normalize( normalize( W_o · e_t ) + <span class="hl">r_t</span> )                 <span class="c"># r_t: learned per-target vector</span>
+
+<span class="c"># score</span>
+s_wt = exp(α) · ⟨u_w , o_t⟩ + b_t                                <span class="c"># α init log(10), b_t per target</span>
+p_wt = σ( s_wt / T )</div>
+  <div class="two">
+    <div class="card">
+      <h3>لماذا هذا التصميم؟</h3>
+      <ul>
+        <li>معرفة الـ <span class="en">encoder</span> باللهجات تُستخدم في الجهتين: الكلمة ووصف اللهجة.</li>
+        <li>اللهجات تتشارك البنية نفسها، فاللهجة قليلة البيانات تستفيد مما تعلّمه النموذج من غيرها.</li>
+        <li>أفضل معايرة للاحتمالات في تجاربنا مقارنة بالرأس الخطي.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>مشكلة انهيار الخيارات وحلّها</h3>
+      <p>جمل الوصف التسع متطابقة تقريبًا (تختلف في كلمة واحدة)، فتخرج متّجهاتها شبه متطابقة، ويفقد الرأس القدرة على التمييز (<span class="en">option collapse</span>). الحل: متّجه متعلَّم <span class="m">r_t</span> لكل لهجة، يبدأ متعامدًا مع البقية (<span class="en">QR</span>) ومضروبًا في 2. تبدأ كل لهجة في اتجاه مستقل، ويضيف النص المعنى فوقه.</p>
+    </div>
+  </div>
+  <p class="callout col">تجربة مضبوطة (<span class="en">ablation</span>): نُدرّب دائمًا نسخة برأس خطي بسيط <span class="m">Linear(768 → 9)</span> بنفس البيانات والإعدادات. أيّ أفضلية للـ <span class="en">pointer</span> يجب أن تظهر مقابلها على الـ <span class="en">gold</span>، لا أن تُفترض.</p>
+</section>
+
+<section id="heads">
+  <h2><span class="no">05</span>الرؤوس المساعدة</h2>
+  <div class="tw"><table>
+    <thead><tr><th>الرأس</th><th>المخرج</th><th>الوظيفة</th><th>أثره على القرار</th></tr></thead>
+    <tbody>
+      <tr><td class="en">Other-dialect</td><td class="num">1 logit</td><td>كلمة من لهجة خارج التسع (عُماني، سوداني، ليبي، جزائري، حسّاني)</td><td>انحراف بتسمية «لهجة أخرى» بدل تخمين أقرب لهجة</td></tr>
+      <tr><td class="en">Non-Arabic</td><td class="num">1 logit</td><td>أسماء علم، أرقام، علامات تجارية، حروف لاتينية</td><td>لا تُعلَّم انحرافًا أبدًا، فيمنع الإنذارات الكاذبة على «Vodafone» أو «١٢٣»</td></tr>
+      <tr><td class="en">Register (frm)</td><td class="num">9 logits</td><td>كلمة رسمية مقبولة في سجلّ الخدمة، لكل لهجة على حدة</td><td>لا تُحسب انحرافًا افتراضيًا. سياسة «عامية صارمة» وقت التشغيل تعتبرها انحرافًا دون إعادة تدريب</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="objective">
+  <h2><span class="no">06</span>دالة الخسارة: <span class="en">masked multi-task BCE</span></h2>
+  <div class="eq">L = L_var + L_odia + L_other + 0.2 · L_frm
+
+L_var  = Σ_w Σ_t  m_wt · ω_wt · BCE( s_wt , y_wt )  /  Σ m_wt
+         m_wt = 0  if y_wt = ∅   <span class="c"># unknown: no gradient, never guessed</span>
+         ω_wt = 3  if y_wt = 0   <span class="c"># deviations are rare: up-weight</span>
+L_odia = BCE( · , pos_weight = 5 )   <span class="c"># other-dialect is rarer still</span>
+<span class="c"># all terms on first-subword positions only</span></div>
+  <div class="col stack">
+    <p>الـ <span class="en">mask</span> هو قلب منهجية البيانات: كل تسمية تأتي من دليل خبير (معجم مفاهيم بين المدن، معاجم موثّقة، قوائم أدوات الفصحى لكل لهجة). وحيث لا يوجد دليل تبقى القيمة مجهولة، ولا يُعاقَب النموذج على ما لا نعرفه. هذا ما يسمح بجمع بيانات كبيرة دون التضحية بصحة التسميات.</p>
+  </div>
+</section>
+
+<section id="training">
+  <h2><span class="no">07</span>التحسين (<span class="en">Optimization</span>)</h2>
+  <div class="tw"><table>
+    <thead><tr><th>الإعداد</th><th>القيمة</th><th>السبب</th></tr></thead>
+    <tbody>
+      <tr><td class="en">Optimizer</td><td class="num">AdamW, wd 0.01</td><td>المعيار مع نماذج BERT</td></tr>
+      <tr><td>معدّل تعلّم الـ <span class="en">encoder</span></td><td class="num">4e-5</td><td>تكييف دون محو ما تعلّمه مسبقًا</td></tr>
+      <tr><td>معدّل تعلّم الـ <span class="en">heads</span></td><td class="num">1e-3</td><td>رؤوس جديدة تحتاج إلى التعلّم بسرعة</td></tr>
+      <tr><td class="en">Schedule</td><td class="num">6% warmup → linear decay</td><td>استقرار البداية</td></tr>
+      <tr><td class="en">Precision · clipping</td><td class="num">fp16 autocast · ‖g‖ ≤ 1</td><td>سرعة وذاكرة أقل، ومنع انفجار التدرّج</td></tr>
+      <tr><td class="en">Model selection</td><td class="num">macro-F1 over 9, every 1K steps</td><td>أفضل نقطة تُختار على <span class="en">dev</span> فقط، ومتوسط اللهجات يمنع ترجيح اللهجة الأكبر</td></tr>
+      <tr><td class="en">Seeds</td><td class="num">3 + linear control</td><td>الفروق تُقرأ مع تباين البذور، لا من تشغيلة واحدة</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="calibration">
+  <h2><span class="no">08</span>المعايرة (<span class="en">Calibration</span>)</h2>
+  <div class="two">
+    <div class="card">
+      <h3><span class="en">Temperature scaling</span></h3>
+      <p>درجة حرارة <span class="m">T</span> للرؤوس التسعة وأخرى لرأس «لهجة أخرى»، تُتعلَّم بـ <span class="en">LBFGS</span> على <span class="en">dev</span>. الهدف أن يعني احتمال 0.9 صوابًا في 90% من الحالات فعلًا، ويُقاس ذلك بالـ <span class="en">ECE</span>. هذا مهم لأن درجة الثقة تظهر للعميل في لوحة المراقبة.</p>
+    </div>
+    <div class="card">
+      <h3>عتبة لكل لهجة <span class="m">τ_t</span></h3>
+      <p>بحث شبكي من 0.2 إلى 0.9 يختار العتبة التي تعظّم <span class="en">F1</span> لكل لهجة على حدة، لأن اللهجات لا تتساوى في الصعوبة ولا في حجم البيانات. مجموعة <span class="en">gold</span> لا تُلمس هنا إطلاقًا، وتُقيَّم مرة واحدة بعد التثبيت.</p>
+    </div>
+  </div>
+</section>
+
+<section id="decision">
+  <h2><span class="no">09</span>سياسة القرار</h2>
+  <div class="algo"><span class="kw">for</span> each word w, given target t:
+  <span class="kw">if</span>  p_other(w)  > 0.5     → <b>other</b>                       <span class="c"># names, digits, Latin: never a deviation</span>
+  <span class="kw">elif</span> p_odia(w)  > τ_odia  → <b>deviates</b>, label = OTHER_DIALECT
+  <span class="kw">elif</span> p_t(w)     < τ_t     → <b>deviates</b>, label =
+          MSA                         <span class="kw">if</span> t ≠ MSA <span class="kw">and</span> p_MSA(w) ≥ 0.5   <span class="c"># drift to MSA checked first</span>
+          argmax_{v ≠ t} p_v(w)       <span class="kw">otherwise</span>                     <span class="c"># closest other variety</span>
+  <span class="kw">else</span>                     → <b>conforms</b>
+  confidence = 1 − p_t(w)  (deviation)   |   p_t(w)  (conformance)</div>
+  <div class="plate demo" id="demo">
+    <div class="eyebrow">Worked example · illustrative of the policy</div>
+    <p>جملة واحدة، والقرار يتغيّر بتغيّر اللهجة المطلوبة فقط. النموذج لم يُشغَّل مرة أخرى، فاللهجة معامل في طبقة القرار.</p>
+    <div class="targets" role="group" aria-label="Target dialect">
+      <button type="button" id="t-EGY" data-t="EGY" aria-pressed="true">EGY مصري</button>
+      <button type="button" id="t-SAU" data-t="SAU" aria-pressed="false">SAU سعودي</button>
+      <button type="button" id="t-LEV" data-t="LEV" aria-pressed="false">LEV شامي</button>
+      <button type="button" id="t-MSA" data-t="MSA" aria-pressed="false">MSA فصحى</button>
+    </div>
+    <div class="words" id="words" dir="rtl"></div>
+    <p class="trace" id="trace"></p>
+  </div>
+</section>
+
+<section id="evaluation">
+  <h2><span class="no">10</span>بروتوكول التقييم</h2>
+  <div class="tw"><table>
+    <thead><tr><th>المجموعة</th><th>ما تقيسه</th><th>المقياس</th><th>بوابة الإطلاق لكل لهجة</th></tr></thead>
+    <tbody>
+      <tr><td><span class="en">natural</span></td><td>جمل أصلية لمتحدّثي اللهجة، لم تدخل التدريب</td><td>نسبة الإنذارات الكاذبة من الكلمات</td><td class="num">≤ 1%</td></tr>
+      <tr><td><span class="en">challenge</span></td><td>جمل أصلية مع استبدالات خبيرة لكلمة أو ثلاث من لهجات أخرى، في مواضع معروفة</td><td><span class="en">P / R / F1</span> + دقة تسمية المصدر</td><td class="num">F1 ≥ 0.90</td></tr>
+      <tr><td><span class="en">held-out concepts</span></td><td>ربع المفاهيم المعجمية حُجب كليًا عن التدريب</td><td><span class="en">recall</span> على مفاهيم لم يرها النموذج</td><td>يقيس الفهم مقابل الحفظ</td></tr>
+      <tr><td><span class="en">agent</span></td><td>ردود وكلاء حقيقية «بلهجة t» يراجعها متحدّث أصلي</td><td><span class="en">F1</span></td><td class="num">F1 ≥ 0.85</td></tr>
+    </tbody>
+  </table></div>
+  <p class="col muted">فحص تسرّب قبل التدريب: لا توجد جملة ولا <span class="en">6-gram</span> مشترك (بعد التوحيد الإملائي) بين بيانات التدريب ومجموعات التقييم. اللهجة التي لا تعبر البوابة تُطلق كتجريبية أو تُعامَل كـ «لهجة أخرى».</p>
+</section>
+
+<section id="serving">
+  <h2><span class="no">11</span>التشغيل والتكامل مع منصّات المراقبة</h2>
+  <div class="two">
+    <div class="card">
+      <h3>وقت التشغيل</h3>
+      <ul>
+        <li>متّجهات اللهجات <span class="m">o_t</span> تُحسب مرة واحدة وتُخزَّن، فالاستدلال تمريرة واحدة للـ <span class="en">encoder</span> وضرب مصفوفات صغير.</li>
+        <li><span class="en">ONNX int8</span> على <span class="en">CPU</span>، دون <span class="en">GPU</span> أو اتصال خارجي.</li>
+        <li><span class="en">API</span>: <span class="m">detect(text, target)</span> لأي من اللهجات التسع، و<span class="en">CLI</span> وخادم <span class="en">HTTP</span> وصورة <span class="en">Docker</span>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>ما يقدّمه لمنصة مراقبة الوكلاء الصوتيين</h3>
+      <ul>
+        <li><span class="en">Dialect adherence eval</span>: نسبة الكلمات المطابقة في كل دور، والمقاطع المنحرفة ومصدرها.</li>
+        <li><span class="en">Red flags</span>: «الوكيل انزلق إلى الفصحى»، «وكيل مصري استخدم مفردات خليجية»، مع تتبّع لكل إصدار من الوكيل.</li>
+        <li>تقدير لهجة المتّصل من أدوار الـ <span class="en">STT</span>، وتقييم «تطابق اللهجة» بين المتّصل والوكيل.</li>
+        <li>حارس فوري اختياري قبل الـ <span class="en">TTS</span>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="limits">
+  <h2><span class="no">12</span>حدود معروفة</h2>
+  <ul class="col">
+    <li>الإشراف معجمي في معظمه: النموذج يرى السياق كاملًا، لكن التسميات تأتي غالبًا من شكل الكلمة. لذلك نختبر السياق صراحة بأزواج دنيا (<span class="en">minimal pairs</span>) للكلمات المتجانسة مثل «زين» و«حق».</li>
+    <li>السياق هو الدور الواحد فقط، لا المكالمة كاملة.</li>
+    <li>الشامي فئة واحدة: كلمة لبنانية مثل «هيدا» داخل ردّ وكيل أردني لا تُعلَّم. البلد محفوظ كبيانات وصفية، فيمكن الفصل لاحقًا.</li>
+    <li>النص المكتوب فقط: الأخطاء الصوتية ولكنة النطق خارج نطاق هذا النموذج، وتأتي عبر مخرجات الـ <span class="en">STT</span>.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>HaSeen · هـ·سين · نموذج كشف الانحراف اللهجي على مستوى الكلمة. يحيى النواصاني.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  // Illustrative policy outcomes for one sentence; linguistic facts, not model probabilities.
+  var words = ["أبغى", "أساعدك،", "سوف", "أحوّلك", "للقسم", "المختص", "الحين"];
+  var verdict = {
+    EGY: { 0: "SAU", 2: "MSA", 6: "SAU" },
+    SAU: { 2: "MSA" },
+    LEV: { 0: "SAU", 2: "MSA", 6: "SAU" },
+    MSA: { 0: "SAU", 6: "SAU" }
+  };
+  var why = {
+    EGY: "«أبغى» و«الحين» خليجيتان، و«سوف» أداة مستقبل فصيحة لا تُستخدم في المصري. الباقي مشترك ومطابق.",
+    SAU: "«أبغى» و«الحين» طبيعيتان في السعودي. «سوف» وحدها انحراف نحو الفصحى.",
+    LEV: "الشامي يقول «بدّي» و«هلّق»، فـ«أبغى» و«الحين» تُنسبان إلى أقرب لهجة (خليجي)، و«سوف» إلى الفصحى.",
+    MSA: "«سوف» طبيعية في الفصحى. «أبغى» و«الحين» عاميتان فتُعلَّمان بمصدرهما."
+  };
+  var box = document.getElementById("words"), trace = document.getElementById("trace");
+  function render(t) {
+    box.innerHTML = "";
+    words.forEach(function (w, i) {
+      var d = verdict[t][i], el = document.createElement("div");
+      el.className = "w" + (d ? " dev-" + d : "");
+      el.innerHTML = w + "<small>" + (d ? "→ " + d : "conforms") + "</small>";
+      box.appendChild(el);
+    });
+    trace.textContent = why[t];
+    document.querySelectorAll(".targets button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.t === t)); });
+  }
+  document.querySelectorAll(".targets button").forEach(function (b) { b.addEventListener("click", function () { render(b.dataset.t); }); });
+  render("EGY");
+})();
+</script>

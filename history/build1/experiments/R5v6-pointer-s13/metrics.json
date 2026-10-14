@@ -1,0 +1,144 @@
+{
+ "dev_default": {
+  "EGY": [
+   0.9863,
+   0.9874,
+   0.9868
+  ],
+  "GLF": [
+   0.9866,
+   0.9896,
+   0.9881
+  ],
+  "MSA": [
+   0.9723,
+   0.981,
+   0.9766
+  ],
+  "score": 0.9846
+ },
+ "dev_calibrated": {
+  "EGY": [
+   0.9857,
+   0.988,
+   0.9868
+  ],
+  "GLF": [
+   0.9893,
+   0.989,
+   0.9891
+  ],
+  "MSA": [
+   0.9767,
+   0.978,
+   0.9774
+  ],
+  "score": 0.985
+ },
+ "ece_dev_before": 0.0023,
+ "ece_dev_after": 0.0006,
+ "calibration": {
+  "T_var": 1.3795044422149658,
+  "T_dia": 1.017149567604065,
+  "tau": {
+   "EGY": 0.55,
+   "GLF": 0.4,
+   "MSA": 0.4
+  },
+  "tau_dia": 0.5
+ },
+ "heldout": {
+  "EGY": [
+   0.9906,
+   0.8799,
+   0.932
+  ],
+  "GLF": [
+   0.9672,
+   0.9924,
+   0.9796
+  ],
+  "MSA": [
+   0.9734,
+   0.9391,
+   0.9559
+  ],
+  "score": 0.9499
+ },
+ "gold": {
+  "egy_challenge": {
+   "P": 0.9942,
+   "R": 0.9827,
+   "F1": 0.9884,
+   "tp": 170,
+   "fp": 1,
+   "fn": 3,
+   "label_acc": 0.9353,
+   "words": 2859
+  },
+  "egy_natural": {
+   "P": 0.5,
+   "R": 0.25,
+   "F1": 0.3333,
+   "tp": 1,
+   "fp": 1,
+   "fn": 3,
+   "label_acc": 1.0,
+   "words": 4761
+  },
+  "egy_stress": {
+   "P": 0.8,
+   "R": 1.0,
+   "F1": 0.8889,
+   "tp": 12,
+   "fp": 3,
+   "fn": 0,
+   "label_acc": 1.0,
+   "words": 2824
+  },
+  "glf_experimental": {
+   "P": 0.8462,
+   "R": 0.7021,
+   "F1": 0.7674,
+   "tp": 33,
+   "fp": 6,
+   "fn": 14,
+   "label_acc": 1.0,
+   "words": 1138
+  },
+  "msa": {
+   "P": 0.6032,
+   "R": 0.8261,
+   "F1": 0.6972,
+   "tp": 38,
+   "fp": 25,
+   "fn": 8,
+   "label_acc": 1.0,
+   "words": 2952
+  }
+ },
+ "latency_ms_batch1_15w": {
+  "p50": 10.72,
+  "p95": 11.41,
+  "device": "cuda"
+ },
+ "train_seconds": 1326,
+ "checklist": {
+  "MFT": {
+   "pass": 24,
+   "n": 26,
+   "rate": 0.923
+  },
+  "INV": {
+   "pass": 42,
+   "n": 42,
+   "rate": 1.0
+  },
+  "DIR": {
+   "pass": 6,
+   "n": 6,
+   "rate": 1.0
+  }
+ },
+ "rescored": "decision layer: label = first natural variety in preference order (bug fix 2026-10-13)"
+}

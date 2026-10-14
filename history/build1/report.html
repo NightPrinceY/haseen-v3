@@ -1,0 +1,496 @@
+<title>HaSeen V1 Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a flush-left reading column (HaSeen / Organic identity), a sticky chapter rail, wide figures and explorers. */
+:root{
+  --bg:#f5ead8; --surface:#f9f4ed; --sunk:#ebddc5; --fg:#201e1d; --muted:#645c50; --faint:#82796a; --line:color-mix(in srgb,#201e1d 14%,transparent);
+  --accent:#c67139; --accent-deep:#8c491a; --accent-soft:#ffe1d0;
+  --egy:#c67139; --egy-s:#ffe1d0; --egy-d:#643312; --glf:#7a8a5e; --glf-s:#e1eecc; --glf-d:#3d472b;
+  --msa:#4882a0; --msa-s:#d8ebf6; --msa-d:#234759; --unk:#9d6780; --unk-s:#f6e1ea; --unk-d:#573646;
+  --signal:#dfaf5a; --signal-s:#f6e6cc; --signal-d:#573d05; --tile:#f5ead8; --tile-line:#e0d1b8;
+  --display:"Caprasimo",Georgia,serif; --body:"Figtree",system-ui,sans-serif; --ar:"Reem Kufi","Figtree",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --shadow:0 3px 10px color-mix(in srgb,#2e2b25 16%,transparent);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1a1613; --surface:#27211c; --sunk:#120f0d; --fg:#f5ead8; --muted:#c0b6a5; --faint:#a19786; --line:color-mix(in srgb,#f5ead8 14%,transparent);
+  --accent:#d67f48; --accent-deep:#ffc6a5; --accent-soft:#402310;
+  --egy:#d67f48; --egy-s:#402310; --egy-d:#ffc6a5; --glf:#8fa073; --glf-s:#272e1b; --glf-d:#ccdbb2;
+  --msa:#63a1c1; --msa-s:#192e39; --msa-d:#b5daef; --unk:#be849f; --unk-s:#38252e; --unk-d:#eec8d8;
+  --signal:#dfaf5a; --signal-s:#392809; --signal-d:#eecf9c; --tile:#1a1613; --tile-line:#3a322b;
+  --shadow:0 0 0 1px color-mix(in srgb,#f5ead8 9%,transparent); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1613; --surface:#27211c; --sunk:#120f0d; --fg:#f5ead8; --muted:#c0b6a5; --faint:#a19786; --line:color-mix(in srgb,#f5ead8 14%,transparent);
+  --accent:#d67f48; --accent-deep:#ffc6a5; --accent-soft:#402310;
+  --egy:#d67f48; --egy-s:#402310; --egy-d:#ffc6a5; --glf:#8fa073; --glf-s:#272e1b; --glf-d:#ccdbb2;
+  --msa:#63a1c1; --msa-s:#192e39; --msa-d:#b5daef; --unk:#be849f; --unk-s:#38252e; --unk-d:#eec8d8;
+  --signal:#dfaf5a; --signal-s:#392809; --signal-d:#eecf9c; --tile:#1a1613; --tile-line:#3a322b;
+  --shadow:0 0 0 1px color-mix(in srgb,#f5ead8 9%,transparent); color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font:16px/1.62 var(--body);margin:0}
+a{color:var(--accent-deep);text-underline-offset:3px}
+.shell{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,3vw,40px);display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px}
+@media (max-width:960px){.shell{grid-template-columns:minmax(0,1fr)}.rail{display:none}}
+.rail{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;padding-block:40px;display:flex;flex-direction:column;gap:2px;max-height:100vh;overflow:auto}
+.rail .brand{display:flex;align-items:center;gap:10px;margin-bottom:18px;font:400 20px var(--display);color:var(--fg);text-decoration:none}
+.rail a.ch{display:flex;gap:10px;align-items:baseline;padding:6px 12px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px}
+.rail a.ch span{font:500 11px var(--mono);color:var(--faint);min-width:18px}
+.rail a.ch:hover{background:color-mix(in srgb,var(--fg) 6%,transparent)}
+.rail a.ch.on{background:var(--accent-soft);color:var(--accent-deep)}
+main{padding-block:40px 96px;display:flex;flex-direction:column;gap:96px;min-width:0}
+section{display:flex;flex-direction:column;gap:24px;scroll-margin-top:24px;min-width:0}
+.col{max-width:720px}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.02em;line-height:1.06;margin:0;text-wrap:balance}
+h1{font-size:clamp(46px,8vw,92px)} h2{font-size:clamp(30px,4.4vw,44px)} h3{font-size:21px}
+p{margin:0}
+.kicker{font:500 12.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:10px}
+.lede{font-size:18.5px;color:var(--muted);margin-top:12px;max-width:64ch}
+.ar{font-family:var(--ar)}
+bdi.ar{font-size:1.06em}
+code,.mono{font-family:var(--mono);font-size:.86em}
+.src{display:inline-flex;align-items:center;gap:4px;font:500 11.5px var(--mono);padding:1px 8px;border-radius:999px;background:var(--sunk);color:var(--muted);text-decoration:none;white-space:nowrap;vertical-align:1px}
+.src::before{content:"↗"}
+.src:hover{background:var(--accent-soft);color:var(--accent-deep)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:start}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+.hero svg.tile{width:clamp(120px,16vw,170px);height:auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.stat{background:var(--surface);border-radius:28px;padding:18px 20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;min-width:0}
+.stat b{font:400 38px/1 var(--display)} .stat span{font-size:14px;color:var(--muted)}
+.card{background:var(--surface);border-radius:28px;padding:22px 24px;box-shadow:var(--shadow);min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px}
+ul.tight{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tablewrap{overflow-x:auto;border-radius:22px;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+th{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr.hl td{background:color-mix(in srgb,var(--accent) 9%,transparent)}
+td.n{text-align:right;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:12.5px;white-space:nowrap}
+.pill i{width:8px;height:8px;border-radius:50%}
+.p-egy{background:var(--egy-s);color:var(--egy-d)} .p-glf{background:var(--glf-s);color:var(--glf-d)} .p-msa{background:var(--msa-s);color:var(--msa-d)} .p-unk{background:var(--unk-s);color:var(--unk-d)} .p-sig{background:var(--signal-s);color:var(--signal-d)} .p-n{background:var(--sunk);color:var(--muted)}
+figure{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+figure img{width:100%;height:auto;border-radius:22px;box-shadow:var(--shadow);cursor:zoom-in;background:var(--sunk);display:block}
+figcaption{font-size:13.5px;color:var(--muted)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.tl{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+.tl b{font:500 12px var(--mono);letter-spacing:.06em;color:var(--accent-deep);display:block}
+.tl span{font-size:14.5px}
+/* example explorer */
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:7px 14px;font:14px var(--body);cursor:pointer;max-width:100%}
+.seg button:hover{background:color-mix(in srgb,var(--fg) 6%,var(--bg))}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#f5ead8;border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sentence{display:flex;flex-wrap:wrap;gap:10px;direction:rtl;padding:6px 0}
+.tok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:7px 15px 9px;border-radius:22px;border:2px solid transparent;background:var(--bg);font:500 25px/1.3 var(--ar)}
+.tok small{font:500 10.5px var(--mono);direction:ltr;color:var(--muted)}
+.tok em{font:normal 13px var(--ar)}
+.tok.glf{background:var(--glf-s);border-color:var(--glf);color:var(--glf-d)} .tok.msa{background:var(--msa-s);border-color:var(--msa);color:var(--msa-d)}
+.tok.egy{background:var(--egy-s);border-color:var(--egy);color:var(--egy-d)} .tok.unk{background:var(--unk-s);border-color:var(--unk);color:var(--unk-d)}
+.tok.glf small,.tok.msa small,.tok.egy small,.tok.unk small{color:inherit;opacity:.85}
+pre{margin:0;background:var(--sunk);border-radius:18px;padding:14px;overflow:auto;max-height:280px;font:12px/1.5 var(--mono);direction:ltr}
+details summary{cursor:pointer;color:var(--muted);font-size:14px}
+/* options */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.opt{text-align:left;border:2px solid transparent;background:var(--surface);border-radius:24px;padding:16px 18px;cursor:pointer;color:var(--fg);font:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+.opt:hover{border-color:var(--line)}
+.opt[aria-expanded="true"]{border-color:var(--accent)}
+.opt .top{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.opt .letter{font:400 26px var(--display);color:var(--accent-deep)}
+.opt h3{font-size:18px}
+.opt .why{display:none;font-size:14.5px;color:var(--muted)}
+.opt[aria-expanded="true"] .why{display:block}
+/* run explorer */
+.runs{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:18px}
+@media (max-width:820px){.runs{grid-template-columns:1fr}}
+.runlist{display:flex;flex-direction:column;gap:6px}
+.runlist button{display:flex;justify-content:space-between;gap:8px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:8px 14px;font:13.5px var(--mono);cursor:pointer}
+.runlist button:hover{background:color-mix(in srgb,var(--fg) 6%,var(--bg))}
+.runlist button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-deep)}
+.metric{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 64px;gap:12px;align-items:center;margin:9px 0;font-size:14px}
+.track{position:relative;height:18px;border-radius:999px;background:var(--sunk)}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.track .band{position:absolute;top:-3px;bottom:-3px;border-radius:6px;background:color-mix(in srgb,var(--signal) 38%,transparent)}
+.track .tgt{position:absolute;top:-6px;bottom:-6px;width:3px;border-radius:2px;background:var(--fg)}
+.metric .v{font:500 14px var(--mono);text-align:right}
+.note{background:var(--sunk);border-radius:22px;padding:16px 20px;font-size:15px}
+.note .k{font:500 11.5px var(--mono);letter-spacing:.14em;color:var(--accent-deep);margin-bottom:4px;text-transform:uppercase}
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.files a{display:flex;flex-direction:column;gap:2px;background:var(--surface);border-radius:20px;padding:14px 18px;text-decoration:none;color:var(--fg);box-shadow:var(--shadow)}
+.files a:hover{outline:2px solid var(--accent)}
+.files a b{font:500 13px var(--mono);color:var(--accent-deep)} .files a span{font-size:14px;color:var(--muted)}
+.lb{position:fixed;inset:0;background:color-mix(in srgb,#120f0d 82%,transparent);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20;cursor:zoom-out}
+.lb img{max-width:100%;max-height:100%;border-radius:16px}
+footer{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:14px;flex-wrap:wrap}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="glyph">
+  <path fill-rule="evenodd" fill="#c67139" d="M342 180a86 86 0 1 1 0 172a86 86 0 1 1 0-172z M331 212a43 43 0 1 0 0 86a43 43 0 1 0 0-86z"/>
+  <circle cx="242" cy="336" r="15" fill="#dfaf5a"/>
+  <g fill="#4882a0"><rect x="82" y="320" width="130" height="32" rx="16"/><rect x="82" y="236" width="30" height="116" rx="15"/><rect x="132" y="236" width="30" height="116" rx="15"/><rect x="182" y="236" width="30" height="116" rx="15"/></g>
+</g></defs></svg>
+
+<div class="shell">
+<nav class="rail" aria-label="Chapters">
+  <a class="brand" href="#start"><svg viewBox="0 0 512 512" width="34" height="34" aria-hidden="true"><rect x="8" y="8" width="496" height="496" rx="112" style="fill:var(--tile);stroke:var(--tile-line)" stroke-width="10"/><use href="#glyph"/></svg>HaSeen V1</a>
+  <a class="ch" href="#start"><span>00</span>Summary</a>
+  <a class="ch" href="#task"><span>01</span>The task</a>
+  <a class="ch" href="#research"><span>02</span>Research</a>
+  <a class="ch" href="#arch"><span>03</span>Architecture</a>
+  <a class="ch" href="#pilot"><span>04</span>Pilot</a>
+  <a class="ch" href="#gold"><span>05</span>Benchmark</a>
+  <a class="ch" href="#data"><span>06</span>Training data</a>
+  <a class="ch" href="#train"><span>07</span>Training & choice</a>
+  <a class="ch" href="#results"><span>08</span>Results</a>
+  <a class="ch" href="#ship"><span>09</span>Shipping</a>
+  <a class="ch" href="#limits"><span>10</span>Limits & next</a>
+  <a class="ch" href="#files"><span>11</span>Where it lives</a>
+</nav>
+
+<main>
+<!-- 00 -->
+<section id="start">
+  <div class="hero">
+    <div style="min-width:0">
+      <div class="kicker">Tuner take-home · Dialect Deviation Detection · V1</div>
+      <h1>HaSeen</h1>
+      <p class="ar" style="font-size:34px;color:var(--muted);margin-top:4px">هـ · سين</p>
+      <p class="lede">I built HaSeen to read an Arabic sentence and say, for every word, whether it belongs to the target variety (Egyptian, Gulf or MSA) and what it is when it does not. It runs offline, needs no LLM, and takes about 11 ms on a CPU. The name is the idea: Egyptian says <bdi class="ar">هيتم</bdi> and MSA says <bdi class="ar">سيتم</bdi>, so one letter decides the dialect.</p>
+      <p class="lede" style="font-size:16px">This page is the whole story, from reading the task to the shipped model. Each ↗ tag next to a number links to the file in the repo where that number lives.</p>
+    </div>
+    <svg class="tile" viewBox="0 0 512 512" role="img" aria-label="HaSeen mark"><rect x="8" y="8" width="496" height="496" rx="112" style="fill:var(--tile);stroke:var(--tile-line)" stroke-width="10"/><use href="#glyph"/></svg>
+  </div>
+  <div class="stats">
+    <div class="stat"><b style="color:var(--egy)">0.963</b><span>Egyptian F1 on my frozen benchmark (3 seeds: 0.966 ± 0.005). Target was 0.85. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/RESULTS.md">RESULTS.md</a></span></div>
+    <div class="stat"><b style="color:var(--glf)">2 / 4,761</b><span>false alarms on natural Egyptian agent replies <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/experiments/R5v6-pointer-s42/metrics.json">metrics.json</a></span></div>
+    <div class="stat"><b style="color:var(--msa)">11.3 ms</b><span>p50 per sentence on CPU, int8 ONNX, 164 MB <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/RESULTS.md#deployment-checks-on-r4v5-pointer-s21-best-by-dev-score">RESULTS.md</a></span></div>
+    <div class="stat"><b style="color:var(--unk)">162.6M</b><span>parameters: a BERT-base Arabic encoder + 0.4M of heads <a class="src" href="https://huggingface.co/NightPrince/HaSeen-1#model-details">HF card</a></span></div>
+  </div>
+  <div class="card" style="display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+      <h3>Try it on real output</h3>
+      <span class="mono" style="color:var(--muted)" id="ex-target">target · Arabic / Egyptian</span>
+    </div>
+    <div class="seg" id="ex-pick" role="group" aria-label="Example sentences"></div>
+    <div class="sentence" id="ex-sentence" aria-live="polite"></div>
+    <details><summary>JSON, as the model returns it</summary><pre id="ex-json"></pre></details>
+    <p style="font-size:13.5px;color:var(--muted)">Every chip on this page is real output of the shipped model (ONNX int8). Run it yourself with <code>haseen "…" -t egy</code>, or open the <a href="https://huggingface.co/spaces/NightPrince/HaSeen-Playground">Playground</a>.</p>
+  </div>
+  <div class="timeline" aria-label="Timeline">
+    <div class="tl"><b>7 Oct</b><span>Intro call with Mohamed</span></div>
+    <div class="tl"><b>12 Oct · day</b><span>Task in. 5 clarifying questions, then the research, spikes, pilot and the gold benchmark</span></div>
+    <div class="tl"><b>12→13 Oct · night</b><span>Training data: sources, labeler, alignment of 158k pairs, five families</span></div>
+    <div class="tl"><b>13 Oct</b><span>9 training runs, model choice, ONNX, release, demo, identity</span></div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section id="task">
+  <div class="col"><div class="kicker">01 · The task</div><h2>What Tuner asked, and what I decided</h2>
+  <p class="lede">Given text and a target dialect, label every word as conforming or deviating, and name what a deviating word is instead. No cloud LLM at inference. The answers below decided the scope.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>My question</th><th>Tuner's answer</th><th>What I did</th></tr></thead>
+    <tbody>
+      <tr><td>Is a word valid in both the target and MSA conforming?</td><td><span class="pill p-glf">Yes</span></td><td>Each word gets three bits: is it natural in Egyptian? in Gulf? in MSA? It deviates only when the target's bit is 0. <bdi class="ar">الاجتماع</bdi> conforms everywhere.</td></tr>
+      <tr><td>Does morphology count? (prefixes like <bdi class="ar">هـ، حـ، بـ</bdi> and the negation <bdi class="ar">ما…ش</bdi>)</td><td><span class="pill p-n">Your call</span></td><td>Only positive evidence: <bdi class="ar">سـ</bdi>+verb and <bdi class="ar">سوف</bdi> deviate in Egyptian. A word that merely lacks <bdi class="ar">هـ</bdi> (<bdi class="ar">أتأخر</bdi>) conforms, as in the task's own example.</td></tr>
+      <tr><td>CPU or GPU? Self-hosted model OK?</td><td><span class="pill p-glf">GPU, yes</span></td><td>I still made it run on CPU (int8 ONNX, 11 ms), because a guard that sits before the TTS on every turn has to be cheap.</td></tr>
+      <tr><td>Arabizi / code-switching?</td><td><span class="pill p-n">Your call</span></td><td>Latin script, digits and names always conform and are not scored. Arabizi is future work.</td></tr>
+      <tr><td>LLMs to build data offline?</td><td><span class="pill p-n">Your call</span></td><td>Yes, at development time only, and checked by a native speaker. Gold candidates came from 5 open LLM families; training labels came from rules, a lexicon and corpus evidence (below).</td></tr>
+    </tbody></table></div>
+  <p style="font-size:14px;color:var(--muted)">Answers <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/clarifications.md">clarifications.md</a> · targets I fixed before any work (F1 ≥ 0.85, p95 &lt; 20 ms CPU) <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/PRD.md">PRD.md</a></p>
+  <div class="grid3">
+    <div class="note"><div class="k">Egyptian</div>Primary target. The register is Egyptian customer-service speech, which is semi-formal: <bdi class="ar">هل، تم، يمكنك</bdi> are natural there. I checked this with a native speaker (42 yes/no questions). <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/annotation/questions_for_yahya.md">questions_for_yahya.md</a></div>
+    <div class="note"><div class="k">MSA</div>Supported. Dialect words inside formal text deviate.</div>
+    <div class="note"><div class="k">Gulf</div>Experimental and strict. I have no native Gulf annotator, so I say so instead of overclaiming.</div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="research">
+  <div class="col"><div class="kicker">02 · Research</div><h2>What the field already knew</h2>
+  <p class="lede">Before choosing anything I read the papers, listed every dataset with its licence, and spent about $0.03 on two small spikes to check what really exists. Six findings shaped everything after.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>LLMs drift out of dialect</h3><p style="margin-top:8px">In the AMIYA shared task, a baseline LLM answered in Egyptian only <b>11.1%</b> of the time when asked to. Sentence-level scores can't say <i>which</i> word broke the dialect; a word-level detector can. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/notes/R2-R3-data-models.md">R2-R3</a></p></div>
+    <div class="card"><h3>Word lists are not enough</h3><p style="margin-top:8px">Published Gulf cue lists had precision <b>0.0</b> on multi-dialect data, and 56% of dialect sentences are valid in several regions. Context has to decide. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/notes/R1-papers.md">R1-papers</a></p></div>
+    <div class="card"><h3>No word-level data to download</h3><p style="margin-top:8px">LinCE MSA–Egyptian, the obvious dataset, is offline. MADAR has 11,600 parallel sentences (Cairo / Doha / MSA). So I had to build labelled data myself. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/spike/RESULTS.md">spike</a></p></div>
+    <div class="card"><h3>Morphology alone fails</h3><p style="margin-top:8px">"Deviating if the Egyptian analyzer can't parse it" scored <b>F1 0.16</b>: the CAMeL Egyptian database analyzes 99% of MSA words. Rules became evidence for labels, not the decider. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/spike/RESULTS.md">spike</a></p></div>
+    <div class="card"><h3>A good warm start exists</h3><p style="margin-top:8px"><code>VARabi/ALDi-Token-DI</code> already tags MSA vs dialect per token, but it misses a single <bdi class="ar">سوف</bdi> inside Egyptian. My data had to teach single-word slips. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/notes/R4-repos-tools.md">R4</a></p></div>
+    <div class="card"><h3>MARBERT tokenizes dialect best</h3><p style="margin-top:8px">On 30k Egyptian words: <b>1.86</b> subwords per word and <b>2.3%</b> unknown, against 17% for other Arabic BERTs before normalization. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/spike/RESULTS.md#spike-3-2026-10-12-ready-made-token-model-tokenizers-cpu-latency-001">spike 3</a></p></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="arch">
+  <div class="col"><div class="kicker">03 · Architecture</div><h2>Nine options, one rule written in advance</h2>
+  <p class="lede">I scored nine designs on quality, latency, effort, productisation and risk, kept three finalists, and wrote the rule for choosing between them before training anything. Tap a card to see what happened to that option.</p></div>
+  <div class="opts" id="opts"></div>
+  <div class="note"><div class="k">Decision rule (written 12 Oct, before the pilot)</div>Ship <b>A</b> (encoder) if gold F1 ≥ 0.85 and latency is fine. Try <b>B</b> (decoder backbone) once, only if A's errors come from missing knowledge. Ship <b>C</b> (cascade) only if B beats A by ≥ 3 F1. A reached 0.963, so B and C were not needed. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/studies/architectures.html">architectures.html</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/PRD.md#12-architecture-decided">PRD §12</a></div>
+  <figure><img src="diagrams/diagram-01-inference.png" alt="Inference pipeline: text, words, WordPiece, BERT-base encoder, pointer head, calibrate, decide, suggest, JSON" loading="lazy"><figcaption>The shipped pipeline: one forward pass judges every word, for any target.</figcaption></figure>
+  <figure><img src="diagrams/diagram-02-model.png" alt="Model internals: word vector compared with three option vectors; parameter breakdown" loading="lazy"><figcaption>Inside the head: each word is compared with three learned ideas of "natural", one per variety. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/training/train.py">train.py</a></figcaption></figure>
+</section>
+
+<!-- 04 -->
+<section id="pilot">
+  <div class="col"><div class="kicker">04 · Pilot</div><h2>The model barely mattered, the labels did</h2>
+  <p class="lede">Six small runs on an L4 (about $0.95) compared backbones, warm starts and heads, and then two ways of labelling the same data. The check set was 30 realistic service sentences.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Labels</th><th>Backbone / head</th><th class="n">Synthetic F1</th><th class="n">Realistic F1</th><th class="n">ECE</th></tr></thead>
+    <tbody>
+      <tr><td>D1 v1 (sentence-level "shared")</td><td>MARBERTv2 / linear</td><td class="n">0.841</td><td class="n">0.609</td><td class="n">0.020</td></tr>
+      <tr><td>D1 v1</td><td>ALDi-Token-DI / linear</td><td class="n">0.836</td><td class="n">0.627</td><td class="n">0.012</td></tr>
+      <tr><td>D1 v1</td><td>ALDi-Token-DI / pointer</td><td class="n">0.834</td><td class="n">0.587</td><td class="n">0.010</td></tr>
+      <tr><td>D1 v1</td><td>CAMeLBERT-Mix / linear</td><td class="n">0.830</td><td class="n">0.568</td><td class="n">0.008</td></tr>
+      <tr class="hl"><td><b>D1 v2 (corpus-level validity)</b></td><td>ALDi-Token-DI / linear</td><td class="n">0.871</td><td class="n"><b>0.800</b></td><td class="n">0.012</td></tr>
+      <tr class="hl"><td><b>D1 v2</b></td><td>ALDi-Token-DI / pointer</td><td class="n"><b>0.874</b></td><td class="n">0.769</td><td class="n"><b>0.008</b></td></tr>
+    </tbody></table></div>
+  <div class="grid2">
+    <div class="note"><div class="k">What I learned</div>Changing only how "shared" words were labelled lifted realistic F1 from 0.627 to 0.800. All backbones and heads were within about 1 F1 of each other. So I put the effort into data, not into a bigger model. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/pilot/PILOT_REPORT.md">PILOT_REPORT.md</a></div>
+    <div class="note"><div class="k">Choice</div>ALDi-Token-DI warm start + pointer head (best calibration), with the linear head kept as the control. Pilot code and raw results <a class="src" href="https://github.com/NightPrinceY/haseen/tree/main/research/pilot">research/pilot</a></div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="gold">
+  <div class="col"><div class="kicker">05 · Benchmark</div><h2>A gold set built first, then frozen</h2>
+  <p class="lede">I built the evaluation set before the training data, from a different source, and froze it with sha256 hashes. It was never used for training, tuning or picking a model.</p></div>
+  <div class="grid3">
+    <div class="note"><div class="k">1 · Real agent output</div>560 replies from 5 open LLM families (Gemma-4-31B, Llama-3.3-70B, DeepSeek-V4-Flash, Aya-Expanse-32B, Llama-4-Scout) in 4 prompt styles, because LLM replies are where the slips happen. 38 corrupted generations were removed. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/scripts/research/gen_router.py">gen_router.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/tree/main/annotation/raw">raw</a></div>
+    <div class="note"><div class="k">2 · Rules, then labels</div>Guideline v1.2 with 40 anchor sentences. Claude labelled every token; a native speaker settled the register in 42 yes/no checks. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/GUIDELINE.md">GUIDELINE.md</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/annotation/anchors_v1.tsv">anchors</a></div>
+    <div class="note"><div class="k">3 · Second opinion</div>A DeepSeek-V4-Pro committee agreed on 97.7% of tokens, but κ was only 0.21: it flags normal service words as MSA. I recorded it and did not use it as truth. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/annotation/raw/disagreements_v1.json">disagreements</a></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Set</th><th>Target</th><th>Measures</th><th class="n">Sentences</th><th class="n">Words</th><th class="n">Deviations</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">egy_natural</td><td><span class="pill p-egy"><i style="background:var(--egy)"></i>Egyptian</span></td><td>precision on clean agent replies</td><td class="n">277</td><td class="n">4,761</td><td class="n">4</td></tr>
+      <tr><td class="mono">egy_stress</td><td><span class="pill p-egy"><i style="background:var(--egy)"></i>Egyptian</span></td><td>real MSA leakage from an MSA knowledge base</td><td class="n">168</td><td class="n">2,824</td><td class="n">12</td></tr>
+      <tr><td class="mono">egy_challenge</td><td><span class="pill p-egy"><i style="background:var(--egy)"></i>Egyptian</span></td><td>recall on 1–2 grammar-checked substitutions</td><td class="n">162</td><td class="n">2,859</td><td class="n">173</td></tr>
+      <tr><td class="mono">msa</td><td><span class="pill p-msa"><i style="background:var(--msa)"></i>MSA</span></td><td>Egyptian words inside MSA</td><td class="n">131</td><td class="n">2,952</td><td class="n">46</td></tr>
+      <tr><td class="mono">glf_experimental</td><td><span class="pill p-glf"><i style="background:var(--glf)"></i>Gulf</span></td><td>strict Gulf, no native annotator</td><td class="n">56</td><td class="n">1,138</td><td class="n">47</td></tr>
+    </tbody></table></div>
+  <p style="font-size:14px;color:var(--muted)">Files and hashes <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/data/bench/DATA_CARD.md">DATA_CARD.md</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/data/bench/MANIFEST.json">MANIFEST.json</a> · on HF as <a href="https://huggingface.co/datasets/NightPrince/HaSeen-Bench">HaSeen-Bench</a></p>
+</section>
+
+<!-- 06 -->
+<section id="data">
+  <div class="col"><div class="kicker">06 · Training data</div><h2>92k sentences without an LLM API</h2>
+  <p class="lede">Instead of asking an LLM to label (the research says the teacher can be worse than the student), I used real text and parallel corpora, and wrote a labeler that gives each word three bits and says "unknown" when it is not sure. Unknown bits carry no loss.</p></div>
+  <figure><img src="diagrams/diagram-03-data.png" alt="Data recipe: sources, five families A to E, labeler, data guard, splits" loading="lazy"><figcaption>Five families, one labeler, checks before training. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/DATA_PLAN.md">DATA_PLAN.md</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/data/mix92k_stats.json">mix92k_stats.json</a></figcaption></figure>
+  <div class="grid3">
+    <div class="note"><div class="k">Sources</div>Dial2MSA, oasst2 Egyptian/MSA, Arabic STS, Nile-Chat, MADAR-6, Saudi customer-service chats, Najdi conversations, and the Lahga dictionary (25k forms). Each one with its licence. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/DATA_STUDY.md">DATA_STUDY.md</a></div>
+    <div class="note"><div class="k">Alignment</div>158k dialect↔MSA pairs aligned word by word on an L4 (MARBERTv2 layer 8, about $0.12). A word is swapped only when both of its neighbours match. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/scripts/align_remote.py">align_remote.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/scripts/build_dataset.py">build_dataset.py</a></div>
+    <div class="note"><div class="k">Labeler</div>Core lexicon (≈270 entries, 20 context rules for homographs), morphology, corpus counts and gates. I audited every flagged word type across about 800k tokens in 3 rounds and fixed about 25 false-positive patterns. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/src/haseen/labeler.py">labeler.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/data/lexicons/core_v2.tsv">core_v2.tsv</a></div>
+    <div class="note"><div class="k">No leakage</div>0 shared 8-grams between any source and the gold set (7,933 gold 8-grams). <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/DATA_PLAN.md">DATA_PLAN.md</a></div>
+    <div class="note"><div class="k">Native check</div>A native speaker accepted 100 of 100 sampled training sentences. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/annotation/g3_check_v1.md">g3_check_v1.md</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/annotation/g3_answers_v1.json">answers</a></div>
+    <div class="note"><div class="k">Generalization test</div>148 Gulf word forms are held out of training completely, to test words the model has never seen. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/data/mix92k_heldout_forms.json">heldout_forms</a></div>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Splits: train 92,285 sentences (961,859 words) · dev 6,902 · held-out 4,298. On HF as <a href="https://huggingface.co/datasets/NightPrince/HaSeen-Mix-92K">HaSeen-Mix-92K</a> and <a href="https://huggingface.co/datasets/NightPrince/HaSeen-Service-Triples">HaSeen-Service-Triples</a> (197 hand-written turns × 3 varieties <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/data/service/templates.tsv">templates.tsv</a>).</p>
+</section>
+
+<!-- 07 -->
+<section id="train">
+  <div class="col"><div class="kicker">07 · Training & choice</div><h2>Nine runs, failures kept</h2>
+  <p class="lede">I wrote the expected result for every gold set before the first run, and kept every run, including the one that collapsed. Each fix came from error analysis on dev data, never from the gold set. Pick a run to see its numbers.</p></div>
+  <div class="runs">
+    <div class="runlist" id="runlist" role="group" aria-label="Training runs"></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline"><h3 id="run-title"></h3><span id="run-src"></span></div>
+      <p id="run-note" style="font-size:15px;color:var(--muted)"></p>
+      <div id="run-metrics"></div>
+      <p style="font-size:12.5px;color:var(--muted)">Bars: the run's value. Saffron band: the range I expected before training. Black line: the 0.85 PRD target.</p>
+    </div>
+  </div>
+  <div class="note"><div class="k">How the shipped model was chosen</div>The rule, fixed before the runs: among the final three seeds, ship the one with the highest <b>dev</b> score. That is <b>R5v6-pointer-s42</b> (dev 0.9857). Its gold scores are a little below the seed average on Egyptian (0.963 vs 0.966), and I kept it anyway, because picking by gold would leak the benchmark. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/RESULTS.md#r5v6-pointer-seeds-13--21--42-train_v6--family-e-4">RESULTS.md</a></div>
+  <p style="font-size:14px;color:var(--muted)">Each run trains for about 22 minutes on one L4. All GPU work, from the spikes to the last run, cost about $4 of HF sandbox time. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/research/notes/compute-budget.md">compute-budget.md</a> <a class="src" href="https://github.com/NightPrinceY/haseen/tree/main/experiments">experiments/</a></p>
+</section>
+
+<!-- 08 -->
+<section id="results">
+  <div class="col"><div class="kicker">08 · Results</div><h2>Strong where it ships, honest where it doesn't</h2></div>
+  <figure><img src="diagrams/diagram-05-results.png" alt="F1 per benchmark set with the 0.85 target line" loading="lazy"><figcaption>Shipped model on the frozen benchmark. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/experiments/R5v6-pointer-s42/metrics.json">metrics.json</a> <a class="src" href="https://github.com/NightPrinceY/haseen/tree/main/experiments/R5v6-pointer-s42">gold predictions</a></figcaption></figure>
+  <figure><img src="diagrams/diagram-04-decision.png" alt="Decision layer with real probabilities for each word" loading="lazy"><figcaption>How a word becomes a verdict: the probability for the target is compared with a threshold fitted on dev (T = 1.36, τ<sub>EGY</sub> = 0.30). <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/experiments/R5v6-pointer-s42/calibration.json">calibration.json</a></figcaption></figure>
+  <div class="grid3">
+    <div class="note"><div class="k">Behaviour tests</div>74 CheckList tests: invariance 42/42, directional <bdi class="ar">هـ→سـ</bdi> 6/6, minimum functionality 24/26. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/training/checklist/tests_v1.jsonl">tests</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/experiments/R5v6-pointer-s42/checklist.json">results</a></div>
+    <div class="note"><div class="k">Calibration</div>ECE 0.0005 on dev after temperature scaling (0.0023 before), so a confidence of 0.9 means about 90%.</div>
+    <div class="note"><div class="k">The task's example</div><bdi class="ar">أبغى</bdi> → Gulf, <bdi class="ar">سوف</bdi> → MSA, every other word conforms. It is the <code>make demo</code> command and one of the CheckList tests. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/Makefile">Makefile</a></div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section id="ship">
+  <div class="col"><div class="kicker">09 · Shipping</div><h2>Three ways to run it, all offline</h2></div>
+  <figure><img src="diagrams/diagram-06-deploy.png" alt="Deployment: PyTorch GPU, ONNX CPU, browser" loading="lazy"><figcaption>One model, three runtimes. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/training/export_onnx.py">export_onnx.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/Dockerfile">Dockerfile</a></figcaption></figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Runtime (batch 1, 15 words)</th><th class="n">p50</th><th class="n">p95</th><th class="n">Size</th><th class="n">Same decisions as fp32</th></tr></thead>
+    <tbody>
+      <tr><td>PyTorch CPU fp32</td><td class="n">38.5 ms</td><td class="n">41.4 ms</td><td class="n">650 MB</td><td class="n">—</td></tr>
+      <tr><td>ONNX Runtime CPU fp32</td><td class="n">19.9 ms</td><td class="n">20.3 ms</td><td class="n">650 MB</td><td class="n">100%</td></tr>
+      <tr class="hl"><td><b>ONNX Runtime CPU int8</b></td><td class="n"><b>11.3 ms</b></td><td class="n"><b>12.2 ms</b></td><td class="n"><b>164 MB</b></td><td class="n"><b>99.8%</b></td></tr>
+      <tr><td>PyTorch GPU fp16 (L4)</td><td class="n">8.5 ms</td><td class="n">10.9 ms</td><td class="n">—</td><td class="n">—</td></tr>
+    </tbody></table></div>
+  <div class="card" style="display:flex;flex-direction:column;gap:12px">
+    <h3>One install, one command</h3>
+    <p style="color:var(--muted)">I packaged HaSeen as a small SDK. The default install is CPU-only (onnxruntime + tokenizers, no PyTorch). The first run downloads the public model once; after that it works offline.</p>
+<pre>uv tool install git+https://github.com/NightPrinceY/haseen     # or pipx install …
+haseen "أنا أبغى أروح الاجتماع بكرة بس سوف أتأخر شوية" -t egy
+
+HaSeen · target Egyptian · 2 of 9 words deviate · 6.4 ms
+  أبغى  Gulf   0.998
+  سوف   MSA    0.999   → هـ + الفعل</pre>
+<pre>import haseen
+haseen.detect("الفني سيصل لحضرتك الساعة اتنين", "egy")["deviations"]   # ['سيصل']
+
+haseen serve --port 8000        # POST /detect {"text": "…", "target": "egy"}  ·  GET /health
+cat replies.txt | haseen -t egy # one sentence per line → JSON lines (post-call audits)</pre>
+<pre>docker run --rm -p 8000:8000 nightprincey/haseen    # the server: model inside, offline, non-root, health-checked</pre>
+    <p style="font-size:14px;color:var(--muted)"><a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/src/haseen/api.py">api.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/src/haseen/cli.py">cli.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/src/haseen/server.py">server.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/src/haseen/engine.py">engine.py</a> <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/Dockerfile">Dockerfile</a> <a class="src" href="https://hub.docker.com/r/nightprincey/haseen">Docker Hub</a></p>
+  </div>
+  <div class="grid3">
+    <div class="note"><div class="k">Tested like a stranger</div>Fresh environment, no Hugging Face account: the model downloaded in 55 s, then ran with the network off. The Docker image runs with <code>--network none</code>. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/docs/RESULTS.md#package-v11-pip-install-onnx-int8-on-cpu-by-default--2026-10-13">RESULTS.md</a></div>
+    <div class="note"><div class="k">Same decisions</div>The package engine matches the original ONNX script on all 794 benchmark sentences (0 differences), at 7.9 ms p50 on my laptop CPU. On the benchmark: Egyptian 0.965, MSA 0.710, Gulf 0.773 (int8 costs strict Gulf 3 points).</div>
+    <div class="note"><div class="k">Browser demo</div>The same int8 model runs inside the page with onnxruntime-web. Its JS tokenizer matches Python on 795/795 benchmark sentences. <a class="src" href="https://github.com/NightPrinceY/haseen/blob/main/demo/web">demo/web</a></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="limits">
+  <div class="col"><div class="kicker">10 · Limits & next</div><h2>What V1 does not do yet</h2></div>
+  <div class="grid2">
+    <div class="card"><h3>Known gaps</h3><ul class="tight">
+      <li>MSA target over-flags some service nouns (F1 0.704).</li>
+      <li>Gulf is strict and not checked by a native speaker (F1 0.804).</li>
+      <li>Rare ث-spellings such as <bdi class="ar">أبعثلك</bdi> are missed; "<bdi class="ar">من حقك</bdi>" is sometimes flagged.</li>
+      <li>Suggestions come from a dictionary and can be off: for <bdi class="ar">الحين</bdi> it suggests <bdi class="ar">بقا</bdi>, where an Egyptian agent says <bdi class="ar">دلوقتي</bdi>. <bdi class="ar">أبغى → عايز</bdi> is not suggested yet.</li>
+      <li>Levantine and Maghrebi come back as "unknown", not as named dialects.</li>
+      <li>MADAR and Dial2MSA are research-only licences, so V1 is for research use.</li>
+    </ul></div>
+    <div class="card"><h3>Next</h3><ul class="tight">
+      <li><b>V1.1:</b> a curated suggestion table for the core markers; more ث-spelling transforms; Egyptian <bdi class="ar">حقك</bdi> contexts.</li>
+      <li><b>Production data:</b> the same pipeline rebuilt on ODC-BY / MIT sources and Tuner's own call transcripts.</li>
+      <li><b>Gulf:</b> a native Gulf annotator for a real gold set.</li>
+      <li><b>System 2:</b> a local LLM re-check for low-confidence words, in batch mode (finalist C), if errors call for it.</li>
+      <li><b>STT:</b> run on ASR transcripts to watch dialect drift in the voice pipeline itself.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section id="files">
+  <div class="col"><div class="kicker">11 · Where it lives</div><h2>Everything, linked</h2>
+  <p class="lede">The repo has the code, the benchmark, every run and my full research trail. The model and data are on Hugging Face.</p></div>
+  <div class="files">
+    <a href="https://github.com/NightPrinceY/haseen"><b>github.com/NightPrinceY/haseen</b><span>Code, CLI, Dockerfile, tests, README with exact commands</span></a>
+    <a href="https://github.com/NightPrinceY/haseen/blob/main/research/README.md"><b>research/</b><span>The trail in order: PRD, papers, data and model survey, architecture study, spikes, pilot, compute log</span></a>
+    <a href="https://github.com/NightPrinceY/haseen/tree/main/annotation"><b>annotation/</b><span>How the gold set was made: LLM candidates, labels, native checks, committee</span></a>
+    <a href="https://github.com/NightPrinceY/haseen/tree/main/experiments"><b>experiments/</b><span>All 9 runs: config, metrics, CheckList, error analysis, calibration</span></a>
+    <a href="https://github.com/NightPrinceY/haseen/blob/main/docs/RESULTS.md"><b>docs/RESULTS.md</b><span>Expected vs actual for every run, written before training</span></a>
+    <a href="https://github.com/NightPrinceY/haseen/tree/main/scripts"><b>scripts/</b><span>Data pipeline: collect → align → build; evaluate.py</span></a>
+    <a href="https://huggingface.co/NightPrince/HaSeen-1"><b>HF · HaSeen-1</b><span>The model (safetensors), loads offline</span></a>
+    <a href="https://huggingface.co/NightPrince/HaSeen-1-ONNX"><b>HF · HaSeen-1-ONNX</b><span>int8 for CPU, 164 MB</span></a>
+    <a href="https://huggingface.co/datasets/NightPrince/HaSeen-Mix-92K"><b>HF · HaSeen-Mix-92K</b><span>Training data</span></a>
+    <a href="https://huggingface.co/datasets/NightPrince/HaSeen-Bench"><b>HF · HaSeen-Bench</b><span>The frozen benchmark</span></a>
+    <a href="https://huggingface.co/spaces/NightPrince/HaSeen-Playground"><b>HF · HaSeen Playground</b><span>Runs in your browser</span></a>
+    <a href="https://github.com/NightPrinceY/haseen/tree/main/docs/brand"><b>docs/brand/</b><span>Identity: mark, colours, posters, diagrams</span></a>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Run it: <code>uv tool install git+https://github.com/NightPrinceY/haseen</code> (or <code>pipx install …</code>), then <code>haseen "…" -t egy</code>. Reproduce the benchmark numbers from a clone: <code>make eval</code> (ONNX) or <code>make eval-gpu</code> (PyTorch). Details in the <a href="https://github.com/NightPrinceY/haseen#quick-start">README</a>.</p>
+  <footer><svg viewBox="70 168 370 196" width="56" height="30" aria-hidden="true"><use href="#glyph"/></svg><span style="font:400 18px var(--display);color:var(--fg)">HaSeen</span><span>V1 · built by Yahya (NightPrince) for Tuner, October 2026</span></footer>
+</section>
+</main>
+</div>
+
+<script>
+const GH = "https://github.com/NightPrinceY/haseen/blob/main/";
+const EX = [{"text": "أنا أبغى أروح الاجتماع بكرة بس سوف أتأخر شوية", "target": "Arabic / Egyptian", "tokens": [{"word": "أنا", "conforms": true, "confidence": 0.999}, {"word": "أبغى", "conforms": false, "label": "Arabic / Gulf", "confidence": 0.998}, {"word": "أروح", "conforms": true, "confidence": 0.996}, {"word": "الاجتماع", "conforms": true, "confidence": 0.999}, {"word": "بكرة", "conforms": true, "confidence": 1.0}, {"word": "بس", "conforms": true, "confidence": 1.0}, {"word": "سوف", "conforms": false, "label": "Arabic / MSA", "confidence": 0.999, "suggestion": "هـ + الفعل"}, {"word": "أتأخر", "conforms": true, "confidence": 0.994}, {"word": "شوية", "conforms": true, "confidence": 0.999}]}, {"text": "الفني سيصل لحضرتك الساعة اتنين، ولو فيه أي مشكلة كلمنا", "target": "Arabic / Egyptian", "tokens": [{"word": "الفني", "conforms": true, "confidence": 0.999}, {"word": "سيصل", "conforms": false, "label": "Arabic / MSA", "confidence": 0.993, "suggestion": "هيصل"}, {"word": "لحضرتك", "conforms": true, "confidence": 0.999}, {"word": "الساعة", "conforms": true, "confidence": 0.999}, {"word": "اتنين", "conforms": true, "confidence": 0.999}, {"word": "ولو", "conforms": true, "confidence": 1.0}, {"word": "فيه", "conforms": true, "confidence": 0.999}, {"word": "أي", "conforms": true, "confidence": 1.0}, {"word": "مشكلة", "conforms": true, "confidence": 0.999}, {"word": "كلمنا", "conforms": true, "confidence": 0.997}]}, {"text": "معلش يا فندم، إحنا لن نقدر نغير العنوان الحين لأن الأوردر خرج", "target": "Arabic / Egyptian", "tokens": [{"word": "معلش", "conforms": true, "confidence": 0.999}, {"word": "يا", "conforms": true, "confidence": 1.0}, {"word": "فندم", "conforms": true, "confidence": 0.996}, {"word": "إحنا", "conforms": true, "confidence": 0.998}, {"word": "لن", "conforms": false, "label": "Arabic / MSA", "confidence": 0.979, "suggestion": "مش هـ + الفعل"}, {"word": "نقدر", "conforms": true, "confidence": 0.998}, {"word": "نغير", "conforms": true, "confidence": 1.0}, {"word": "العنوان", "conforms": true, "confidence": 1.0}, {"word": "الحين", "conforms": false, "label": "Arabic / Gulf", "confidence": 0.997, "suggestion": "بقا"}, {"word": "لأن", "conforms": true, "confidence": 1.0}, {"word": "الأوردر", "conforms": true, "confidence": 1.0}, {"word": "خرج", "conforms": true, "confidence": 1.0}]}, {"text": "شو المشكلة اللي عندك؟ بدي أساعدك", "target": "Arabic / Egyptian", "tokens": [{"word": "شو", "conforms": false, "label": "unknown", "confidence": 1.0}, {"word": "المشكلة", "conforms": true, "confidence": 0.999}, {"word": "اللي", "conforms": true, "confidence": 0.999}, {"word": "عندك", "conforms": true, "confidence": 0.999}, {"word": "بدي", "conforms": false, "label": "unknown", "confidence": 1.0}, {"word": "أساعدك", "conforms": true, "confidence": 1.0}]}, {"text": "يمكنك دفع الفاتورة عبر التطبيق، ومش محتاج تروح الفرع", "target": "Arabic / MSA", "tokens": [{"word": "يمكنك", "conforms": true, "confidence": 0.992}, {"word": "دفع", "conforms": true, "confidence": 0.999}, {"word": "الفاتورة", "conforms": true, "confidence": 0.961}, {"word": "عبر", "conforms": true, "confidence": 0.999}, {"word": "التطبيق", "conforms": true, "confidence": 1.0}, {"word": "ومش", "conforms": false, "label": "Arabic / Egyptian", "confidence": 0.99}, {"word": "محتاج", "conforms": false, "label": "Arabic / Egyptian", "confidence": 0.998, "suggestion": "يحتاج"}, {"word": "تروح", "conforms": true, "confidence": 0.828}, {"word": "الفرع", "conforms": true, "confidence": 0.999}]}, {"text": "ابشر يا غالي، الحين بنسوي لك الطلب ونرسل لك الكود", "target": "Arabic / Gulf", "tokens": [{"word": "ابشر", "conforms": true, "confidence": 0.998}, {"word": "يا", "conforms": true, "confidence": 1.0}, {"word": "غالي", "conforms": true, "confidence": 0.999}, {"word": "الحين", "conforms": true, "confidence": 0.998}, {"word": "بنسوي", "conforms": true, "confidence": 1.0}, {"word": "لك", "conforms": true, "confidence": 0.999}, {"word": "الطلب", "conforms": true, "confidence": 1.0}, {"word": "ونرسل", "conforms": true, "confidence": 1.0}, {"word": "لك", "conforms": true, "confidence": 0.999}, {"word": "الكود", "conforms": true, "confidence": 1.0}]}, {"text": "هل تريد أن نرسل لك الكود الآن يا طويل العمر؟", "target": "Arabic / Gulf", "tokens": [{"word": "هل", "conforms": false, "label": "Arabic / MSA", "confidence": 0.998}, {"word": "تريد", "conforms": false, "label": "Arabic / MSA", "confidence": 0.996}, {"word": "أن", "conforms": true, "confidence": 0.999}, {"word": "نرسل", "conforms": true, "confidence": 0.999}, {"word": "لك", "conforms": true, "confidence": 0.999}, {"word": "الكود", "conforms": true, "confidence": 0.998}, {"word": "الآن", "conforms": true, "confidence": 0.999}, {"word": "يا", "conforms": true, "confidence": 0.999}, {"word": "طويل", "conforms": true, "confidence": 0.999}, {"word": "العمر", "conforms": true, "confidence": 0.999}]}];
+const CLS = { "Arabic / Gulf": ["glf", "Gulf"], "Arabic / MSA": ["msa", "MSA"], "Arabic / Egyptian": ["egy", "Egyptian"], "unknown": ["unk", "other dialect"] };
+const SHORT = { "Arabic / Egyptian": "Egyptian", "Arabic / Gulf": "Gulf", "Arabic / MSA": "MSA" };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pick = document.getElementById("ex-pick");
+function showEx(i) {
+  const e = EX[i];
+  pick.querySelectorAll("button").forEach((b, k) => b.setAttribute("aria-pressed", k === i));
+  document.getElementById("ex-target").textContent = "target · " + e.target;
+  document.getElementById("ex-sentence").innerHTML = e.tokens.map((t) => {
+    if (t.conforms) return `<span class="tok">${esc(t.word)}<small>✓${t.confidence != null ? " " + t.confidence.toFixed(2) : ""}</small></span>`;
+    const [c, n] = CLS[t.label] || CLS.unknown;
+    return `<span class="tok ${c}">${esc(t.word)}<small>${n} · ${t.confidence.toFixed(2)}</small>${t.suggestion ? `<em>← ${esc(t.suggestion)}</em>` : ""}</span>`;
+  }).join("");
+  document.getElementById("ex-json").textContent = JSON.stringify({ target: e.target, tokens: e.tokens, deviations: e.tokens.filter((t) => !t.conforms).map((t) => t.word) }, null, 1);
+}
+EX.forEach((e, i) => { const b = document.createElement("button"); b.type = "button"; b.textContent = `${SHORT[e.target]} · ${e.text.split(" ").slice(0, 3).join(" ")}…`; b.dir = "auto"; b.onclick = () => showEx(i); pick.append(b); });
+showEx(0);
+
+// 03 options: what the study said, and what happened
+const OPTS = [
+  ["A", "Rules + lexicon + morphology", "rejected", "Fast and explainable, but blind to context. The spike measured F1 0.16 for the morphology rule. Kept inside the labeler as evidence, and as the source of suggestions."],
+  ["B", "Encoder token classifier", "control", "One pass for all words, easy to quantize. Its linear head became the control run R2 (Egyptian 0.958)."],
+  ["C", "Multi-task encoder", "shipped", "Finalist A, and the winner: MARBERT warm-started from ALDi-Token-DI, with small extra heads for other dialects, names and formality. I dropped the sentence-level heads because I could not measure that they helped."],
+  ["D", "Decision model per word (Jev-style)", "idea reused", "As an LLM judge: one call per word and trained on English, so too slow. I kept its idea: the pointer head compares each word with an option description, inside the encoder."],
+  ["E", "Contrastive (CLM)", "rejected", "An 8B forward pass for every word. Latency rules it out for a guard that runs before TTS."],
+  ["F", "Decoder backbone + token head", "not needed", "Finalist B: Qwen-2B with LoRA and a token head. The rule allowed one try only if A's errors came from missing knowledge. They came from labels, and A passed 0.85."],
+  ["G", "Local generative LLM", "rejected", "Seconds per sentence, can change words or indices, confidence not calibrated. LLMs are also weak at producing dialect (AMIYA: 11.1% Egyptian)."],
+  ["H", "Cascade: System 1 → System 2", "roadmap", "Finalist C: send words under τ to a local LLM. Not needed for V1 accuracy; it stays as a batch-mode option for observability."],
+  ["I", "Distillation from an LLM teacher", "changed", "Planned at first. The LLM committee disagreed with the native register (κ 0.21), so the labels come from a rule + lexicon + corpus labeler on real and aligned text instead."],
+];
+const TAG = { shipped: "p-egy", control: "p-msa", "idea reused": "p-sig", "not needed": "p-n", rejected: "p-unk", roadmap: "p-glf", changed: "p-sig" };
+const opts = document.getElementById("opts");
+OPTS.forEach(([l, n, v, w], i) => {
+  const b = document.createElement("button"); b.className = "opt"; b.type = "button"; b.setAttribute("aria-expanded", v === "shipped");
+  b.innerHTML = `<div class="top"><span class="letter">${l}</span><span class="pill ${TAG[v]}">${v}</span></div><h3>${n}</h3><p class="why">${w}</p>`;
+  b.onclick = () => b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true");
+  opts.append(b);
+});
+
+// 07 run explorer: numbers from experiments/<run>/metrics.json (gold F1 per set, natural false alarms, held-out recall)
+const RUNS = {"R1-s13": {"dev": 0.7451, "ece": 0.0313, "egy": 0.276, "chal": 0.581, "stress": 0.083, "nat_fp": 466, "msa": 0.164, "glf": 0.364, "held": 0.783}, "R1v2-s13": {"dev": 0.9865, "ece": 0.0007, "egy": 0.958, "chal": 0.985, "stress": 0.889, "nat_fp": 5, "msa": 0.52, "glf": 0.683, "held": 0.833}, "R2-s13": {"dev": 0.9845, "ece": 0.0006, "egy": 0.958, "chal": 0.985, "stress": 0.857, "nat_fp": 4, "msa": 0.582, "glf": 0.632, "held": 0.819}, "R4v5-pointer-s13": {"dev": 0.9845, "ece": 0.0006, "egy": 0.973, "chal": 0.991, "stress": 0.889, "nat_fp": 1, "msa": 0.71, "glf": 0.782, "held": 0.86}, "R4v5-pointer-s21": {"dev": 0.9848, "ece": 0.0006, "egy": 0.968, "chal": 0.988, "stress": 0.857, "nat_fp": 2, "msa": 0.673, "glf": 0.753, "held": 0.808}, "R4v5-pointer-s42": {"dev": 0.984, "ece": 0.0007, "egy": 0.968, "chal": 0.985, "stress": 0.889, "nat_fp": 1, "msa": 0.71, "glf": 0.753, "held": 0.855}, "R5v6-pointer-s13": {"dev": 0.985, "ece": 0.0006, "egy": 0.971, "chal": 0.988, "stress": 0.889, "nat_fp": 1, "msa": 0.697, "glf": 0.767, "held": 0.88}, "R5v6-pointer-s21": {"dev": 0.9855, "ece": 0.0005, "egy": 0.965, "chal": 0.985, "stress": 0.857, "nat_fp": 1, "msa": 0.705, "glf": 0.767, "held": 0.819}, "R5v6-pointer-s42": {"dev": 0.9857, "ece": 0.0005, "egy": 0.963, "chal": 0.985, "stress": 0.857, "nat_fp": 2, "msa": 0.704, "glf": 0.804, "held": 0.827}};
+const NOTES = {
+  "R1-s13": ["Pointer v1 · train_v3", "Failed: the three option vectors encoded to nearly the same vector, so the head learned one 'naturalness' score and 466 false alarms. Fixed with a learned orthogonal residual per option."],
+  "R2-s13": ["Linear head · train_v3 (control)", "Works. Error analysis on dev: MSA service nouns over-flagged, ممكن + verb missed, formal words in strict Gulf → labeler fixes for train_v5."],
+  "R1v2-s13": ["Pointer v2 · train_v3", "Collapse fixed. Dev 0.9865 vs 0.9845 for linear. The pre-set rule (pointer if within 0.005 on dev) picked the pointer head."],
+  "R4v5-pointer-s13": ["Pointer · train_v5 + service triples ×4", "Labeler fixes lift MSA 0.58 → 0.71 and Gulf 0.63 → 0.78 without hurting Egyptian."],
+  "R4v5-pointer-s21": ["Pointer · train_v5, seed 21", "Best dev of R4. Used for the ONNX export and latency tests. Still labels أبغى as MSA (the task's example) → train_v6."],
+  "R4v5-pointer-s42": ["Pointer · train_v5, seed 42", "Third seed: Egyptian 0.970 ± 0.003 over seeds."],
+  "R5v6-pointer-s13": ["Pointer · train_v6, seed 13", "train_v6 adds أبغى fixes and ث-spelling transforms. All differences from R4v5 are inside the confidence intervals."],
+  "R5v6-pointer-s21": ["Pointer · train_v6, seed 21", "MFT 25/26, the best behaviour score."],
+  "R5v6-pointer-s42": ["Pointer · train_v6, seed 42 · SHIPPED", "Highest dev score (0.9857) → shipped by the pre-set rule. أبغى is now Gulf in all three seeds."],
+};
+const ORDER = ["R1-s13", "R2-s13", "R1v2-s13", "R4v5-pointer-s13", "R4v5-pointer-s21", "R4v5-pointer-s42", "R5v6-pointer-s13", "R5v6-pointer-s21", "R5v6-pointer-s42"];
+const M = [
+  ["egy", "Egyptian combined F1", "egy", null, 0.85],
+  ["chal", "egy_challenge F1", "egy", [0.90, 0.96], null],
+  ["stress", "egy_stress F1", "egy", [0.70, 0.88], null],
+  ["msa", "MSA F1", "msa", [0.70, 0.82], null],
+  ["glf", "Gulf (strict) F1", "glf", [0.55, 0.72], null],
+  ["held", "Unseen Gulf words, recall", "glf", [0.55, 0.72], null],
+];
+const rl = document.getElementById("runlist");
+function showRun(id) {
+  const r = RUNS[id]; if (!r) return;
+  rl.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.id === id));
+  document.getElementById("run-title").textContent = id;
+  document.getElementById("run-src").innerHTML = `<a class="src" href="${GH}experiments/${id}/metrics.json">metrics.json</a> <a class="src" href="${GH}experiments/${id}/analysis.md">analysis.md</a>`;
+  document.getElementById("run-note").textContent = NOTES[id][0] + " — " + NOTES[id][1];
+  const col = { egy: "var(--egy)", msa: "var(--msa)", glf: "var(--glf)" };
+  document.getElementById("run-metrics").innerHTML = M.map(([k, label, c, band, tgt]) =>
+    `<div class="metric"><span>${label}</span><div class="track"><i style="width:${Math.max(r[k], 0.01) * 100}%;background:${col[c]}"></i>${band ? `<span class="band" style="left:${band[0] * 100}%;width:${(band[1] - band[0]) * 100}%"></span>` : ""}${tgt ? `<span class="tgt" style="left:${tgt * 100}%"></span>` : ""}</div><span class="v">${r[k].toFixed(3)}</span></div>`).join("")
+    + `<div class="metric"><span>False alarms, natural Egyptian</span><span style="font-size:14px">${r.nat_fp} of 4,761 words</span><span class="v">${r.nat_fp}</span></div>`
+    + `<div class="metric"><span>Dev score</span><span style="font-size:14px">dev chooses the model; gold never does</span><span class="v">${r.dev.toFixed(4)}</span></div>`;
+}
+ORDER.forEach((id) => { const b = document.createElement("button"); b.type = "button"; b.dataset.id = id; b.innerHTML = `<span>${id}</span>${id === "R5v6-pointer-s42" ? '<span class="pill p-egy">shipped</span>' : id === "R1-s13" ? '<span class="pill p-unk">failed</span>' : ""}`; b.onclick = () => showRun(id); rl.append(b); });
+showRun("R5v6-pointer-s42");
+
+// chapter rail
+const links = [...document.querySelectorAll(".rail a.ch")];
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-40% 0px -55% 0px" });
+document.querySelectorAll("main section").forEach((s) => io.observe(s));
+
+// enlarge diagrams
+document.querySelectorAll("figure img").forEach((img) => img.addEventListener("click", () => {
+  const d = document.createElement("div"); d.className = "lb"; d.innerHTML = `<img src="${img.src}" alt="${esc(img.alt)}">`;
+  d.onclick = () => d.remove(); document.addEventListener("keydown", function k(ev) { if (ev.key === "Escape") { d.remove(); document.removeEventListener("keydown", k); } });
+  document.body.append(d);
+}));
+</script>

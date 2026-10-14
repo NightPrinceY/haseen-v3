@@ -1,0 +1,81 @@
+# MSA stress (MSA target): only deviations marked
+gs-msa-0000:
+gs-msa-0001:
+gs-msa-0002:
+gs-msa-0003:
+gs-msa-0004:
+gs-msa-0005:
+gs-msa-0006:
+gs-msa-0007:
+gs-msa-0008:
+gs-msa-0009:
+gs-msa-0010:
+gs-msa-0011: X | Latin inside word
+gs-msa-0012: 0=EGY 1=EGY 3=EGY 8=EGY 10=EGY | ممكن حضرتك معانا وهنرجعلك الزايد
+gs-msa-0013:
+gs-msa-0014:
+gs-msa-0015:
+gs-msa-0016:
+gs-msa-0017:
+gs-msa-0018:
+gs-msa-0019:
+gs-msa-0020:
+gs-msa-0021:
+gs-msa-0022:
+gs-msa-0023:
+gs-msa-0024:
+gs-msa-0025: 5=EGY | المضروب
+gs-msa-0026: 4=EGY | قاطعة (MSA مقطوعة)
+gs-msa-0027:
+gs-msa-0028:
+gs-msa-0029:
+gs-msa-0030:
+gs-msa-0031:
+gs-msa-0032:
+gs-msa-0033:
+gs-msa-0034:
+gs-msa-0035:
+gs-msa-0036:
+gs-msa-0037: X | Latin inside word
+gs-msa-0038: 0=EGY 1=EGY 11=EGY 13=EGY 14=EGY | full Egyptian reply under MSA instruction
+gs-msa-0039:
+gs-msa-0040:
+gs-msa-0041:
+gs-msa-0042:
+gs-msa-0043:
+gs-msa-0044:
+gs-msa-0045:
+gs-msa-0046:
+gs-msa-0047:
+gs-msa-0048:
+gs-msa-0049:
+gs-msa-0050:
+gs-msa-0051:
+gs-msa-0052:
+gs-msa-0053:
+gs-msa-0054:
+gs-msa-0055:
+gs-msa-0056:
+gs-msa-0057: X | garbled (للاعتدار)
+gs-msa-0058:
+gs-msa-0059: 0=EGY 1=EGY 3=EGY 4=EGY 8=EGY | full Egyptian reply
+gs-msa-0060:
+gs-msa-0061:
+gs-msa-0062:
+gs-msa-0063:
+gs-msa-0064:
+gs-msa-0065:
+gs-msa-0066:
+gs-msa-0067:
+gs-msa-0068:
+gs-msa-0069:
+gs-msa-0070:
+gs-msa-0071: 3=EGY 4=EGY 6=EGY 8=EGY 12=EGY 13=EGY 18=EGY 19=EGY | full Egyptian reply
+gs-msa-0072:
+gs-msa-0073:
+gs-msa-0074:
+gs-msa-0075: 0=EGY 1=EGY 3=EGY 7=EGY | full Egyptian reply
+gs-msa-0076:
+gs-msa-0077: 1=EGY 4=EGY 10=EGY 14=EGY 15=EGY 18=EGY 23=EGY 28=EGY 35=EGY | full Egyptian reply
+gs-msa-0078: 1=EGY 3=EGY 11=EGY 12=EGY | ممكن فلوسك
+gs-msa-0079:

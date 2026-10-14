@@ -1,0 +1,46 @@
+{
+ "stats": {
+  "fam_A_EGY": 27675,
+  "fam_A_GLF": 39998,
+  "drop_len": 15843,
+  "fam_A_MSA": 8012,
+  "drop_unknown": 88,
+  "fam_B2_GLF": 1150,
+  "fam_B2_EGY": 6700,
+  "fam_B1_MSA": 3377,
+  "fam_B3_EGY": 474,
+  "fam_B3_GLF": 441,
+  "fam_C_EGY": 108,
+  "fam_C2_EGY": 671,
+  "fam_D_EGY": 15249,
+  "D_ops": {
+   "fut": 2450,
+   "rejected": 5802,
+   "glf": 7000,
+   "tha": 2500,
+   "dem": 3000,
+   "neg": 299
+  },
+  "fam_E_EGY": 536,
+  "fam_E_GLF": 517,
+  "fam_E_MSA": 584,
+  "dup": 2007,
+  "split_train": 92285,
+  "split_heldout": 4298,
+  "split_dev": 6902
+ },
+ "tokens": {
+  "tokens": 1074641,
+  "EGY=1": 971429,
+  "GLF=1": 771027,
+  "MSA=1": 756169,
+  "dia": 673,
+  "GLF=-1": 249989,
+  "MSA=-1": 144191,
+  "GLF=0": 53625,
+  "MSA=0": 174281,
+  "EGY=0": 60674,
+  "EGY=-1": 42538
+ },
+ "heldout_forms": 148
+}

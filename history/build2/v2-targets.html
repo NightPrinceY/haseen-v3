@@ -1,0 +1,222 @@
+<title>HaSeen V2 Targets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Reem+Kufi:wght@500;700&display=swap">
+<style>
+/* Layout: one flush-left reading column (72ch) that widens for the two evidence matrices; HaSeen Organic tokens. */
+:root{
+  --ground:#f5ead8; --surface:#ebddc5; --raise:#f9f2e6; --ink:#201e1d; --muted:#645c50; --line:color-mix(in srgb,#201e1d 14%,transparent);
+  --terracotta:#c67139; --terra-deep:#8c491a; --sage:#7a8a5e; --sage-deep:#56633f; --nile:#4882a0; --saffron:#dfaf5a; --plum:#9d6780;
+  --heat-0:#f9f2e6; --heat-1:#c67139;
+  --t1:#56633f; --t1-bg:#e1eecc; --t2:#7a5605; --t2-bg:#f6e6cc;
+  --font-display:'Caprasimo',Georgia,serif; --font-body:'Figtree',system-ui,sans-serif;
+  --font-ar:'Reem Kufi','Amiri',sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --r-sm:8px; --r-md:16px; --r-lg:28px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#1a1613; --surface:#27211c; --raise:#2f2822; --ink:#f1e6d4; --muted:#c0b6a5; --line:color-mix(in srgb,#f1e6d4 14%,transparent);
+  --terracotta:#e08a52; --terra-deep:#ffc6a5; --sage:#aebf92; --sage-deep:#ccdbb2; --nile:#85c1e1; --saffron:#eecf9c; --plum:#dea4be;
+  --heat-0:#2f2822; --heat-1:#e08a52; --t1:#ccdbb2; --t1-bg:#3d472b; --t2:#eecf9c; --t2-bg:#573d05; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#1a1613; --surface:#27211c; --raise:#2f2822; --ink:#f1e6d4; --muted:#c0b6a5; --line:color-mix(in srgb,#f1e6d4 14%,transparent);
+  --terracotta:#e08a52; --terra-deep:#ffc6a5; --sage:#aebf92; --sage-deep:#ccdbb2; --nile:#85c1e1; --saffron:#eecf9c; --plum:#dea4be;
+  --heat-0:#2f2822; --heat-1:#e08a52; --t1:#ccdbb2; --t1-bg:#3d472b; --t2:#eecf9c; --t2-bg:#573d05; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:16px/1.6 var(--font-body);margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);padding-block:40px 80px;display:grid;gap:56px}
+.col{max-width:72ch;display:grid;gap:14px}
+h1,h2{font-family:var(--font-display);font-weight:400;text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.3rem,6vw,4rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,3.2vw,2.1rem)}
+p{margin:0}
+.eyebrow{font:600 .78rem/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--terracotta)}
+.lead{font-size:1.15rem;color:var(--ink)}
+.muted{color:var(--muted)}
+.ar{font-family:var(--font-ar);direction:rtl;unicode-bidi:isolate}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;font:500 .95rem/1.4 var(--font-body)}
+.facts b{font:600 1.5rem/1 var(--font-mono);display:block;color:var(--terracotta);font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto;min-width:0}
+table{border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums;min-width:760px;width:100%}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font:600 .72rem/1.2 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.n{text-align:right;font-family:var(--font-mono)}
+.code{font:600 .9rem var(--font-mono)}
+.chip{display:inline-block;white-space:nowrap;padding:2px 10px;border-radius:999px;font:600 .74rem/1.6 var(--font-mono)}
+.t1{background:var(--t1-bg);color:var(--t1)} .t2{background:var(--t2-bg);color:var(--t2)}
+.bar{height:8px;border-radius:999px;background:var(--terracotta);min-width:2px}
+.barcell{width:150px}
+.matrix-box{display:grid;gap:12px;min-width:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{font:600 .82rem var(--font-body);border:1px solid var(--line);background:var(--raise);color:var(--ink);padding:7px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.tabs button:focus-visible,.cell:focus-visible{outline:2px solid var(--nile);outline-offset:2px}
+.grid{display:grid;gap:2px;font:500 .7rem var(--font-mono);font-variant-numeric:tabular-nums}
+.cell{aspect-ratio:1;display:grid;place-items:center;border-radius:4px;min-width:30px;cursor:default;color:var(--ink)}
+.cell.merge{outline:2px solid var(--sage-deep);outline-offset:-2px}
+.lab{display:grid;place-items:center;color:var(--muted);font-weight:600}
+.legend{display:flex;align-items:center;gap:10px;font:.8rem var(--font-mono);color:var(--muted);flex-wrap:wrap}
+.ramp{width:140px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--heat-0),var(--heat-1))}
+.note{background:var(--surface);border-radius:var(--r-md);padding:16px 18px;display:grid;gap:6px}
+.pair{font-family:var(--font-mono);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.card{background:var(--raise);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 20px;display:grid;gap:8px;align-content:start}
+.card h3{margin:0;font:600 1.02rem var(--font-body)}
+ol.steps{margin:0;padding-left:1.3em;display:grid;gap:10px}
+.sid{display:grid;grid-template-columns:44px 1fr 52px;gap:6px 10px;align-items:center;font:.85rem var(--font-mono);max-width:520px}
+.sid .track{height:10px;background:var(--surface);border-radius:999px;overflow:hidden}
+.sid .fill{height:100%;background:var(--nile);border-radius:999px}
+footer{font-size:.85rem;color:var(--muted);display:grid;gap:6px}
+@media (prefers-reduced-motion:no-preference){.fill,.bar{transition:width .6s ease}}
+</style>
+
+<div class="wrap">
+  <header class="col">
+    <span class="eyebrow">HaSeen V2 · dataset overview · 14 Oct 2026</span>
+    <h1>Ten Arabic targets, chosen by the words and backed by verified data</h1>
+    <p class="lead">I studied 14 resources, merged them into one inventory, and measured which varieties differ at the word level. Countries whose words cannot be told apart become one target. Then only verified data counts: ten targets clear that bar and ship; five more are recognised and flagged as "other dialect" until their data does.</p>
+    <div class="facts">
+      <div><b>2.74M</b>sentences in the inventory</div>
+      <div><b>1.31M</b>lexicon rows</div>
+      <div><b>25</b>MADAR cities × 1,042 concepts</div>
+      <div><b>10</b>production targets</div>
+      <div><b>5</b>recognised as other dialect</div>
+    </div>
+  </header>
+
+  <section class="col" style="max-width:none">
+    <span class="eyebrow">The decision</span>
+    <h2>Recommended targets</h2>
+    <p class="muted" style="max-width:72ch">Counts use verified data only: text written, translated or transcribed by native speakers through a documented process. Crowd, LLM-written and classifier-filtered text are left out. Production targets have 12K+ verified sentences (Iraqi: 5.5K plus a large filtered corpus), 1K+ expert forms and held-out native evaluation text. Bars show verified words, log scale.</p>
+    <div class="scroll"><table id="targets"><thead><tr>
+      <th>Target</th><th>Countries</th><th>Status</th><th class="n">Verified sentences</th><th>Verified words</th><th class="n">Expert forms</th><th class="n">Eval sentences</th><th>Note</th>
+    </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="matrix-box">
+    <div class="col">
+      <span class="eyebrow">Evidence 1 · expert lexicon</span>
+      <h2>MADAR concept distance</h2>
+      <p class="muted">Share of concepts where two places share no word form at all (1,032 READY concepts, cities pooled per country; Riyadh and Jeddah kept apart). Outlined cells are the three pairs under the merge threshold of 0.05.</p>
+    </div>
+    <div class="tabs" role="group" aria-label="Concept set">
+      <button id="t-all" aria-pressed="true">All concepts</button>
+      <button id="t-closed" aria-pressed="false">Function words only (167)</button>
+    </div>
+    <div class="scroll"><div class="grid" id="madar"></div></div>
+    <div class="legend"><span>0.00 same words</span><span class="ramp"></span><span>0.64 different words</span></div>
+    <div class="note"><span class="pair">PS–JO 0.00 · LB–SY 0.01 · Riyadh–Jeddah 0.03</span><span>Every other pair is 0.10 or more. Egypt–Sudan 0.18, Saudi–Qatar 0.15, Saudi–Oman 0.15, Maghreb pairs 0.34–0.41, MSA against any dialect 0.34–0.64.</span></div>
+  </section>
+
+  <section class="matrix-box">
+    <div class="col">
+      <span class="eyebrow">Evidence 2 · same pipeline, 11 countries</span>
+      <h2>How many words a target would flag</h2>
+      <p class="muted">Alexandria test text of the row's speakers, judged against the column's target: the share of tokens that never occur in the target's training text though they would be expected five or more times. Select a cell to see the words.</p>
+    </div>
+    <div class="scroll"><div class="grid" id="dens"></div></div>
+    <div class="note" id="dens-note"><span class="pair">EG speaker → SA target · 0.13</span><span class="ar">ده · مش · كده · اوي · دلوقتي · حضرتك</span></div>
+  </section>
+
+  <section class="col">
+    <span class="eyebrow">For reference</span>
+    <h2>Sentence-level ID is harder than word-level flags</h2>
+    <p class="muted">Char 1–5-gram SVM trained and tested inside Alexandria (Libya and Sudan have no training split there). Maghreb is easy; Jordan, Palestine and Saudi blur. Trained on written text and tested on speech transcripts, macro-F1 drops from 0.62 to 0.46, so evaluation must include spoken text.</p>
+    <div class="sid" id="sid"></div>
+  </section>
+
+
+  <section class="col" style="max-width:none">
+    <span class="eyebrow">Why this shape · Tuner</span>
+    <h2>Where HaSeen plugs into Tuner</h2>
+    <p class="muted" style="max-width:72ch">Tuner sells reliability for voice agents: simulation before launch, evals and alerts after. In the first meeting Mohamed named the gap directly: agents do not stick to the dialect they are expected to use, and today's evals for it are not accurate. Tuner's 21 evals are LLM judges, and its simulator offers "Arabic" as a single language with no dialect, while English gets US, UK and AU.</p>
+    <div class="cards">
+      <div class="card"><h3>Dialect adherence eval</h3><p class="muted">Per agent turn: share of words that fit the configured dialect, plus each deviating word and where it belongs. PASS / FAIL by threshold or a 1–5 score, next to Hallucination and Politeness.</p></div>
+      <div class="card"><h3>Red flags and alerts</h3><p class="muted">"Agent drifted to MSA", "Egyptian agent used Gulf words", tracked per agent version so a prompt change that breaks the dialect shows up the same day.</p></div>
+      <div class="card"><h3>Caller dialect</h3><p class="muted">The same word bits on STT caller turns give the caller's dialect: a "dialect match" eval (Saudi caller, Egyptian agent) and a new analytics dimension.</p></div>
+      <div class="card"><h3>Dialect-aware simulation</h3><p class="muted">Lets the simulator offer Arabic (Saudi), (Egyptian), (Levantine) and check that the simulated caller actually speaks it. One encoder, ONNX int8 on CPU, about 11 ms per turn, no LLM call.</p></div>
+    </div>
+  </section>
+
+  <section class="col" style="max-width:none">
+    <span class="eyebrow">Gold · HaSeen-Bench v2</span>
+    <h2>The ship gate for every target</h2>
+    <div class="cards">
+      <div class="card"><h3>natural · 300 per target</h3><p class="muted">Held-out native sentences from Alexandria test, Casablanca, Habibi, Lisan and Nâbra. Almost nothing should be flagged; a native checker reviews only the flags. Gate: false alarms ≤ 1% of words.</p></div>
+      <div class="card"><h3>challenge · 300 per target</h3><p class="muted">Target sentences with 1–3 words swapped for MADAR's expert form of the same concept from another variety. Exact positions, no annotator needed. Gate: F1 ≥ 0.90.</p></div>
+      <div class="card"><h3>agent · 150 per target</h3><p class="muted">Replies written "in dialect T" by several open-weight LLMs, the real failure mode, labelled and then verified by a native speaker. Gate: F1 ≥ 0.85. A target that misses the gate falls back to "other dialect".</p></div>
+    </div>
+  </section>
+
+  <section class="col">
+    <span class="eyebrow">Needs a decision</span>
+    <h2>Status and next steps</h2>
+    <ol class="steps">
+      <li>Approved on 14 Oct: 10 production targets, the merge rule, and "other dialect" for the remaining five.</li>
+      <li>Request MADAR Corpus-26 (2,000 sentences in all 25 cities, fully parallel). It is the largest remaining gain for recall tests.</li>
+      <li>Approve about $0.1–0.2 of sandbox time for FineWeb-2 word counts: web-scale negative evidence for Egyptian, Moroccan, Saudi, Levantine, Tunisian and Iraqi.</li>
+      <li>Decide whether to add fr3on's 2M YouTube comments as extra hosts after re-labelling.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <span>Sources: mo3jam (crawled, 31.6K definitions), MADAR Lexicon v1.0, Lahga, Lingualism lists, Birzeit Curras / Baladi / Nâbra / Lisan, Alexandria, Levanti, Casablanca and Habibi transcripts, Iraqi factlogic, Algerian darja, CALIMA EGY / GLF / LEV / MSA, plus the V1 corpora.</span>
+    <span>Files: HaSeen-V2/research/DATASET_OVERVIEW.md · data/inventory/ · scripts/build_inventory.py, separability.py, word_separability.py, target_table.py</span>
+  </footer>
+</div>
+
+<script>
+const D={"madar": {"labels": ["EG", "SD", "PS", "JO", "LB", "SY", "IQ", "SA_RIY", "SA_JED", "QA", "OM", "YE", "LY", "TN", "DZ", "MA", "MSA"], "all": [[0.0, 0.185, 0.148, 0.148, 0.253, 0.239, 0.255, 0.197, 0.163, 0.256, 0.22, 0.162, 0.248, 0.383, 0.447, 0.365, 0.437], [0.185, 0.0, 0.188, 0.186, 0.291, 0.273, 0.289, 0.201, 0.176, 0.283, 0.242, 0.182, 0.298, 0.439, 0.487, 0.444, 0.482], [0.148, 0.188, 0.0, 0.001, 0.117, 0.103, 0.137, 0.135, 0.123, 0.185, 0.16, 0.108, 0.223, 0.357, 0.413, 0.351, 0.389], [0.148, 0.186, 0.001, 0.0, 0.115, 0.1, 0.135, 0.132, 0.119, 0.178, 0.154, 0.103, 0.219, 0.357, 0.413, 0.348, 0.382], [0.253, 0.291, 0.117, 0.115, 0.0, 0.013, 0.198, 0.198, 0.192, 0.252, 0.225, 0.196, 0.29, 0.407, 0.461, 0.41, 0.48], [0.239, 0.273, 0.103, 0.1, 0.013, 0.0, 0.18, 0.186, 0.173, 0.245, 0.221, 0.178, 0.276, 0.401, 0.459, 0.4, 0.461], [0.255, 0.289, 0.137, 0.135, 0.198, 0.18, 0.0, 0.2, 0.203, 0.224, 0.191, 0.169, 0.281, 0.416, 0.462, 0.384, 0.416], [0.197, 0.201, 0.135, 0.132, 0.198, 0.186, 0.2, 0.0, 0.029, 0.153, 0.152, 0.128, 0.2, 0.348, 0.394, 0.355, 0.406], [0.163, 0.176, 0.123, 0.119, 0.192, 0.173, 0.203, 0.029, 0.0, 0.184, 0.16, 0.111, 0.179, 0.33, 0.404, 0.341, 0.406], [0.256, 0.283, 0.185, 0.178, 0.252, 0.245, 0.224, 0.153, 0.184, 0.0, 0.15, 0.17, 0.264, 0.409, 0.449, 0.412, 0.479], [0.22, 0.242, 0.16, 0.154, 0.225, 0.221, 0.191, 0.152, 0.16, 0.15, 0.0, 0.153, 0.218, 0.374, 0.408, 0.332, 0.378], [0.162, 0.182, 0.108, 0.103, 0.196, 0.178, 0.169, 0.128, 0.111, 0.17, 0.153, 0.0, 0.213, 0.35, 0.403, 0.333, 0.34], [0.248, 0.298, 0.223, 0.219, 0.29, 0.276, 0.281, 0.2, 0.179, 0.264, 0.218, 0.213, 0.0, 0.335, 0.413, 0.359, 0.482], [0.383, 0.439, 0.357, 0.357, 0.407, 0.401, 0.416, 0.348, 0.33, 0.409, 0.374, 0.35, 0.335, 0.0, 0.382, 0.378, 0.602], [0.447, 0.487, 0.413, 0.413, 0.461, 0.459, 0.462, 0.394, 0.404, 0.449, 0.408, 0.403, 0.413, 0.382, 0.0, 0.35, 0.636], [0.365, 0.444, 0.351, 0.348, 0.41, 0.4, 0.384, 0.355, 0.341, 0.412, 0.332, 0.333, 0.359, 0.378, 0.35, 0.0, 0.574], [0.437, 0.482, 0.389, 0.382, 0.48, 0.461, 0.416, 0.406, 0.406, 0.479, 0.378, 0.34, 0.482, 0.602, 0.636, 0.574, 0.0]], "closed": [[0.0, 0.133, 0.089, 0.081, 0.383, 0.383, 0.292, 0.195, 0.169, 0.155, 0.174, 0.137, 0.185, 0.25, 0.28, 0.301, 0.596], [0.133, 0.0, 0.111, 0.103, 0.307, 0.307, 0.209, 0.184, 0.16, 0.185, 0.181, 0.049, 0.253, 0.299, 0.329, 0.374, 0.589], [0.089, 0.111, 0.0, 0.007, 0.243, 0.248, 0.112, 0.122, 0.144, 0.139, 0.136, 0.095, 0.174, 0.207, 0.242, 0.301, 0.571], [0.081, 0.103, 0.007, 0.0, 0.233, 0.233, 0.103, 0.122, 0.135, 0.125, 0.121, 0.087, 0.151, 0.197, 0.242, 0.285, 0.557], [0.383, 0.307, 0.243, 0.233, 0.0, 0.02, 0.177, 0.223, 0.211, 0.293, 0.227, 0.203, 0.264, 0.329, 0.361, 0.372, 0.608], [0.383, 0.307, 0.248, 0.233, 0.02, 0.0, 0.177, 0.236, 0.224, 0.304, 0.24, 0.196, 0.277, 0.336, 0.381, 0.39, 0.608], [0.292, 0.209, 0.112, 0.103, 0.177, 0.177, 0.0, 0.187, 0.181, 0.225, 0.127, 0.172, 0.188, 0.252, 0.277, 0.316, 0.573], [0.195, 0.184, 0.122, 0.122, 0.223, 0.236, 0.187, 0.0, 0.038, 0.101, 0.154, 0.13, 0.082, 0.164, 0.205, 0.236, 0.599], [0.169, 0.16, 0.144, 0.135, 0.211, 0.224, 0.181, 0.038, 0.0, 0.107, 0.16, 0.109, 0.089, 0.157, 0.215, 0.228, 0.6], [0.155, 0.185, 0.139, 0.125, 0.293, 0.304, 0.225, 0.101, 0.107, 0.0, 0.152, 0.13, 0.11, 0.142, 0.25, 0.273, 0.59], [0.174, 0.181, 0.136, 0.121, 0.227, 0.24, 0.127, 0.154, 0.16, 0.152, 0.0, 0.165, 0.169, 0.224, 0.274, 0.264, 0.549], [0.137, 0.049, 0.095, 0.087, 0.203, 0.196, 0.172, 0.13, 0.109, 0.13, 0.165, 0.0, 0.194, 0.23, 0.295, 0.333, 0.545], [0.185, 0.253, 0.174, 0.151, 0.264, 0.277, 0.188, 0.082, 0.089, 0.11, 0.169, 0.194, 0.0, 0.171, 0.196, 0.252, 0.6], [0.25, 0.299, 0.207, 0.197, 0.329, 0.336, 0.252, 0.164, 0.157, 0.142, 0.224, 0.23, 0.171, 0.0, 0.229, 0.237, 0.64], [0.28, 0.329, 0.242, 0.242, 0.361, 0.381, 0.277, 0.205, 0.215, 0.25, 0.274, 0.295, 0.196, 0.229, 0.0, 0.161, 0.692], [0.301, 0.374, 0.301, 0.285, 0.372, 0.39, 0.316, 0.236, 0.228, 0.273, 0.264, 0.333, 0.252, 0.237, 0.161, 0.0, 0.673], [0.596, 0.589, 0.571, 0.557, 0.608, 0.608, 0.573, 0.599, 0.6, 0.59, 0.549, 0.545, 0.6, 0.64, 0.692, 0.673, 0.0]]}, "density": {"labels": ["EG", "JO", "LB", "MA", "MR", "OM", "PS", "SA", "SY", "TN", "YE"], "m": [[0.0, 0.1062, 0.132, 0.2254, 0.1876, 0.1569, 0.0853, 0.1264, 0.1361, 0.1926, 0.117], [0.12, 0.0, 0.0453, 0.2261, 0.1724, 0.1006, 0.0051, 0.0978, 0.0336, 0.1591, 0.09], [0.1746, 0.041, 0.0, 0.2654, 0.2258, 0.1844, 0.0363, 0.1787, 0.0195, 0.2082, 0.16], [0.302, 0.2797, 0.3058, 0.0, 0.2785, 0.3091, 0.2767, 0.309, 0.3043, 0.2118, 0.3062], [0.2961, 0.2729, 0.3089, 0.2902, 0.0, 0.2619, 0.2869, 0.2791, 0.2992, 0.2417, 0.2496], [0.1497, 0.0817, 0.131, 0.2293, 0.1528, 0.0, 0.0733, 0.0592, 0.1083, 0.1513, 0.0718], [0.1304, 0.009, 0.0457, 0.2306, 0.1958, 0.1252, 0.0, 0.1157, 0.0414, 0.1829, 0.1063], [0.0948, 0.0436, 0.1003, 0.1846, 0.1288, 0.0265, 0.0408, 0.0, 0.0731, 0.1178, 0.0324], [0.1628, 0.0239, 0.0184, 0.2357, 0.2035, 0.1635, 0.0209, 0.1489, 0.0, 0.1934, 0.1385], [0.2446, 0.2127, 0.2339, 0.1891, 0.2201, 0.2417, 0.1823, 0.2318, 0.2451, 0.0, 0.2391], [0.1265, 0.0787, 0.127, 0.2084, 0.1477, 0.0679, 0.0589, 0.0515, 0.1115, 0.1479, 0.0]], "ex": {"EG->JO": ["ده", "دي", "كده", "اوي", "دلوقتي", "فندم"], "EG->LB": ["ده", "كده", "احنا", "ايوه", "اوي", "دلوقتي"], "EG->MA": ["ده", "بس", "دي", "عشان", "مش", "كده"], "EG->MR": ["بس", "عشان", "مش", "حاجه", "اوي", "دلوقتي"], "EG->OM": ["ده", "مش", "حاجه", "كده", "اوي", "دلوقتي"], "EG->PS": ["ده", "كده", "اوي", "دلوقتي", "فندم", "بتاع"], "EG->SA": ["ده", "مش", "كده", "اوي", "دلوقتي", "حضرتك"], "EG->SY": ["ده", "دي", "عشان", "كده", "ايوه", "اوي"], "EG->TN": ["ده", "بس", "دي", "عشان", "جدا", "كده"], "EG->YE": ["ده", "دي", "ايه", "كده", "اوي", "دلوقتي"], "JO->EG": ["رح", "شو", "مرحبا", "بدي", "كيف", "هاد"], "JO->LB": ["اشي", "احنا", "هسا", "دينار", "زي", "هاظ"], "JO->MA": ["رح", "بس", "شو", "لازم", "اكيد", "عشان"], "JO->MR": ["رح", "بس", "عشان", "مش", "هاد", "اشي"], "JO->OM": ["رح", "شو", "مش", "هاد", "اشي", "كتير"], "JO->PS": ["البترا", "رم", "الذكي", "تبعيت", "بالقائمه", "الزيتي"], "JO->SA": ["رح", "شو", "هاي", "مش", "هاد", "اشي"], "JO->SY": ["عشان", "اشي", "هسا", "دينار", "زي", "هاظ"], "JO->TN": ["رح", "بس", "شو", "تمام", "عشان", "انه"], "JO->YE": ["رح", "شو", "هاي", "بدي", "هاد", "اشي"], "LB->EG": ["شي", "رح", "شو", "انو", "هيدا", "بدي"], "LB->JO": ["هيدا", "هلق", "هيدي", "هوي", "كرمال", "هونيك"], "LB->MA": ["بس", "عم", "رح", "لازم", "شو", "مش"], "LB->MR": ["بس", "رح", "كتير", "مش", "هيدا", "هيك"], "LB->OM": ["عم", "رح", "كتير", "شو", "مش", "انو"], "LB->PS": ["هيدي", "هوي", "كرمال", "هونيك", "هني", "نحن"], "LB->SA": ["رح", "كتير", "شو", "مش", "انو", "هيدا"], "LB->SY": ["هونيك", "اوكي", "ماي", "الماي", "باللبناني", "بعدني"], "LB->TN": ["بس", "عم", "رح", "كتير", "شو", "هيدا"], "LB->YE": ["رح", "كتير", "شو", "انو", "هيدا", "بدي"], "MA->EG": ["ديال", "هاد", "واش", "غادي", "بزاف", "شي"], "MA->JO": ["ديال", "واش", "غادي", "بزاف", "مزيان", "هادشي"], "MA->LB": ["ديال", "باش", "واش", "غادي", "بزاف", "مزيان"], "MA->MR": ["ديال", "هاد", "واش", "بزاف", "مزيان", "هادشي"], "MA->OM": ["ديال", "باش", "هاد", "واش", "غادي", "بزاف"], "MA->PS": ["ديال", "واش", "غادي", "بزاف", "مزيان", "هادشي"], "MA->SA": ["ديال", "باش", "هاد", "غادي", "بزاف", "مزيان"], "MA->SY": ["ديال", "باش", "واش", "غادي", "بزاف", "مزيان"], "MA->TN": ["ديال", "هاد", "واش", "بزاف", "هادشي", "ولكن"], "MA->YE": ["ديال", "باش", "هاد", "واش", "غادي", "بزاف"], "MR->EG": ["لاهي", "شي", "ذه", "اعل", "زين", "ذاك"], "MR->JO": ["لاهي", "ذه", "اعل", "ذاك", "حت", "ظرك"], "MR->LB": ["لاهي", "ذه", "اعل", "زين", "ذاك", "حت"], "MR->MA": ["لاهي", "ذه", "اعل", "زين", "ذاك", "حت"], "MR->OM": ["لاهي", "ذه", "اعل", "حت", "اياك", "ظرك"], "MR->PS": ["لاهي", "ذه", "اعل", "زين", "ذاك", "نحن"], "MR->SA": ["لاهي", "ذه", "اعل", "حت", "اياك", "ظرك"], "MR->SY": ["لاهي", "ذه", "اعل", "زين", "ذاك", "حت"], "MR->TN": ["ذه", "اعل", "حت", "اياك", "نحن", "ظرك"], "MR->YE": ["لاهي", "اعل", "ذاك", "حت", "اياك", "ظرك"], "OM->EG": ["حال", "شي", "هيه", "واجد", "هذا", "تو"], "OM->JO": ["واجد", "ذا", "ف", "وايد", "ذي", "هيش"], "OM->LB": ["هيه", "واجد", "هذا", "ذا", "زين", "وايد"], "OM->MA": ["حال", "عشان", "بس", "لازم", "انه", "اكيد"], "OM->MR": ["عشان", "بس", "واجد", "تو", "هالشي", "اقدر"], "OM->PS": ["واجد", "ذا", "زين", "ذي", "هيش", "هنا"], "OM->SA": ["ايوا", "ف", "وايد", "هيش", "بو", "اريد"], "OM->SY": ["عشان", "واجد", "تو", "ذا", "زين", "ذي"], "OM->TN": ["عشان", "بس", "انه", "ايوا", "هيه", "ذا"], "OM->YE": ["ايوا", "واجد", "تو", "هالشي", "ف", "وايد"], "PS->EG": ["رح", "هاد", "شو", "ع", "اشي", "منيح"], "PS->JO": ["شيكل", "هان", "رام", "الزتون", "صباحك", "ابصر"], "PS->LB": ["اشي", "زي", "احنا", "هسا", "الاشي", "وعليكم"], "PS->MA": ["بس", "رح", "لازم", "عشان", "شو", "ع"], "PS->MR": ["بس", "رح", "عشان", "هاد", "ع", "مش"], "PS->OM": ["رح", "هاد", "شو", "مش", "اشي", "منيح"], "PS->SA": ["رح", "هاد", "شو", "مش", "اشي", "منيح"], "PS->SY": ["عشان", "اشي", "زي", "هسا", "الاشي", "شيكل"], "PS->TN": ["بس", "رح", "عشان", "هاد", "شو", "ع"], "PS->YE": ["رح", "هاد", "شو", "اشي", "منيح", "هيك"], "SA->EG": ["هذا", "هذي", "شي", "ايش", "الحين", "ابغي"], "SA->JO": ["وش", "هذي", "ايش", "الحين", "ابغي", "هنا"], "SA->LB": ["هذا", "وش", "هذي", "ايوه", "ايش", "الحين"], "SA->MA": ["عشان", "هذا", "بس", "لازم", "اكيد", "هذي"], "SA->MR": ["عشان", "بس", "وش", "ايش", "قبل", "الحين"], "SA->OM": ["ابغي", "زي", "بكره", "المويه", "تقدرين", "بدري"], "SA->PS": ["وش", "ابغي", "هنا", "خلنا", "ذا", "زين"], "SA->SY": ["عشان", "هذي", "ايوه", "ايش", "الحين", "ابغي"], "SA->TN": ["عشان", "بس", "وش", "تمام", "ايوه", "ايش"], "SA->YE": ["وش", "الحين", "ابغي", "ايه", "تعطيني", "المويه"], "SY->EG": ["رح", "انو", "هاد", "شو", "شي", "هالشي"], "SY->JO": ["هيي", "هنيك", "ايمت", "هوي", "مافي", "عندن"], "SY->LB": ["مو", "ايمت", "اخي", "هنن", "السوريه", "استخدم"], "SY->MA": ["رح", "بس", "عم", "لازم", "انو", "شو"], "SY->MR": ["رح", "بس", "كتير", "هاد", "هالشي", "الك"], "SY->OM": ["رح", "كتير", "عم", "انو", "هاد", "شو"], "SY->PS": ["هيي", "هنيك", "ايمت", "هوي", "ليره", "عندن"], "SY->SA": ["رح", "كتير", "انو", "هاد", "شو", "الك"], "SY->TN": ["رح", "بس", "كتير", "عم", "هاد", "شو"], "SY->YE": ["رح", "كتير", "انو", "هاد", "شو", "هالشي"], "TN->EG": ["متاع", "برشه", "تنجم", "توا", "هذا", "بطبيعه"], "TN->JO": ["متاع", "برشه", "تنجم", "توا", "متاعك", "هاذي"], "TN->LB": ["باش", "متاع", "تنجم", "توا", "هذا", "بطبيعه"], "TN->MA": ["متاع", "برشه", "تنجم", "توا", "هذا", "متاعك"], "TN->MR": ["متاع", "برشه", "تنجم", "توا", "بطبيعه", "شنوه"], "TN->OM": ["باش", "متاع", "برشه", "تنجم", "توا", "بطبيعه"], "TN->PS": ["متاع", "برشه", "تنجم", "توا", "متاعك", "شنوه"], "TN->SA": ["باش", "متاع", "برشه", "تنجم", "توا", "بطبيعه"], "TN->SY": ["باش", "متاع", "برشه", "تنجم", "توا", "بطبيعه"], "TN->YE": ["باش", "متاع", "برشه", "تنجم", "توا", "بطبيعه"], "YE->EG": ["هذا", "ايش", "شي", "اشتي", "كيف", "ذلحين"], "YE->JO": ["ايش", "اشتي", "ذلحين", "ذا", "ذه", "هذي"], "YE->LB": ["هذا", "ايوه", "ايش", "اشتي", "ذلحين", "هذه"], "YE->MA": ["بس", "هذا", "حق", "ايوه", "لو", "ايش"], "YE->MR": ["بس", "ايش", "عشان", "اشتي", "مش", "ذلحين"], "YE->OM": ["اشتي", "مش", "ذلحين", "ذه", "حاجه", "تشتي"], "YE->PS": ["اشتي", "ذلحين", "ذا", "ذه", "به", "هنا"], "YE->SA": ["اشتي", "مش", "ذه", "تشتي", "نشتي", "سب"], "YE->SY": ["ايوه", "ايش", "عشان", "اشتي", "ذلحين", "هذه"], "YE->TN": ["بس", "ايوه", "تمام", "ايش", "انه", "عشان"]}}, "sid": {"EG": 0.699, "JO": 0.524, "LB": 0.723, "MA": 0.96, "MR": 0.956, "OM": 0.759, "PS": 0.592, "SA": 0.604, "SY": 0.65, "TN": 0.888, "YE": 0.762}};
+const T=[
+ ["MSA","—",1,35005,344420,"38.6K lemmas*",2962,"CALIMA-MSA; MSA side of the parallel sources"],
+ ["EGY Egyptian","EG",1,30084,303691,4769,3798,"plus V1 gold (794)"],
+ ["SAU Saudi","SA",1,12267,161187,1558,2271,"Najdi, Hijazi, Southern; Riyadh–Jeddah 0.03"],
+ ["KHL Gulf-east","AE, QA, KW, BH",1,12749,90412,1047,2658,"anchored on Doha (MADAR) and UAE speech"],
+ ["SLEV South Levantine","PS, JO",1,32447,405600,1646,5192,"PS and JO share their words (0.00)"],
+ ["NLEV North Levantine","LB, SY",1,36095,383770,1446,2201,"Nâbra adds 10 Syrian sub-dialects"],
+ ["IRQ Iraqi","IQ",1,5521,77914,1407,2197,"plus 326K filtered comments as hosts"],
+ ["YEM Yemeni","YE",1,45497,1196533,1783,2655,"Lisan 994K annotated tokens"],
+ ["MOR Moroccan","MA",1,18568,174354,2292,4247,"easiest to separate (F1 0.96)"],
+ ["TUN Tunisian","TN",1,14543,119272,1240,1096,"French code-switching in 38% of turns"],
+ ["OMN Omani","OM",2,8426,113936,1655,1103,"one verified source"],
+ ["SDN Sudanese","SD",2,4098,67789,1070,1105,"closest to Egyptian (0.18)"],
+ ["LBY Libyan","LY",2,4150,65553,1097,1097,"thin"],
+ ["ALG Algerian","DZ",2,3325,36373,1258,3325,"main corpus is noisy ASR"],
+ ["HAS Hassaniya","MR",2,9589,124360,3,2992,"almost no lexicon"]];
+const fmt=n=>typeof n==="number"?n.toLocaleString("en-US"):n;
+const tb=document.querySelector("#targets tbody"), maxL=Math.log10(2e6);
+T.forEach(([name,ctry,tier,s,w,lex,ev,note])=>{
+  const [code,...rest]=name.split(" ");
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td><span class="code">${code}</span> ${rest.join(" ")}</td><td>${ctry}</td><td><span class="chip t${tier}">${tier===1?"Production":"Other dialect"}</span></td>
+  <td class="n">${fmt(s)}</td><td class="barcell"><div class="bar" style="width:${Math.max(4,(Math.log10(w)-4.4)/(maxL-4.4)*100)}%" title="${fmt(w)} words"></div></td>
+  <td class="n">${fmt(lex)}</td><td class="n">${fmt(ev)}</td><td class="muted">${note}</td>`;
+  tb.appendChild(tr);});
+function heat(el,labels,M,vmax,opts={}){
+  el.innerHTML="";const n=labels.length;
+  el.style.gridTemplateColumns=`64px repeat(${n},minmax(30px,1fr))`;
+  el.appendChild(Object.assign(document.createElement("div"),{className:"lab",textContent:opts.corner||""}));
+  labels.forEach(l=>el.appendChild(Object.assign(document.createElement("div"),{className:"lab",textContent:l.replace("SA_","")})));
+  labels.forEach((a,i)=>{
+    el.appendChild(Object.assign(document.createElement("div"),{className:"lab",textContent:a.replace("SA_","")}));
+    labels.forEach((b,j)=>{
+      const v=M[i][j],c=document.createElement("div");c.className="cell";
+      const p=Math.min(1,v/vmax);
+      c.style.background=`color-mix(in oklab,var(--heat-1) ${Math.round(p*100)}%,var(--heat-0))`;
+      if(p>.55)c.style.color="var(--ground)";
+      c.textContent=i===j?"·":v.toFixed(2).replace(/^0/,"");
+      if(opts.merge&&i!==j&&opts.merge(a,b,v))c.classList.add("merge");
+      if(opts.onpick&&i!==j){c.tabIndex=0;c.style.cursor="pointer";c.onclick=()=>opts.onpick(a,b,v);c.onkeydown=e=>{if(e.key==="Enter")opts.onpick(a,b,v)}}
+      c.title=`${a} → ${b}: ${v.toFixed(3)}`;el.appendChild(c);});});}
+const mEl=document.getElementById("madar");
+const mergeFn=(a,b)=>{const i=D.madar.labels.indexOf(a),j=D.madar.labels.indexOf(b);return D.madar.all[i][j]<=.05&&D.madar.closed[i][j]<=.05};
+function showMadar(k){heat(mEl,D.madar.labels,D.madar[k],.64,{merge:mergeFn});
+  document.getElementById("t-all").setAttribute("aria-pressed",k==="all");document.getElementById("t-closed").setAttribute("aria-pressed",k==="closed");}
+document.getElementById("t-all").onclick=()=>showMadar("all");document.getElementById("t-closed").onclick=()=>showMadar("closed");
+showMadar("all");
+const note=document.getElementById("dens-note");
+heat(document.getElementById("dens"),D.density.labels,D.density.m,.31,{corner:"speaker→",onpick:(a,b,v)=>{
+  const ex=(D.density.ex[`${a}->${b}`]||[]).join(" · ")||"—";
+  note.innerHTML=`<span class="pair">${a} speaker → ${b} target · ${v.toFixed(2)}</span><span class="ar"></span>`;note.querySelector(".ar").textContent=ex;}});
+const sid=document.getElementById("sid");
+Object.entries(D.sid).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{sid.insertAdjacentHTML("beforeend",`<span>${k}</span><span class="track"><span class="fill" style="display:block;width:${v*100}%"></span></span><span>${v.toFixed(2)}</span>`)});
+</script>

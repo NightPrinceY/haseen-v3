@@ -1,0 +1,184 @@
+sent_id	idx	word	variety	note	rule
+a-000	0	الطلب	SHARED		6 MSA future marker
+a-000	1	سوف	MSA		6 MSA future marker
+a-000	2	يوصلك	SHARED		6 MSA future marker
+a-000	3	بكرة	EGY		6 MSA future marker
+a-001	0	سنقوم	MSA		7.1 marker in construction, formal vocab shared
+a-001	1	بتحويلك	SHARED		7.1 marker in construction, formal vocab shared
+a-001	2	للقسم	SHARED		7.1 marker in construction, formal vocab shared
+a-001	3	المختص	SHARED		7.1 marker in construction, formal vocab shared
+a-002	0	هحولك	EGY		6 EGY future هـ
+a-002	1	للقسم	SHARED		6 EGY future هـ
+a-002	2	المختص	SHARED		6 EGY future هـ
+a-002	3	حالا	SHARED		6 EGY future هـ
+a-003	0	للأسف	SHARED		6 MSA negation
+a-003	1	لن	MSA		6 MSA negation
+a-003	2	نتمكن	SHARED		6 MSA negation | v1.2: semi-formal agent register → SHARED
+a-003	3	من	SHARED		6 MSA negation
+a-003	4	تغيير	SHARED		6 MSA negation
+a-003	5	العنوان	SHARED		6 MSA negation
+a-004	0	للأسف	SHARED		6 EGY negation
+a-004	1	مش	EGY		6 EGY negation
+a-004	2	هنقدر	EGY		6 EGY negation
+a-004	3	نغير	SHARED		6 EGY negation
+a-004	4	العنوان	SHARED		6 EGY negation
+a-005	0	لا	SHARED		7.3 لا + verb | v1.2: semi-formal agent register → SHARED
+a-005	1	يمكننا	SHARED		7.3 لا + verb | v1.2: semi-formal agent register → SHARED
+a-005	2	إلغاء	SHARED		7.3 لا + verb
+a-005	3	الطلب	SHARED		7.3 لا + verb
+a-005	4	بعد	SHARED		7.3 لا + verb
+a-005	5	شحنه	SHARED		7.3 لا + verb
+a-006	0	لا	SHARED		7.3 لا = no
+a-006	1	يا	SHARED		7.3 لا = no
+a-006	2	فندم	EGY		7.3 لا = no
+a-006	3	مفيش	EGY		7.3 لا = no
+a-006	4	رسوم	SHARED		7.3 لا = no
+a-007	0	الفاتورة	SHARED		6 relative
+a-007	1	الذي	MSA		6 relative
+a-007	2	وصلتك	SHARED		6 relative
+a-007	3	فيها	SHARED		6 relative
+a-007	4	غلطة	SHARED		6 relative
+a-008	0	الفاتورة	SHARED		7.4 اللي EGY+GLF
+a-008	1	اللي	SHARED		7.4 اللي EGY+GLF
+a-008	2	وصلتك	SHARED		7.4 اللي EGY+GLF
+a-008	3	فيها	SHARED		7.4 اللي EGY+GLF
+a-008	4	غلطة	SHARED		7.4 اللي EGY+GLF
+a-009	0	هذا	MSA		6 demonstrative
+a-009	1	العرض	SHARED		6 demonstrative
+a-009	2	ساري	SHARED		6 demonstrative
+a-009	3	لآخر	SHARED		6 demonstrative
+a-009	4	الشهر	SHARED		6 demonstrative
+a-010	0	العرض	SHARED		6 EGY demonstrative
+a-010	1	ده	EGY		6 EGY demonstrative
+a-010	2	ساري	SHARED		6 EGY demonstrative
+a-010	3	لآخر	SHARED		6 EGY demonstrative
+a-010	4	الشهر	SHARED		6 EGY demonstrative
+a-011	0	ليس	MSA		6, 7.10 place name
+a-011	1	لدينا	SHARED		6, 7.10 place name | v1.2: semi-formal agent register → SHARED
+a-011	2	فروع	SHARED		6, 7.10 place name
+a-011	3	في	SHARED		6, 7.10 place name
+a-011	4	أسوان	OTHER		6, 7.10 place name
+a-012	0	معندناش	EGY		6 ما..ش
+a-012	1	فرع	SHARED		6 ما..ش
+a-012	2	في	SHARED		6 ما..ش
+a-012	3	أسوان	OTHER		6 ما..ش
+a-013	0	أبغى	GLF		6 GLF want
+a-013	1	رقم	SHARED		6 GLF want
+a-013	2	الطلب	SHARED		6 GLF want
+a-013	3	لو	SHARED		6 GLF want
+a-013	4	سمحت	SHARED		6 GLF want
+a-014	0	عايز	EGY		6 EGY want
+a-014	1	رقم	SHARED		6 EGY want
+a-014	2	الطلب	SHARED		6 EGY want
+a-014	3	لو	SHARED		6 EGY want
+a-014	4	سمحت	SHARED		6 EGY want
+a-015	0	وش	GLF		6 GLF what
+a-015	1	المشكلة	SHARED		6 GLF what
+a-015	2	اللي	SHARED		6 GLF what
+a-015	3	عندك	SHARED		6 GLF what
+a-016	0	إيه	EGY		6 EGY what
+a-016	1	المشكلة	SHARED		6 EGY what
+a-016	2	اللي	SHARED		6 EGY what
+a-016	3	عندك	SHARED		6 EGY what
+a-017	0	الحين	GLF		6 GLF now
+a-017	1	أشوف	SHARED		6 GLF now
+a-017	2	لك	SHARED		6 GLF now
+a-017	3	الطلب	SHARED		6 GLF now
+a-018	0	الخدمة	SHARED		6 GLF very
+a-018	1	حلوة	SHARED		6 GLF very
+a-018	2	وايد	GLF		6 GLF very
+a-019	0	زين	GLF		6 زين=okay; 7.1 الشكوى
+a-019	1	أسجل	SHARED		6 زين=okay; 7.1 الشكوى
+a-019	2	الشكوى	SHARED		6 زين=okay; 7.1 الشكوى
+a-019	3	وأرد	SHARED		6 زين=okay; 7.1 الشكوى
+a-019	4	عليك	SHARED		6 زين=okay; 7.1 الشكوى
+a-020	0	ليش	GLF		6 GLF why
+a-020	1	ما	SHARED		6 GLF why
+a-020	2	جددت	SHARED		6 GLF why
+a-020	3	الاشتراك	SHARED		6 GLF why
+a-021	0	ليه	EGY		6 EGY why, ما..ش
+a-021	1	مجددتش	EGY		6 EGY why, ما..ش
+a-021	2	الاشتراك	SHARED		6 EGY why, ما..ش
+a-022	0	الكارت	SHARED		6 GLF راح future
+a-022	1	راح	GLF		6 GLF راح future
+a-022	2	يتفعل	SHARED		6 GLF راح future
+a-022	3	خلال	SHARED		6 GLF راح future
+a-022	4	ساعة	SHARED		6 GLF راح future
+a-023	0	الكارت	SHARED		6 EGY هـ
+a-023	1	هيتفعل	EGY		6 EGY هـ
+a-023	2	خلال	SHARED		6 EGY هـ
+a-023	3	ساعة	SHARED		6 EGY هـ
+a-024	0	تبي	GLF		6 GLF
+a-024	1	أحول	SHARED		6 GLF
+a-024	2	لك	SHARED		6 GLF
+a-024	3	المكالمة	SHARED		6 GLF
+a-025	0	أتأخر	SHARED		7.2 missing marker → shared
+a-025	1	شوية	EGY		7.2 missing marker → shared
+a-025	2	بس	SHARED		7.2 missing marker → shared
+a-025	3	هوصل	EGY		7.2 missing marker → shared
+a-026	0	أقوم	SHARED		7.2 أقوم no marker; formal vocab
+a-026	1	بتحويلك	SHARED		7.2 أقوم no marker; formal vocab
+a-026	2	دلوقتي	EGY		7.2 أقوم no marker; formal vocab
+a-027	0	شكرا	SHARED		7.11 معنا; 6 tanween
+a-027	1	لتواصلك	SHARED		7.11 معنا; 6 tanween
+a-027	2	معنا	SHARED		7.11 معنا; 6 tanween | v1.2: semi-formal agent register → SHARED
+a-027	3	ونتمنى	SHARED		7.11 معنا; 6 tanween
+a-027	4	لك	SHARED		7.11 معنا; 6 tanween
+a-027	5	يوما	SHARED		7.11 معنا; 6 tanween | v1.2: semi-formal agent register → SHARED
+a-027	6	سعيدا	SHARED		7.11 معنا; 6 tanween | v1.2: semi-formal agent register → SHARED
+a-028	0	شكرا	SHARED		6 EGY
+a-028	1	إنك	EGY		6 EGY
+a-028	2	كلمتنا	EGY		6 EGY
+a-028	3	يومك	SHARED		6 EGY
+a-028	4	سعيد	SHARED		6 EGY
+a-029	0	إن	SHARED		7.7 fixed expression
+a-029	1	شاء	SHARED		7.7 fixed expression
+a-029	2	الله	SHARED		7.7 fixed expression
+a-029	3	الشحنة	SHARED		7.7 fixed expression
+a-029	4	توصل	SHARED		7.7 fixed expression
+a-029	5	النهارده	EGY		7.7 fixed expression
+a-030	0	افتح	SHARED		7.5 borrowing shared
+a-030	1	الأبلكيشن	SHARED		7.5 borrowing shared
+a-030	2	واعمل	SHARED		7.5 borrowing shared
+a-030	3	تحديث	SHARED		7.5 borrowing shared
+a-031	0	افتح	SHARED		7.5 Latin; 7.10 brand
+a-031	1	app	OTHER		7.5 Latin; 7.10 brand
+a-031	2	فودافون	OTHER		7.5 Latin; 7.10 brand
+a-031	3	واعمل	SHARED		7.5 Latin; 7.10 brand
+a-031	4	update	OTHER		7.5 Latin; 7.10 brand
+a-032	0	الباقة	SHARED		7.10 numbers
+a-032	1	فيها	SHARED		7.10 numbers
+a-032	2	خمسين	SHARED		7.10 numbers
+a-032	3	جيجا	SHARED		7.10 numbers
+a-032	4	ب	SHARED		7.10 numbers
+a-032	5	200	OTHER		7.10 numbers
+a-032	6	جنيه	SHARED		7.10 numbers
+a-033	0	إحنا	EGY		7.8 EGY pronoun
+a-033	1	آسفين	SHARED		7.8 EGY pronoun
+a-033	2	على	SHARED		7.8 EGY pronoun
+a-033	3	الإزعاج	SHARED		7.8 EGY pronoun
+a-034	0	حضرتك	EGY		6; 7.5
+a-034	1	تقدر	SHARED		6; 7.5
+a-034	2	تدفع	SHARED		6; 7.5
+a-034	3	كاش	SHARED		6; 7.5
+a-034	4	أو	SHARED		6; 7.5
+a-034	5	فيزا	SHARED		6; 7.5
+a-035	0	عشان	SHARED		7.4 عشان EGY+GLF
+a-035	1	نخدمك	SHARED		7.4 عشان EGY+GLF
+a-035	2	أحسن	SHARED		7.4 عشان EGY+GLF
+a-035	3	محتاجين	SHARED		7.4 عشان EGY+GLF
+a-035	4	رقمك	SHARED		7.4 عشان EGY+GLF
+a-035	5	القومي	SHARED		7.4 عشان EGY+GLF
+a-036	0	بدي	GLF	DA_OTHER:LEV	7.6 Levantine: GLF + note DA_OTHER:LEV
+a-036	1	رقم	SHARED		7.6 Levantine: GLF + note DA_OTHER:LEV
+a-036	2	الطلب	SHARED		7.6 Levantine: GLF + note DA_OTHER:LEV
+a-037	0	شو	GLF	DA_OTHER:LEV	7.6 Levantine: GLF + note DA_OTHER:LEV
+a-037	1	المشكلة	SHARED		7.6 Levantine: GLF + note DA_OTHER:LEV
+a-038	0	المندوب	SHARED		6 EGY progressive بـ
+a-038	1	بيكلمك	EGY		6 EGY progressive بـ
+a-038	2	دلوقتي	EGY		6 EGY progressive بـ
+a-039	0	يتم	SHARED		6 passive aux (pending Q5/Q6) | v1.2: semi-formal agent register → SHARED
+a-039	1	تحويل	SHARED		6 passive aux (pending Q5/Q6)
+a-039	2	المبلغ	SHARED		6 passive aux (pending Q5/Q6)
+a-039	3	خلال	SHARED		6 passive aux (pending Q5/Q6)
+a-039	4	يومين	SHARED		6 passive aux (pending Q5/Q6)

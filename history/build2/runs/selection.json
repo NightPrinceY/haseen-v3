@@ -1,0 +1,26 @@
+{
+ "candidates": [
+  {
+   "name": "v7 linear (train_v7) \u00b7 known answers 48/54, fails the task example",
+   "dev_mean_F1": 0.9293,
+   "gate": 9
+  },
+  {
+   "name": "v8 linear (train_v8) \u00b7 known answers 52/54",
+   "dev_mean_F1": 0.9225,
+   "gate": 9
+  },
+  {
+   "name": "v8 pointer (train_v8) \u00b7 known answers 52/54",
+   "dev_mean_F1": 0.9219,
+   "gate": 9
+  },
+  {
+   "name": "v9 linear (train_v9) \u00b7 shipped \u00b7 known answers 54/54",
+   "dev_mean_F1": 0.9208,
+   "gate": 9
+  }
+ ],
+ "chosen": "v9 linear (V4-R2-linear-s13), see the decision record in training/PREREG.md",
+ "train_rows": "343K"
+}

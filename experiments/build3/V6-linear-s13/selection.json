@@ -1,0 +1,22 @@
+{
+ "candidates": [
+  {
+   "run": "V6-linear-s13",
+   "ka": 71,
+   "ka_tot": 73,
+   "task_example": true,
+   "gate": true,
+   "dev_F1": 0.8759
+  },
+  {
+   "run": "V6-pointer-s42",
+   "ka": 71,
+   "ka_tot": 73,
+   "task_example": true,
+   "gate": true,
+   "dev_F1": 0.8705
+  }
+ ],
+ "chosen": "V6-linear-s13",
+ "gate_passed": true
+}

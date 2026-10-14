@@ -1,0 +1,127 @@
+{
+ "policy": {
+  "odia_gate": 0.5,
+  "ensemble": [
+   "runs/V3-R2-linear-s13"
+  ],
+  "T_var": 1.428411841392517,
+  "T_odia": 1.0074807405471802,
+  "tau": {
+   "MSA": 0.075,
+   "EGY": 0.85,
+   "SAU": 0.725,
+   "KHL": 0.8,
+   "LEV": 0.575,
+   "IRQ": 0.1,
+   "YEM": 0.225,
+   "MOR": 0.9,
+   "TUN": 0.325
+  },
+  "tau_odia": 0.4,
+  "fa_max": 0.01,
+  "fitted_on": "gold_v2 dev (natural + challenge)",
+  "label_rule": "set {v != t: p_v >= 0.5}; MSA first"
+ },
+ "dev": {
+  "MSA": {
+   "FA": 0.00285,
+   "P": 0.9512,
+   "R": 0.959,
+   "F1": 0.9551,
+   "label_top1": 0.4359,
+   "label_set_hit": 0.9316,
+   "label_set_size": 3.17,
+   "heldout_recall": 0.6667,
+   "heldout_n": 12
+  },
+  "EGY": {
+   "FA": 0.0065,
+   "P": 0.9897,
+   "R": 0.9349,
+   "F1": 0.9615,
+   "label_top1": 0.4321,
+   "label_set_hit": 0.8955,
+   "label_set_size": 2.61,
+   "heldout_recall": 0.75,
+   "heldout_n": 24
+  },
+  "SAU": {
+   "FA": 0.00918,
+   "P": 0.9477,
+   "R": 0.8918,
+   "F1": 0.9189,
+   "label_top1": 0.4816,
+   "label_set_hit": 0.9449,
+   "label_set_size": 2.57,
+   "heldout_recall": 0.8,
+   "heldout_n": 45
+  },
+  "KHL": {
+   "FA": 0.00646,
+   "P": 1.0,
+   "R": 0.9312,
+   "F1": 0.9644,
+   "label_top1": 0.4236,
+   "label_set_hit": 0.8374,
+   "label_set_size": 2.58,
+   "heldout_recall": 0.6786,
+   "heldout_n": 28
+  },
+  "LEV": {
+   "FA": 0.00115,
+   "P": 0.9835,
+   "R": 0.7783,
+   "F1": 0.8689,
+   "label_top1": 0.676,
+   "label_set_hit": 0.8883,
+   "label_set_size": 1.51,
+   "heldout_recall": 0.6286,
+   "heldout_n": 35
+  },
+  "IRQ": {
+   "FA": 0.0086,
+   "P": 0.973,
+   "R": 0.8324,
+   "F1": 0.8972,
+   "label_top1": 0.4931,
+   "label_set_hit": 0.9097,
+   "label_set_size": 2.35,
+   "heldout_recall": 0.5625,
+   "heldout_n": 16
+  },
+  "YEM": {
+   "FA": 0.00903,
+   "P": 0.9826,
+   "R": 0.8692,
+   "F1": 0.9224,
+   "label_top1": 0.646,
+   "label_set_hit": 0.9558,
+   "label_set_size": 1.97,
+   "heldout_recall": 0.0909,
+   "heldout_n": 11
+  },
+  "MOR": {
+   "FA": 0.00922,
+   "P": 0.9625,
+   "R": 0.851,
+   "F1": 0.9033,
+   "label_top1": 0.463,
+   "label_set_hit": 0.9027,
+   "label_set_size": 2.94,
+   "heldout_recall": 0.439,
+   "heldout_n": 41
+  },
+  "TUN": {
+   "FA": 0.00312,
+   "P": 0.988,
+   "R": 0.8454,
+   "F1": 0.9111,
+   "label_top1": 0.4837,
+   "label_set_hit": 0.8862,
+   "label_set_size": 2.82,
+   "heldout_recall": 0.4,
+   "heldout_n": 25
+  }
+ },
+ "dev_mean_F1": 0.9225
+}

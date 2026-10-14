@@ -1,0 +1,127 @@
+{
+ "dev_default": {
+  "EGY": [
+   0.9845,
+   0.9867,
+   0.9856
+  ],
+  "GLF": [
+   0.9849,
+   0.9896,
+   0.9872
+  ],
+  "MSA": [
+   0.9677,
+   0.9844,
+   0.976
+  ],
+  "score": 0.9836
+ },
+ "dev_calibrated": {
+  "EGY": [
+   0.9852,
+   0.9864,
+   0.9858
+  ],
+  "GLF": [
+   0.991,
+   0.9854,
+   0.9882
+  ],
+  "MSA": [
+   0.9773,
+   0.979,
+   0.9781
+  ],
+  "score": 0.9845
+ },
+ "ece_dev_before": 0.0028,
+ "ece_dev_after": 0.0006,
+ "calibration": {
+  "T_var": 1.52997887134552,
+  "T_dia": 1.0138702392578125,
+  "tau": {
+   "EGY": 0.45,
+   "GLF": 0.3,
+   "MSA": 0.3
+  },
+  "tau_dia": 0.5
+ },
+ "heldout": {
+  "EGY": [
+   0.9865,
+   0.8189,
+   0.8949
+  ],
+  "GLF": [
+   0.9844,
+   0.996,
+   0.9902
+  ],
+  "MSA": [
+   0.9786,
+   0.9542,
+   0.9663
+  ],
+  "score": 0.9366
+ },
+ "gold": {
+  "egy_challenge": {
+   "P": 0.9941,
+   "R": 0.9769,
+   "F1": 0.9854,
+   "tp": 169,
+   "fp": 1,
+   "fn": 4,
+   "label_acc": 0.9822,
+   "words": 2859
+  },
+  "egy_natural": {
+   "P": 0.2,
+   "R": 0.25,
+   "F1": 0.2222,
+   "tp": 1,
+   "fp": 4,
+   "fn": 3,
+   "label_acc": 1.0,
+   "words": 4761
+  },
+  "egy_stress": {
+   "P": 0.75,
+   "R": 1.0,
+   "F1": 0.8571,
+   "tp": 12,
+   "fp": 4,
+   "fn": 0,
+   "label_acc": 1.0,
+   "words": 2824
+  },
+  "glf_experimental": {
+   "P": 0.8276,
+   "R": 0.5106,
+   "F1": 0.6316,
+   "tp": 24,
+   "fp": 5,
+   "fn": 23,
+   "label_acc": 1.0,
+   "words": 1138
+  },
+  "msa": {
+   "P": 0.5,
+   "R": 0.6957,
+   "F1": 0.5818,
+   "tp": 32,
+   "fp": 32,
+   "fn": 14,
+   "label_acc": 1.0,
+   "words": 2952
+  }
+ },
+ "latency_ms_batch1_15w": {
+  "p50": 10.81,
+  "p95": 11.6,
+  "device": "cuda"
+ },
+ "train_seconds": 1065,
+ "rescored": "decision layer: label = first natural variety in preference order (bug fix 2026-10-13)"
+}

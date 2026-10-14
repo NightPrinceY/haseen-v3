@@ -1,0 +1,3 @@
+  MISS  sau 'شو' should deviate
+  MISS  glf 'بتاعك' should deviate
+V6-linear-s13: 71/73 known answers

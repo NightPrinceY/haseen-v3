@@ -1,0 +1,25 @@
+{
+ "stats": {
+  "train_sents": 36000,
+  "insert_EGY<-GLF": 8927,
+  "reject_EGY<-MSA": 38570,
+  "reject_EGY<-GLF": 32622,
+  "insert_EGY<-MSA": 10142,
+  "reject_GLF<-EGY": 13984,
+  "reject_GLF<-MSA": 15781,
+  "insert_GLF<-EGY": 4849,
+  "insert_GLF<-MSA": 5272,
+  "reject_MSA<-EGY": 13530,
+  "reject_MSA<-GLF": 13652,
+  "insert_MSA<-EGY": 6318,
+  "insert_MSA<-GLF": 4808,
+  "test_sents": 6400,
+  "dev_sents": 4000
+ },
+ "label_counts": {
+  "SHARED": 173949,
+  "EGY": 42936,
+  "MSA": 29512,
+  "GLF": 25479
+ }
+}

@@ -1,0 +1,47 @@
+/root/HaSeen-V2/release/haseen3/training/export_release.py:76: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter will be the default. To switch now, set dynamo=True in torch.onnx.export. This new exporter supports features like exporting LLMs with DynamicCache. We encourage you to try it and share feedback to help improve the experience. Learn more about the new export logic: https://pytorch.org/docs/stable/onnx_dynamo.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html.
+  torch.onnx.export(w, (enc["input_ids"], enc["attention_mask"]), tmp, input_names=["input_ids", "attention_mask"],
+/usr/local/lib/python3.11/site-packages/transformers/modeling_attn_mask_utils.py:196: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  inverted_mask = torch.tensor(1.0, dtype=dtype) - expanded_mask
+WARNING:root:Please consider to run pre-processing before quantization. Refer to example: https://github.com/microsoft/onnxruntime-inference-examples/blob/main/quantization/image_classification/cpu/ReadMe.md 
+WARNING:root:Please consider to run pre-processing before quantization. Refer to example: https://github.com/microsoft/onnxruntime-inference-examples/blob/main/quantization/image_classification/cpu/ReadMe.md 
+{
+ "cpu_threads": 4,
+ "cpu": "AMD EPYC 7R13 Processor",
+ "latency_torch_fp32_cpu": {
+  "p50": 29.82,
+  "p95": 32.46
+ },
+ "latency_ort_fp32_cpu": {
+  "p50": 14.05,
+  "p95": 15.62
+ },
+ "quantization": {
+  "per_tensor": {
+   "decision_agreement_vs_torch": 0.99406,
+   "latency_ort_int8_cpu": {
+    "p50": 7.12,
+    "p95": 9.09
+   }
+  },
+  "per_channel": {
+   "decision_agreement_vs_torch": 0.81623,
+   "latency_ort_int8_cpu": {
+    "p50": 7.74,
+    "p95": 11.26
+   }
+  }
+ },
+ "chosen_quantization": "per_tensor",
+ "latency_ort_int8_cpu": {
+  "p50": 7.12,
+  "p95": 9.09
+ },
+ "int8_vs_torch_decision_agreement": 0.99406,
+ "words_compared": 59733,
+ "size_mb": {
+  "onnx_int8": 155.5,
+  "safetensors": 619.0
+ },
+ "params": 162263056
+}
+wrote /root/rel/raw_gold_onnx.jsonl.gz

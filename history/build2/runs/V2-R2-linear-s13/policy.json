@@ -1,0 +1,19 @@
+{
+ "T_var": 1.4224973917007446,
+ "T_odia": 1.2789111137390137,
+ "tau": {
+  "MSA": 0.02,
+  "EGY": 0.675,
+  "SAU": 0.15,
+  "KHL": 0.25,
+  "LEV": 0.875,
+  "IRQ": 0.005,
+  "YEM": 0.075,
+  "MOR": 0.01,
+  "TUN": 0.01
+ },
+ "tau_odia": 0.9,
+ "fa_max": 0.01,
+ "fitted_on": "gold_v2 dev (natural + challenge)",
+ "label_rule": "set {v != t: p_v >= 0.5}; MSA first"
+}

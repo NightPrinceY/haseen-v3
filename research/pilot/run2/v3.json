@@ -1,0 +1,102 @@
+{
+ "variant": "v3",
+ "base": "VARabi/ALDi-Token-DI",
+ "head": "pointer",
+ "train_sents": 36000,
+ "epochs": 2,
+ "train_seconds": 284,
+ "temperature": 1.583,
+ "test_synthetic": {
+  "dev_P": 0.8794,
+  "dev_R": 0.8678,
+  "dev_F1": 0.8735,
+  "label_acc_on_TP": 0.9342,
+  "token_acc": 0.9264,
+  "ECE": 0.0333,
+  "F1_by_target": {
+   "EGY": 0.8803,
+   "GLF": 0.8522,
+   "MSA": 0.8819
+  },
+  "n_tokens": 37208
+ },
+ "test_synthetic_calibrated": {
+  "dev_P": 0.8794,
+  "dev_R": 0.8678,
+  "dev_F1": 0.8735,
+  "label_acc_on_TP": 0.9342,
+  "token_acc": 0.9264,
+  "ECE": 0.008,
+  "F1_by_target": {
+   "EGY": 0.8803,
+   "GLF": 0.8522,
+   "MSA": 0.8819
+  },
+  "n_tokens": 37208
+ },
+ "realish_check": {
+  "dev_P": 0.6897,
+  "dev_R": 0.8696,
+  "dev_F1": 0.7692,
+  "label_acc_on_TP": 1.0,
+  "token_acc": 0.8814,
+  "ECE": 0.0971,
+  "F1_by_target": {
+   "EGY": 0.7692
+  },
+  "n_tokens": 194
+ },
+ "realish_check_calibrated": {
+  "dev_P": 0.6897,
+  "dev_R": 0.8696,
+  "dev_F1": 0.7692,
+  "label_acc_on_TP": 1.0,
+  "token_acc": 0.8814,
+  "ECE": 0.0597,
+  "F1_by_target": {
+   "EGY": 0.7692
+  },
+  "n_tokens": 194
+ },
+ "latency_ms": {
+  "device": "cuda",
+  "p50": 8.44,
+  "p95": 10.09,
+  "subwords": 18
+ },
+ "realish_errors": [
+  "أهلا/SHARED بحضرتك/EGY→MSA(0.99) أقدر/SHARED أساعدك/SHARED إزاي/EGY النهارده/EGY",
+  "تمام/SHARED يا/SHARED فندم/EGY سوف/MSA أقوم/SHARED بتحويلك/SHARED→MSA(1.00) للقسم/SHARED المختص/SHARED",
+  "حضرتك/EGY تقدر/SHARED تدفع/SHARED الحين/GLF من/SHARED الأبلكيشن/SHARED→EGY(0.91)",
+  "للأسف/SHARED لا/MSA→SHARED(1.00) يمكننا/MSA إلغاء/SHARED الطلب/SHARED بعد/SHARED شحنه/SHARED",
+  "مش/EGY هتقدر/EGY تغير/SHARED العنوان/SHARED دلوقتي/EGY عشان/EGY→SHARED(1.00) الطلب/SHARED خرج/SHARED",
+  "ممكن/SHARED تستنى/EGY معايا/EGY دقيقة/SHARED أشوف/SHARED السيستم/SHARED→EGY(0.91)",
+  "الفاتورة/SHARED الذي/MSA وصلتك/SHARED→MSA(0.85) فيها/SHARED خطأ/SHARED بسيط/SHARED",
+  "إذا/MSA→SHARED(1.00) كان/SHARED عندك/SHARED أي/SHARED استفسار/SHARED تاني/EGY كلمنا/EGY→SHARED(0.75)",
+  "الموظف/SHARED هيتواصل/EGY معاك/EGY→SHARED(0.99) بكرة/EGY→SHARED(0.99) الصبح/SHARED",
+  "حاضر/SHARED بس/SHARED أبغاك/GLF تأكد/SHARED لي/SHARED رقم/SHARED الموبايل/SHARED→EGY(0.70)",
+  "تبي/GLF أحول/SHARED→GLF(0.77) لك/SHARED المكالمة/SHARED لمشرف/SHARED→EGY(0.89)",
+  "حضرتك/EGY لازم/SHARED تحدث/SHARED→MSA(0.96) التطبيق/SHARED عشان/EGY→SHARED(1.00) الخاصية/SHARED→MSA(0.67) تشتغل/SHARED",
+  "زين/GLF هسجل/EGY الشكوى/SHARED→MSA(0.37) وهنرد/EGY عليك/SHARED في/SHARED أقرب/SHARED وقت/SHARED",
+  "الكارت/SHARED→EGY(1.00) بتاعك/EGY راح/GLF يتفعل/SHARED→MSA(0.45) خلال/SHARED ساعة/SHARED",
+  "شكرا/SHARED لتواصلك/SHARED→MSA(0.48) معنا/MSA→SHARED(1.00) ونتمنى/SHARED لك/SHARED يوما/MSA سعيدا/MSA",
+  "ثواني/EGY→SHARED(0.95) وأرجع/SHARED لحضرتك/EGY بالرد/SHARED"
+ ],
+ "test_errors_sample": [
+  "هناك/SHARED أمام/SHARED بيانات/SHARED السائح/MSA→SHARED(0.65) تماما/SHARED",
+  "عمري/EGY→SHARED(0.97) اسمع/SHARED بهذا/SHARED العنوان/SHARED من/SHARED قبل/SHARED بالقرب/MSA من/SHARED هنا/SHARED",
+  "يسارا/MSA يسارا/MSA عند/SHARED الناصية/SHARED→EGY(0.65) التالته/EGY",
+  "يسارا/MSA يسارا/MSA عند/SHARED الناصية/SHARED→EGY(0.65) التالته/EGY",
+  "خذ/GLF→SHARED(0.54) ثالث/SHARED لفة/SHARED احود/EGY",
+  "اتجه/SHARED احود/EGY عند/SHARED الناصية/SHARED→MSA(0.45) الثالثة/SHARED",
+  "هل/SHARED تحب/SHARED أن/SHARED تضع/SHARED وكريمة/GLF→MSA(0.79) وسكر/SHARED في/SHARED قهوتك/SHARED",
+  "ممكن/SHARED تصرفلي/EGY→SHARED(0.76) شيك/EGY→SHARED(0.84) بميتين/EGY→SHARED(0.93) دولار/SHARED",
+  "ممكن/SHARED تصرفلي/EGY→SHARED(0.72) شيك/EGY→SHARED(0.80) المائتي/MSA دولار/SHARED",
+  "ممكن/SHARED تصرف/SHARED لي/SHARED قيمة/SHARED جيكي/GLF بو/SHARED ميتين/SHARED دولار/SHARED كاش/GLF→SHARED(0.94)",
+  "هل/SHARED يمكنكم/SHARED صرف/SHARED الشيك/SHARED ذو/MSA ميتين/GLF→SHARED(0.52) دولار/SHARED الخاص/SHARED تصرفلي/EGY",
+  "فين/EGY الكوفي/GLF→SHARED(0.81)",
+  "عايز/EGY بلوفر/EGY→SHARED(0.67) يهال/GLF",
+  "عايز/EGY بلوفر/EGY→SHARED(0.55) اطفال/SHARED",
+  "عايز/EGY فانلة/SHARED→GLF(0.60) يهال/GLF"
+ ]
+}

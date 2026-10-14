@@ -1,0 +1,30 @@
+{"tokens": ["أهلا", "بحضرتك", "أقدر", "أساعدك", "إزاي", "النهارده"], "labels": ["SHARED", "EGY", "SHARED", "SHARED", "EGY", "EGY"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["تمام", "يا", "فندم", "سوف", "أقوم", "بتحويلك", "للقسم", "المختص"], "labels": ["SHARED", "SHARED", "EGY", "MSA", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["معلش", "الطلب", "بتاعك", "لسه", "ما", "وصلش", "ابغى", "رقم", "الطلب", "لو", "سمحت"], "labels": ["EGY", "SHARED", "EGY", "EGY", "SHARED", "EGY", "GLF", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["الشحنة", "هتوصلك", "خلال", "يومين", "إن", "شاء", "الله"], "labels": ["SHARED", "EGY", "SHARED", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["حضرتك", "تقدر", "تدفع", "الحين", "من", "الأبلكيشن"], "labels": ["EGY", "SHARED", "SHARED", "GLF", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["للأسف", "لا", "يمكننا", "إلغاء", "الطلب", "بعد", "شحنه"], "labels": ["SHARED", "MSA", "MSA", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 2, "source": "claude-written, not gold"}
+{"tokens": ["مش", "هتقدر", "تغير", "العنوان", "دلوقتي", "عشان", "الطلب", "خرج"], "labels": ["EGY", "EGY", "SHARED", "SHARED", "EGY", "EGY", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["وش", "المشكلة", "اللي", "بتواجهك", "بالظبط"], "labels": ["GLF", "SHARED", "SHARED", "EGY", "EGY"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["الخدمة", "متاحة", "وايد", "في", "كل", "المحافظات"], "labels": ["SHARED", "SHARED", "GLF", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["سأرسل", "لحضرتك", "كود", "التفعيل", "في", "رسالة"], "labels": ["MSA", "EGY", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["ممكن", "تستنى", "معايا", "دقيقة", "أشوف", "السيستم"], "labels": ["SHARED", "EGY", "EGY", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["الفاتورة", "الذي", "وصلتك", "فيها", "خطأ", "بسيط"], "labels": ["SHARED", "MSA", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["ليش", "حضرتك", "مش", "عايز", "تجدد", "الاشتراك"], "labels": ["GLF", "EGY", "EGY", "EGY", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["إذا", "كان", "عندك", "أي", "استفسار", "تاني", "كلمنا"], "labels": ["MSA", "SHARED", "SHARED", "SHARED", "SHARED", "EGY", "EGY"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["الموظف", "هيتواصل", "معاك", "بكرة", "الصبح"], "labels": ["SHARED", "EGY", "EGY", "EGY", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["نعتذر", "عن", "التأخير", "وسنقوم", "بحل", "المشكلة", "فورا"], "labels": ["SHARED", "SHARED", "SHARED", "MSA", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["الباقة", "دي", "فيها", "خمسين", "جيجا", "بس"], "labels": ["SHARED", "EGY", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["حاضر", "بس", "أبغاك", "تأكد", "لي", "رقم", "الموبايل"], "labels": ["SHARED", "SHARED", "GLF", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["هذا", "العرض", "متاح", "لغاية", "آخر", "الشهر"], "labels": ["MSA", "SHARED", "SHARED", "EGY", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["مفيش", "أي", "رسوم", "إضافية", "على", "الخدمة", "دي"], "labels": ["EGY", "SHARED", "SHARED", "SHARED", "SHARED", "SHARED", "EGY"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["تبي", "أحول", "لك", "المكالمة", "لمشرف"], "labels": ["GLF", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["لم", "يتم", "تسجيل", "الدفع", "لحد", "دلوقتي"], "labels": ["MSA", "MSA", "SHARED", "SHARED", "EGY", "EGY"], "matrix": "EGY", "n_dev": 2, "source": "claude-written, not gold"}
+{"tokens": ["حضرتك", "لازم", "تحدث", "التطبيق", "عشان", "الخاصية", "تشتغل"], "labels": ["EGY", "SHARED", "SHARED", "SHARED", "EGY", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["زين", "هسجل", "الشكوى", "وهنرد", "عليك", "في", "أقرب", "وقت"], "labels": ["GLF", "EGY", "SHARED", "EGY", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["يعني", "حضرتك", "عايز", "تلغي", "ولا", "تأجل"], "labels": ["SHARED", "EGY", "EGY", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["الكارت", "بتاعك", "راح", "يتفعل", "خلال", "ساعة"], "labels": ["SHARED", "EGY", "GLF", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["شكرا", "لتواصلك", "معنا", "ونتمنى", "لك", "يوما", "سعيدا"], "labels": ["SHARED", "SHARED", "MSA", "SHARED", "SHARED", "MSA", "MSA"], "matrix": "EGY", "n_dev": 3, "source": "claude-written, not gold"}
+{"tokens": ["ثواني", "وأرجع", "لحضرتك", "بالرد"], "labels": ["EGY", "SHARED", "EGY", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}
+{"tokens": ["الحين", "أقدر", "أشوف", "الطلب", "عندي", "في", "السيستم"], "labels": ["GLF", "SHARED", "SHARED", "SHARED", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 1, "source": "claude-written, not gold"}
+{"tokens": ["المبلغ", "حيترجع", "لحسابك", "خلال", "أسبوع"], "labels": ["SHARED", "EGY", "SHARED", "SHARED", "SHARED"], "matrix": "EGY", "n_dev": 0, "source": "claude-written, not gold"}

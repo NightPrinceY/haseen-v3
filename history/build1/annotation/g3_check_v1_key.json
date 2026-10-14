@@ -1,0 +1,602 @@
+[
+{
+"n": 1,
+"id": "D-f6e520cb61fc",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 2,
+"id": "B2-4a6946027c50",
+"family": "B2",
+"source": "madar6"
+},
+{
+"n": 3,
+"id": "D-07d611ba933e",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 4,
+"id": "B2-b5453ca7c185",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 5,
+"id": "A-5b7ad7f4d44a",
+"family": "A",
+"source": "dial2msa_egy"
+},
+{
+"n": 6,
+"id": "B2-1978743f3ffe",
+"family": "B2",
+"source": "dial2msa_egy"
+},
+{
+"n": 7,
+"id": "B2-03ad72a201dc",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 8,
+"id": "D-4ace740fe18e",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 9,
+"id": "B2-2b5285714bfb",
+"family": "B2",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 10,
+"id": "B2-030790abf21c",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 11,
+"id": "C-bed9394cc749",
+"family": "C",
+"source": "madar6"
+},
+{
+"n": 12,
+"id": "A-320ce148171c",
+"family": "A",
+"source": "oasst2_9k"
+},
+{
+"n": 13,
+"id": "C2-e623db206485",
+"family": "C2",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 14,
+"id": "A-bc7993d0036c",
+"family": "A",
+"source": "nilechat_egy_msa_test"
+},
+{
+"n": 15,
+"id": "B3-e26d2e160e0f",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 16,
+"id": "D-06279e36b278",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 17,
+"id": "C-a062a57673e0",
+"family": "C",
+"source": "dial2msa_egy"
+},
+{
+"n": 18,
+"id": "D-f196e0b2b37c",
+"family": "D",
+"source": "madar6"
+},
+{
+"n": 19,
+"id": "B3-ea446d26a416",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 20,
+"id": "D-3e74c0b5bc77",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 21,
+"id": "B2-26b0dff650d4",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 22,
+"id": "D-2e3c68268e9f",
+"family": "D",
+"source": "dial2msa_egy"
+},
+{
+"n": 23,
+"id": "C2-31d51d57b0a4",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 24,
+"id": "C2-126b823bff6d",
+"family": "C2",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 25,
+"id": "D-2c3f664e837d",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 26,
+"id": "D-95dd808b5d80",
+"family": "D",
+"source": "dial2msa_egy"
+},
+{
+"n": 27,
+"id": "B2-91aef1a7b77e",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 28,
+"id": "C2-101afa62df0f",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 29,
+"id": "B2-6fd58b2adbed",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 30,
+"id": "A-4de4852c46f7",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 31,
+"id": "C2-e1310303f210",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 32,
+"id": "C2-110dd0949cd5",
+"family": "C2",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 33,
+"id": "B3-7fb2c0c248cf",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 34,
+"id": "D-fce0dd3fdc46",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 35,
+"id": "D-abb69f672f80",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 36,
+"id": "B2-264519c14288",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 37,
+"id": "C2-c58a5c2e58b9",
+"family": "C2",
+"source": "dial2msa_egy"
+},
+{
+"n": 38,
+"id": "D-ab35d79174c4",
+"family": "D",
+"source": "madar6"
+},
+{
+"n": 39,
+"id": "A-3f09f1ff2fb3",
+"family": "A",
+"source": "oasst2_9k"
+},
+{
+"n": 40,
+"id": "A-049948c51335",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 41,
+"id": "D-a901cb826713",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 42,
+"id": "D-e691ee7e33e2",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 43,
+"id": "A-a7a680dd4e7f",
+"family": "A",
+"source": "oasst2_9k"
+},
+{
+"n": 44,
+"id": "A-615aedf6616b",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 45,
+"id": "A-2de4b609925e",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 46,
+"id": "D-85933c643480",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 47,
+"id": "D-9c4eaf583d5d",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 48,
+"id": "B2-829b3c9963dd",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 49,
+"id": "B2-b7ce0ea6306e",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 50,
+"id": "D-ca7a16862789",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 51,
+"id": "C2-6fdc1a1f2274",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 52,
+"id": "C2-ebb9cb39ff6b",
+"family": "C2",
+"source": "arabic_sts"
+},
+{
+"n": 53,
+"id": "D-e4190cfbb800",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 54,
+"id": "A-200f9c3992c0",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 55,
+"id": "B2-1c780d427098",
+"family": "B2",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 56,
+"id": "D-081f3a8f6a49",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 57,
+"id": "D-6cd74618a270",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 58,
+"id": "B2-f8a2b44e7e2b",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 59,
+"id": "D-b660b394552f",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 60,
+"id": "C2-24764a4c49b2",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 61,
+"id": "D-b3a0dce33f5d",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 62,
+"id": "A-c49b3f45139e",
+"family": "A",
+"source": "nilechat_egy_msa_test"
+},
+{
+"n": 63,
+"id": "B2-eb61fe2ed1b5",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 64,
+"id": "A-b068f4831675",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 65,
+"id": "A-f8ed8bf43e1d",
+"family": "A",
+"source": "oasst2_9k"
+},
+{
+"n": 66,
+"id": "D-3daa44d7c7a9",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 67,
+"id": "B2-e2db19340e1b",
+"family": "B2",
+"source": "dial2msa_egy"
+},
+{
+"n": 68,
+"id": "D-8bc64fb8e4d2",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 69,
+"id": "B2-c79986605778",
+"family": "B2",
+"source": "madar6"
+},
+{
+"n": 70,
+"id": "C2-2adfc3d8201f",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 71,
+"id": "B2-69187f48853b",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 72,
+"id": "B3-4f1821324b3f",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 73,
+"id": "D-272af083442e",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 74,
+"id": "A-9983a7b911bb",
+"family": "A",
+"source": "oasst2_9k"
+},
+{
+"n": 75,
+"id": "D-dbc125493179",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 76,
+"id": "B3-63263f3cc2e0",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 77,
+"id": "D-fafb31d8e404",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 78,
+"id": "B2-d32495256933",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 79,
+"id": "D-790f2d1da6c2",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 80,
+"id": "B2-74c0515e26b4",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 81,
+"id": "B3-6817cb7e2e1d",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 82,
+"id": "D-3bc4cf8fafb6",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 83,
+"id": "D-7ca64e71b1eb",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 84,
+"id": "B2-6de45c7a466d",
+"family": "B2",
+"source": "oasst2_9k"
+},
+{
+"n": 85,
+"id": "A-1885e3a40d04",
+"family": "A",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 86,
+"id": "D-9cf09426cbf7",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 87,
+"id": "D-2e17f1cab2ed",
+"family": "D",
+"source": "madar6"
+},
+{
+"n": 88,
+"id": "D-85c22e66df8b",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 89,
+"id": "C2-efbf4ec2f2a4",
+"family": "C2",
+"source": "oasst2_9k"
+},
+{
+"n": 90,
+"id": "C-774be043bd98",
+"family": "C",
+"source": "oasst2_9k"
+},
+{
+"n": 91,
+"id": "B3-260dff67c325",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 92,
+"id": "B2-258d6b81a00a",
+"family": "B2",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 93,
+"id": "D-b57535ca8399",
+"family": "D",
+"source": "nilechat_egy_msa_test"
+},
+{
+"n": 94,
+"id": "D-1500c74c0033",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 95,
+"id": "D-83e9f71ab201",
+"family": "D",
+"source": "nilechat_egy_msa_test"
+},
+{
+"n": 96,
+"id": "D-fcbfa372a327",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+},
+{
+"n": 97,
+"id": "B3-a46040a25cbe",
+"family": "B3",
+"source": "madar6"
+},
+{
+"n": 98,
+"id": "D-54feb6c79141",
+"family": "D",
+"source": "oasst2_9k"
+},
+{
+"n": 99,
+"id": "D-46dc3e001d68",
+"family": "D",
+"source": "madar6"
+},
+{
+"n": 100,
+"id": "D-36157496162c",
+"family": "D",
+"source": "nilechat_egy_msa_train"
+}
+]

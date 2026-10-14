@@ -1,0 +1,33 @@
+{
+ "data": "../data/train_v3",
+ "gold": "../data/gold_v1",
+ "init": "VARabi/ALDi-Token-DI",
+ "head": "pointer",
+ "seed": 13,
+ "epochs": 3,
+ "bs": 32,
+ "lr": 4e-05,
+ "head_lr": 0.001,
+ "max_len": 128,
+ "pos_weight": 3.0,
+ "eval_every": 500,
+ "oversample": "",
+ "eval_only": true,
+ "checklist": "checklist/tests_v1.jsonl",
+ "limit": 0,
+ "out": "/w/runs/R4v5-pointer-s42",
+ "commit": "",
+ "bucket": "hf://buckets/NightPrince/HaSeen-V1/runs/R4v5-pointer-s42",
+ "device": "cuda",
+ "torch": "2.6.0+cu124",
+ "n_train": 89713,
+ "n_dev": 6691,
+ "n_heldout": 4283,
+ "git": null,
+ "option_text": {
+  "EGY": "كلمة طبيعية في اللهجة المصرية",
+  "GLF": "كلمة طبيعية في اللهجة الخليجية",
+  "MSA": "كلمة طبيعية في العربية الفصحى"
+ },
+ "started": "2026-10-12 22:50:32"
+}
