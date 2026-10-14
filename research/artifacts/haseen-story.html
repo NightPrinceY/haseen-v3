@@ -301,7 +301,7 @@ footer{margin-top:30px;font-size:13px;color:var(--muted)}
     <div class="flowsteps" id="flowsteps" role="tablist" aria-label="stages"></div>
     <div class="archwrap"><svg class="chart" id="flowsvg" viewBox="0 0 1000 520" role="img" aria-label="end-to-end flow"></svg></div>
     <div class="card" id="flowcap" style="margin-top:10px" aria-live="polite"></div>
-    <details class="jsonbox" id="flowjsonbox"><summary>The JSON the package returns for this target (real)</summary><pre id="flowjson"></pre></details>
+    <details class="jsonbox" id="flowjsonbox" open><summary>Full JSON response from the package for this target (real, includes summary and meta)</summary><pre id="flowjson"></pre></details>
   </div>
 
   <div class="block">
@@ -662,7 +662,7 @@ renderSteps();
 // ---------- live end-to-end flow ----------
 const FL = {"text": "عاوز أساعدك، وسوف أحوّلك للقسم المختص الحين", "raw_split": ["عاوز", "أساعدك،", "وسوف", "أحوّلك", "للقسم", "المختص", "الحين"], "words": [{"raw": "عاوز", "start": 0, "end": 4, "norm": "عاوز"}, {"raw": "أساعدك", "start": 5, "end": 11, "norm": "اساعدك"}, {"raw": "وسوف", "start": 13, "end": 17, "norm": "وسوف"}, {"raw": "أحوّلك", "start": 18, "end": 24, "norm": "احولك"}, {"raw": "للقسم", "start": 25, "end": 30, "norm": "للقسم"}, {"raw": "المختص", "start": 31, "end": 37, "norm": "المختص"}, {"raw": "الحين", "start": 38, "end": 43, "norm": "الحين"}], "sub": [{"tok": "[CLS]", "id": 2, "wid": null}, {"tok": "عاوز", "id": 4981, "wid": 0}, {"tok": "اساعدك", "id": 62162, "wid": 1}, {"tok": "وسوف", "id": 11792, "wid": 2}, {"tok": "احول", "id": 37942, "wid": 3}, {"tok": "##ك", "id": 1012, "wid": 3}, {"tok": "للقسم", "id": 95608, "wid": 4}, {"tok": "المختص", "id": 59145, "wid": 5}, {"tok": "الحين", "id": 3917, "wid": 6}, {"tok": "[SEP]", "id": 3, "wid": null}], "W": [{"pos": 1, "logit": [-11.965, 9.055, 13.451, 14.03, 10.939, -11.504, 2.394], "odia_logit": -14.114, "other_logit": -14.567, "p": {"MSA": 0.0, "EGY": 0.9999, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 0.0, "MAG": 0.9151}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 2, "logit": [10.7, 14.583, 14.374, 14.25, 13.58, 10.143, 14.363], "odia_logit": -16.385, "other_logit": -14.753, "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 3, "logit": [10.449, -9.132, -10.265, -8.976, -10.989, -10.586, -9.341], "odia_logit": -10.639, "other_logit": -9.927, "p": {"MSA": 1.0, "EGY": 0.0001, "SAU": 0.0, "GLF": 0.0001, "LEV": 0.0, "IRQ": 0.0, "MAG": 0.0001}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 4, "logit": [2.543, 7.111, 11.141, 11.876, 10.271, 4.572, 6.351], "odia_logit": -13.277, "other_logit": -12.448, "p": {"MSA": 0.9259, "EGY": 0.9991, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 0.9894, "MAG": 0.9982}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 6, "logit": [11.37, 14.262, 13.109, 13.575, 14.554, 11.176, 13.434], "odia_logit": -16.65, "other_logit": -17.06, "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 7, "logit": [10.076, 11.949, 11.855, 12.256, 12.172, 10.071, 12.214], "odia_logit": -14.151, "other_logit": -15.206, "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}, {"pos": 8, "logit": [7.511, -10.432, 12.314, 11.016, 11.002, 10.01, 12.108], "odia_logit": -14.827, "other_logit": -12.441, "p": {"MSA": 0.9994, "EGY": 0.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0}, "p_odia": 0.0, "p_other": 0.0}], "cal": {"T_var": 1.0068962574005127, "T_odia": 1.0016647577285767, "tau": {"MSA": 0.2, "EGY": 0.15, "SAU": 0.9, "GLF": 0.9, "LEV": 0.8, "IRQ": 0.35}, "tau_odia": 0.4, "odia_gate": 0.5}, "vars": ["MSA", "EGY", "SAU", "GLF", "LEV", "IRQ", "MAG"], "result": {"MSA": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": false, "label": "Arabic / Gulf", "labels": ["Arabic / Gulf", "Arabic / Saudi", "Arabic / Levantine", "Arabic / Egyptian", "Arabic / Maghrebi"], "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": true, "confidence": 1.0}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 0.926}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 0.999}], "deviations": ["عاوز"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "EGY": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "هـ + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 0.999}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": false, "label": "Arabic / Saudi", "labels": ["Arabic / Saudi", "Arabic / Maghrebi", "Arabic / Gulf", "Arabic / Levantine", "Arabic / Iraqi", "Arabic / MSA"], "confidence": 1.0}], "deviations": ["وسوف", "الحين"], "summary": {"arabic_words": 7, "deviating_words": 2, "adherence": 0.7143, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "SAU": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "بـ / راح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 1.0}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["وسوف"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "GLF": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "بـ / راح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 1.0}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["وسوف"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "LEV": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": true, "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "رح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 1.0}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["وسوف"], "summary": {"arabic_words": 7, "deviating_words": 1, "adherence": 0.8571, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}, "IRQ": {"tokens": [{"word": "عاوز", "index": 0, "start": 0, "end": 4, "conforms": false, "label": "Arabic / Gulf", "labels": ["Arabic / Gulf", "Arabic / Saudi", "Arabic / Levantine", "Arabic / Egyptian", "Arabic / Maghrebi"], "confidence": 1.0}, {"word": "أساعدك", "index": 1, "start": 5, "end": 11, "conforms": true, "confidence": 1.0}, {"word": "وسوف", "index": 2, "start": 13, "end": 17, "conforms": false, "label": "Arabic / MSA", "labels": ["Arabic / MSA"], "confidence": 1.0, "suggestion": "راح + الفعل"}, {"word": "أحوّلك", "index": 3, "start": 18, "end": 24, "conforms": true, "confidence": 0.989}, {"word": "للقسم", "index": 4, "start": 25, "end": 30, "conforms": true, "confidence": 1.0}, {"word": "المختص", "index": 5, "start": 31, "end": 37, "conforms": true, "confidence": 1.0}, {"word": "الحين", "index": 6, "start": 38, "end": 43, "conforms": true, "confidence": 1.0}], "deviations": ["عاوز", "وسوف"], "summary": {"arabic_words": 7, "deviating_words": 2, "adherence": 0.7143, "reads_as": [{"variety": "Arabic / Gulf", "score": 0.667}, {"variety": "Arabic / Saudi", "score": 0.667}, {"variety": "Arabic / Levantine", "score": 0.667}], "informative_words": 3}}}};
 const FV = FL.vars, FT = ["MSA","EGY","SAU","GLF","LEV","IRQ"];
-const FSTAGES = ["Input","Split","Normalise","WordPiece","Encoder","First sub-word","Logits","Calibrate","Decide","Output"];
+const FSTAGES = ["Input","Split","Normalise","WordPiece","Encoder","First sub-word","Logits","Calibrate","Decide","Output","JSON"];
 let fs=0, ftg="EGY", ftimer=null;
 const WX = i => 905 - i*130;            // 7 words, right to left
 const SX = k => 945 - k*99;             // 10 sub-words, right to left
@@ -690,7 +690,8 @@ function fcap(){
    `<b>Heads → logits.</b> My naturalness head (768 → 7) turns each word vector into 7 raw scores, one per variety. Positive = natural, negative = not. Real values: «وسوف» is +10.4 for MSA and about −9 to −11 for every dialect; «الحين» is −10.4 for Egyptian and +11 to +12 for the Gulf varieties. Two more heads give other-dialect and non-Arabic scores (all near 0 here).`,
    `<b>Calibrate.</b> Each score is divided by the temperature T = ${c.T_var.toFixed(3)} (fitted on dev) and passed through its own sigmoid: p = σ(logit ÷ T). Seven independent probabilities per word; they do not have to sum to 1, because a word can be natural in several varieties.`,
    `<b>Decide for ${NAME[ftg]}.</b> Only the target's column matters now: a word deviates when p(${NAME[ftg]}) < τ = ${c.tau[ftg]} (fitted on dev for the best F1 with ≤ 1% false alarms). Other-dialect would apply only if its probability passed ${c.tau_odia} and p(target) < ${c.odia_gate}. A deviating word is labelled with every variety where p ≥ 0.5, most likely first.`,
-   `<b>Output.</b> ${dev.length} of 7 words do not fit ${NAME[ftg]}${dev.length?": «"+dev.join("», «")+"»":""}. Adherence ${Math.round(r.summary.adherence*100)}%. The turn reads as ${r.summary.reads_as.map(x=>x.variety.replace("Arabic / ","")+" "+x.score.toFixed(2)).join(", ")} (from the informative words). Total time on a CPU: about 7 ms.`
+   `<b>Output.</b> ${dev.length} of 7 words do not fit ${NAME[ftg]}${dev.length?": «"+dev.join("», «")+"»":""}. Adherence ${Math.round(r.summary.adherence*100)}%. The turn reads as ${r.summary.reads_as.map(x=>x.variety.replace("Arabic / ","")+" "+x.score.toFixed(2)).join(", ")} (from the informative words). Total time on a CPU: about 7 ms.`,
+   `<b>The JSON, as the task asks.</b> <span class="tag">1</span> every word is labelled <code>conforms</code> true / false; <span class="tag">2</span> each deviating word has its position (<code>index</code>, plus <code>start</code>/<code>end</code> character offsets, an addition so a UI can highlight it); <span class="tag">3</span> a <code>label</code> saying what it is instead, with <code>labels</code> (all varieties it belongs to, an addition, because many words are natural in several) and a <code>confidence</code>; <span class="tag">4</span> <code>deviations</code>, the extracted list. Beyond the task's schema the package also returns a <code>suggestion</code> for the target and a per-turn <code>summary</code>. The full response is in the box below.`
   ][fs];
 }
 function drawFlow(){
@@ -775,6 +776,20 @@ function drawFlow(){
     R(300,320,400,64,{fill:"var(--paper)",stroke:"var(--line)"}); T(500,348,"adherence "+Math.round(r.summary.adherence*100)+"%  ·  "+r.summary.deviating_words+" of "+r.summary.arabic_words+" words deviate",{"font-size":16,"font-weight":600});
     T(500,372,"reads as "+r.summary.reads_as.map(z=>z.variety.replace("Arabic / ","")+" "+z.score.toFixed(2)).join(" · "),{"font-size":13,fill:"var(--muted)"});
   }
+  if(fs===10){
+    const r=FL.result[ftg], lines=[], dev=new Set(r.deviations);
+    lines.push([0,`{`,null]); lines.push([0,`  "target": "Arabic / ${NAME[ftg]}",`,null]); lines.push([0,`  "tokens": [`,null]);
+    r.tokens.forEach((x,i)=>{ let t=`    {"word": "\u2068${x.word}\u2069", "index": ${x.index}, "start": ${x.start}, "end": ${x.end}, "conforms": ${x.conforms}`;
+      if(!x.conforms) t+=`, "label": "${x.label}", "confidence": ${x.confidence}`;
+      t+=`}`+(i<r.tokens.length-1?",":""); lines.push([x.conforms?1:2,t,x.conforms?null:(KEY[(x.label||"").replace("Arabic / ","")]||"OTH")]); });
+    lines.push([0,`  ],`,null]); lines.push([4,`  "deviations": [${r.deviations.map(d=>`"\u2068${d}\u2069"`).join(", ")}]`,null]); lines.push([0,`}`,null]);
+    const y0=36, lh=31;
+    lines.forEach(([tag,t,c],k)=>{ const y=y0+k*lh;
+      if(c) R(22,y-21,956,28,{rx:8,fill:`var(--${c}-s)`});
+      if(tag===4) R(22,y-21,956,28,{rx:8,fill:"var(--LEV-s)"});
+      const tx=el("text",{x:58,y,"font-size":12.4,"font-family":"JetBrains Mono, monospace",fill:"var(--ink)","xml:space":"preserve",direction:"ltr","unicode-bidi":"embed"}); tx.textContent=t; g0.append(tx);
+      if(tag){ const n=tag===1?"1":tag===2?"2·3":"4"; R(24,y-17,28,20,{rx:10,fill:"var(--accent)"}); T(38,y-3,n,{"font-size":tag===2?9:11,fill:"var(--bg)","font-weight":700}); } });
+  }
   $("flowcap").innerHTML=`<div class="eyebrow">step ${fs+1} of ${FSTAGES.length} · ${FSTAGES[fs]}</div><p style="font-size:15px;margin:0">${fcap()}</p>`;
   $("flowjson").textContent=JSON.stringify(Object.assign({target:"Arabic / "+NAME[ftg]},FL.result[ftg]),null,1);
 }
@@ -788,6 +803,7 @@ $("fplay").addEventListener("click",()=>{ if(ftimer){fstop(); return;} if(fs===F
 drawFlow();
 
 // ---------- drawn architectures ----------
+const AX = {"tokens": ["[CLS]", "انا", "ابغي", "وسن", "##رسل", "[SEP]"], "ids": [2, 2043, 32455, 15224, 6156, 3], "words": [{"w": "انا", "logit": [13.28, 14.83, 15.2, 15.0, 13.91, 11.94, 13.99], "p": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], "odia": 0.0, "other": 0.0}, {"w": "ابغي", "logit": [-5.9, -11.73, 15.25, 12.83, -1.2, -3.06, -2.01], "p": [0.003, 0.0, 1.0, 1.0, 0.233, 0.046, 0.12], "odia": 0.0, "other": 0.0}, {"w": "وسنرسل", "logit": [5.44, -4.47, -2.93, -2.32, -3.56, -4.47, -4.13], "p": [0.996, 0.012, 0.052, 0.091, 0.028, 0.012, 0.016], "odia": 0.001, "other": 0.0}], "res": [{"w": "انا", "ok": true, "labels": []}, {"w": "ابغي", "ok": false, "labels": ["Saudi", "Gulf"]}, {"w": "وسنرسل", "ok": false, "labels": ["MSA"]}]};
 const AM = {
  marbert:{name:"MARBERT", by:"UBC-NLP", params:"162,942,880", link:HF("UBC-NLP/MARBERT"), enc:"MSA", encTag:"pre-trained by UBC-NLP on 1B Arabic tweets", head:"MSA",
    about:`<b>BertForMaskedLM.</b> A BERT-base encoder pre-trained to fill in masked words of Arabic tweets. It knows Arabic, MSA and dialects alike, but has no idea of "which dialect a word belongs to". <a href="${HF("UBC-NLP/MARBERT")}">model</a> · <a href="https://arxiv.org/abs/2101.01785">paper</a>`},
@@ -822,6 +838,10 @@ const INFO={
  loss:["Loss (training only)","Masked binary cross-entropy: unknown bits cost nothing, 'not natural' weighted ×3; plus other-dialect, non-Arabic and 0.2 × register. AdamW, 1 epoch, 15,659 steps on one L4."],
  cal:["Temperature + threshold · fitted on dev","Logits ÷ T (1.007), then p(target) < τ(target) means the word deviates; τ per target fitted for maximum F1 with ≤ 1% false alarms (MSA 0.2, EGY 0.15, SAU 0.9, GLF 0.9, LEV 0.8, IRQ 0.35). Changing a target never needs retraining."],
  out:["Output · target Egyptian","Real output for «انا ابغي وسنرسل…»: انا fits; ابغي deviates → Saudi, Gulf; وسنرسل deviates → MSA. Each deviating word gets the set of varieties it belongs to, most likely first."],
+ logits:["Logits · z = W·h + b","Each word vector h (768 numbers) is multiplied by the naturalness head's weight matrix W (7 × 768) plus a bias b: 7 raw scores per word. Real values for this input: «ابغي» is +15.3 for Saudi and +12.8 for Gulf, −11.7 for Egyptian; «وسنرسل» is +5.4 for MSA and negative for every dialect."],
+ sig:["Sigmoid · p = σ(z ÷ T)","Each score is divided by the temperature T = 1.007 (fitted on dev so probabilities are honest) and squashed by σ(x) = 1 / (1 + e^−x) into 0…1. Sigmoid, not softmax: seven independent yes/no answers, because «الحين» is natural in Saudi, Gulf, Levantine and Iraqi at the same time. The other-dialect and non-Arabic heads use a sigmoid too. ALDi-Token-DI and MARBERT use a softmax, where exactly one class wins."],
+ probs:["Probabilities","Seven probabilities per word, each between 0 and 1 (the outlined bar is Egyptian). «انا»: all ≈ 1.0, a shared word. «ابغي»: Saudi 1.00, Gulf 1.00, Levantine 0.23, Egyptian 0.00. «وسنرسل»: MSA 0.996, Egyptian 0.012."],
+ thr:["Threshold · the only step that knows the target","For target Egyptian: a word deviates when p(Egyptian) < 0.15. «ابغي» 0.00 and «وسنرسل» 0.012 deviate; «انا» 1.00 fits. The labels are the varieties with p ≥ 0.5, most likely first. Each target has its own τ, fitted on dev; switching the target needs no new model run."],
  ghosttc:["Removed: ALDi's 6-tag head","Six tags cannot say which dialect, or that a word is natural in several. Replaced by my naturalness head."]
 };
 let am="haseen", asel="nat";
@@ -830,7 +850,8 @@ function renderArch(){
   $("archmodels").innerHTML=Object.entries(AM).map(([k,v])=>`<button class="pill" aria-pressed="${k===am}" data-k="${k}">${v.name} <span class="muted" style="font-size:12px">· ${v.by}</span></button>`).join("");
   const leg=am==="marbert"?[["MSA","pre-trained (UBC-NLP)"]]:am==="aldi"?[["MSA","architecture from MARBERT"],["GLF","weights fine-tuned by VARabi"],["SAU","new: token head"],["OTH","removed"]]:[["MSA","architecture from MARBERT"],["EGY","fine-tuned or added by me"],["LEV","fitted on dev after training"],["OTH","removed"]];
   $("archlegend").innerHTML=leg.map(([c,t])=>`<span><i style="background:var(--${c})"></i>${t}</span>`).join("")+`<span class="mono">${M.params} parameters</span>`;
-  const s=$("archsvg"); s.innerHTML="";
+  const s0=$("archsvg"); s0.innerHTML=""; const dy=am==="haseen"?215:0; s0.setAttribute("viewBox",`0 0 1000 ${800+dy}`);
+  const s=el("g",{transform:`translate(0,${dy})`}); s0.append(s);
   const T=(x,y,t,o={})=>s.append(el("text",Object.assign({x,y,"font-size":13,fill:"var(--ink)","font-family":"Figtree, sans-serif"},o),t));
   function blk(id,x,y,w,h,c,label,sub,o={}){
     const g=el("g",{class:"blk"+(id===asel?" sel":""),"data-id":id,tabindex:0,role:"button","aria-label":label});
@@ -839,11 +860,11 @@ function renderArch(){
     if(sub) g.append(el("text",{x:x+w/2,y:y+h/2+15,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"},sub));
     s.append(g); return g;}
   const arrow=(x1,y1,x2,y2,c="var(--muted)",dash)=>{s.append(el("path",{d:`M${x1} ${y1}L${x2} ${y2}`,stroke:c,"stroke-width":1.8,fill:"none","stroke-dasharray":dash?"4 4":"0","marker-end":"url(#ah)"}));};
-  const defs=el("defs",{}); const mk=el("marker",{id:"ah",viewBox:"0 0 10 10",refX:8,refY:5,markerWidth:6,markerHeight:6,orient:"auto-start-reverse"}); mk.append(el("path",{d:"M0 0L10 5L0 10z",fill:"var(--muted)"})); defs.append(mk); s.append(defs);
+  const defs=el("defs",{}); const mk=el("marker",{id:"ah",viewBox:"0 0 10 10",refX:8,refY:5,markerWidth:6,markerHeight:6,orient:"auto-start-reverse"}); mk.append(el("path",{d:"M0 0L10 5L0 10z",fill:"var(--muted)"})); defs.append(mk); s0.append(defs);
   const E=M.enc;
   // right-hand region labels
   const side=(y,t)=>T(18,y,t,{"font-size":12,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
-  side(48,"OUTPUT"); side(150,"HEAD"); side(255,"HIDDEN STATES"); side(420,"ENCODER"); side(618,"EMBEDDINGS"); side(690,"TOKENS"); side(745,"INPUT");
+  side(am==="haseen"?-164:48,"OUTPUT"); side(am==="haseen"?142:150,"HEAD"); side(255,"HIDDEN STATES"); side(420,"ENCODER"); side(618,"EMBEDDINGS"); side(690,"TOKENS"); side(745,"INPUT");
   // input + tokens
   blk("input",200,722,620,44,"OTH",am==="marbert"?"انا ـــ وسنرسل …   (one word masked)":"انا ابغي وسنرسل …",null,{fs:17});
   TOK.forEach((t,i)=>{ const tt=(am==="marbert"&&i===2)?"[MASK]":t; const g=blk("wp",CX[i]-46,672,92,34,"MSA",tt,null,{fs:14,rx:10}); arrow(CX[i],720,CX[i],708); });
@@ -883,12 +904,13 @@ function renderArch(){
     blk("ghostmlm",870,92,120,42,"OTH","MLM head",null,{dash:true,fs:12.5});
     blk("drop",206,196,600,26,"SAU","Dropout 0.1",null,{fs:12.5,rx:10});
     TOK.forEach((t,i)=>{ arrow(CX[i],232,CX[i],224); arrow(CX[i],194,CX[i],164); });
-    blk("tc",206,114,600,48,"SAU","Linear 768 → 6 (same weights for every token)","4,614 parameters");
+    blk("tc",206,114,600,48,"SAU","Linear 768 → 6, then softmax (one tag wins)","4,614 parameters · same weights for every token");
     const tags=["—","MSA","dialect","MSA","MSA","—"];
     TOK.forEach((t,i)=>{ arrow(CX[i],112,CX[i],70); blk("tcout",CX[i]-48,24,96,44,"SAU",tags[i],null,{fs:14}); });
   } else {
     blk("ghosttc",870,170,120,42,"OTH","6-tag head",null,{dash:true,fs:12.5});
     blk("loss",870,96,120,52,"EGY","loss","training only",{dash:false,fill:"transparent",fs:13});
+    T(930,-6,"σ",{"font-size":34,"font-family":"Caprasimo, serif",fill:"var(--accent)"});
     blk("drop",206,206,600,22,"EGY","Dropout 0.1",null,{fs:12,rx:9});
     TOK.forEach((t,i)=>arrow(CX[i],232,CX[i],230));
     const use=[1,2,3];
@@ -898,11 +920,32 @@ function renderArch(){
     const H=[["nat","Naturalness","768 → 7",206,232],["odia","Other dialect","768 → 1",446,110],["oth","Non-Arabic","768 → 1",564,110],["frm","Register","768 → 7",682,124]];
     H.forEach(([id,l,sb,x,w])=>blk(id,x,112,w,48,"EGY",l,sb,{fs:13}));
     use.forEach(i=>arrow(CX[i],174,CX[i],162));
-    blk("cal",206,72,600,30,"LEV","Temperature T → threshold τ(target) → label set",null,{fs:13,rx:10});
-    arrow(320,110,320,104); arrow(500,110,500,104); arrow(620,110,620,104);
-    const out=[[1,"fits ✓","OTH",340,92],[2,"Saudi · Gulf","SAU",470,124],[3,"MSA","MSA",620,92]];
-    out.forEach(([i,t,c,x,w])=>{ blk("out",x-w/2,22,w,40,c,t,null,{fs:14}); arrow(x,70,x,64); });
-    T(206,16,"target: Egyptian",{"font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
+    // logits row: 7 real logits per word (z = W·h + b)
+    const VV=["MSA","EGY","SAU","GLF","LEV","IRQ","MAG"], WC=[CX[1],CX[2],CX[3]];
+    blk("logits",206,58,600,46,"EGY","",null,{fill:"transparent",stroke:"var(--line)"});
+    T(18,86,"logits z ∈ ℝ⁷",{"text-anchor":"start","font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
+    AX.words.forEach((w,k)=>{ const cx=WC[k]; s.append(el("line",{x1:cx-46,x2:cx+46,y1:81,y2:81,stroke:"var(--muted)","stroke-width":1}));
+      w.logit.forEach((z,j)=>{ const h=Math.min(20,Math.abs(z)*1.3), x=cx-42+j*12; s.append(el("rect",{x,y:z>=0?81-h:81,width:9,height:Math.max(1.5,h),rx:2,fill:`var(--${VV[j]})`})); }); arrow(cx,110,cx,104); });
+    // sigmoid
+    blk("sig",206,-28,600,72,"EGY","",null,{});
+    const SX0=226, SW=150, SY0=-20, SH=56, sg=x=>SY0+SH-SH/(1+Math.exp(-x));
+    s.append(el("line",{x1:SX0,x2:SX0+SW,y1:SY0+SH/2,y2:SY0+SH/2,stroke:"var(--line)"})); s.append(el("line",{x1:SX0+SW/2,x2:SX0+SW/2,y1:SY0,y2:SY0+SH,stroke:"var(--line)"}));
+    let dd=""; for(let k=0;k<=60;k++){ const x=-7+14*k/60; dd+=(k?"L":"M")+(SX0+SW*k/60).toFixed(1)+" "+sg(x).toFixed(1); } s.append(el("path",{d:dd,stroke:"var(--accent)","stroke-width":3,fill:"none"}));
+    T(SX0+SW+16,-2,"p = σ(z ÷ T) = 1 / (1 + e^(−z ÷ 1.007))",{"text-anchor":"start","font-size":15,"font-weight":700,"font-family":"JetBrains Mono, monospace"});
+    T(SX0+SW+16,20,"applied to each of the 7 scores on its own: not a softmax,",{"text-anchor":"start","font-size":12.5,fill:"var(--muted)"});
+    T(SX0+SW+16,36,"so a word can be natural in several varieties at once",{"text-anchor":"start","font-size":12.5,fill:"var(--muted)"});
+    WC.forEach(cx=>arrow(cx,56,cx,46));
+    // probabilities row
+    blk("probs",206,-92,600,52,"EGY","",null,{fill:"transparent",stroke:"var(--line)"});
+    T(18,-70,"probabilities",{"text-anchor":"start","font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"}); T(18,-55,"(dashed = 0.5)",{"text-anchor":"start","font-size":11,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"}); T(18,12,"sigmoid",{"text-anchor":"start","font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"}); T(18,-118,"threshold",{"text-anchor":"start","font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
+    AX.words.forEach((w,k)=>{ const cx=WC[k], base=-46; s.append(el("line",{x1:cx-46,x2:cx+46,y1:base-20,y2:base-20,stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 3"}));
+      w.p.forEach((p,j)=>{ const h=Math.max(1.5,p*40), x=cx-42+j*12; s.append(el("rect",{x,y:base-h,width:9,height:h,rx:2,fill:`var(--${VV[j]})`,opacity:j===1?1:.8,stroke:j===1?"var(--ink)":"none","stroke-width":j===1?1.2:0})); }); arrow(cx,-30,cx,-38); });
+    // threshold
+    blk("thr",206,-136,600,30,"LEV","target Egyptian: deviates if p(EGY) < τ 0.15 · labels = varieties with p ≥ 0.5",null,{fs:12.5,rx:10});
+    WC.forEach(cx=>arrow(cx,-94,cx,-104));
+    const out=AX.res.map((r,k)=>[WC[k], r.ok?"fits ✓":r.labels.join(" · "), r.ok?"OTH":(KEY[r.labels[0]]||"OTH")]);
+    out.forEach(([x,t,c])=>{ const w=t.length>8?104:92; blk("out",x-w/2,-188,w,40,c,t,null,{fs:13}); arrow(x,-138,x,-146); });
+    T(206,-196,"target: Egyptian · real output for «انا ابغي وسنرسل»",{"text-anchor":"start","font-size":11.5,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"});
   }
   const I=INFO[asel]||INFO.stack;
   $("archinfo").innerHTML=`<div class="eyebrow">${M.name} · ${M.by}</div><p style="font-size:15px">${M.about}</p><h3 style="margin-top:12px">${I[0]}</h3><p style="font-size:15px;margin:0">${I[1]}</p>`;
