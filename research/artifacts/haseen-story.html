@@ -88,6 +88,20 @@ pre{background:var(--paper);border:1px solid var(--line);border-radius:18px;padd
 ul.clean{padding-left:20px} ul.clean li{margin-bottom:8px;max-width:72ch}
 .next{display:flex;justify-content:space-between;gap:12px;margin-top:50px;padding-top:18px;border-top:1px solid var(--line)}
 .next button{font:500 15px var(--f-body);background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer}
+
+.layers{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:8px}
+.layers>*{min-width:0}
+#stack g.layer{cursor:pointer} #stack g.layer:focus{outline:none} #stack g.layer:focus rect.box,#stack g.layer.sel rect.box{stroke:var(--ink);stroke-width:3}
+#lineage g.node{cursor:pointer} #lineage g.node.sel rect{stroke:var(--ink);stroke-width:3}
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px}
+.subs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;direction:ltr}
+.sw{font:500 18px var(--f-ar);padding:4px 12px;border-radius:12px;background:var(--OTH-s)}
+.sw.first{background:var(--EGY-s);outline:2px solid var(--accent)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px;margin-top:8px}
+.kv b{font:600 12px var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.step-verdict{display:inline-block;margin-top:8px}
+.w.pickable{cursor:pointer;border:1.5px dashed transparent} .w.pickable:hover{border-color:var(--line)} .w.on{outline:2.5px solid var(--ink)}
+@media (max-width:760px){.layers,.cols2{grid-template-columns:1fr}}
 footer{margin-top:30px;font-size:13px;color:var(--muted)}
 @media (max-width:560px){.hero{grid-template-columns:1fr}.steps li{grid-template-columns:38px 1fr}}
 </style>
@@ -260,32 +274,57 @@ footer{margin-top:30px;font-size:13px;color:var(--muted)}
 <!-- 05 ARCHITECTURE -->
 <section class="panel" id="arch" data-n="05" data-t="Architecture" hidden>
   <div class="eyebrow">05 · Architecture</div>
-  <h2>Nine options, one rule written in advance</h2>
-  <p>I scored nine designs on quality, latency, effort, productisation and risk, kept three finalists, and wrote the rule for choosing between them before training anything.</p>
-  <div class="grid">
-    <div><h3>A · Encoder</h3><p>MARBERT warm-started from ALDi-Token-DI, one pass, per-word heads. <span class="tag pass">shipped</span></p></div>
-    <div><h3>B · Decoder backbone</h3><p>Qwen 2B frozen + LoRA + token head. Only if A's errors came from missing knowledge. <span class="tag">not needed</span></p></div>
-    <div><h3>C · Cascade</h3><p>A, plus a local LLM re-check for low-confidence words, only if B beat A by ≥ 3 F1. <span class="tag">not needed</span></p></div>
+  <h2>From "which kind of model" to every layer</h2>
+  <p>I chose the architecture in four steps, each settled by evidence before training. Click a step.</p>
+  <div class="pick" id="archsteps" role="tablist" aria-label="decision steps"></div>
+  <div class="card" id="archstep" style="margin-top:14px"></div>
+
+  <div class="block">
+    <div class="eyebrow">Lineage · click a model</div>
+    <h3>Three models stand behind HaSeen-3</h3>
+    <svg class="chart" id="lineage" viewBox="0 0 1000 170" role="img" aria-label="model lineage"></svg>
+    <div class="card" id="lineinfo" style="margin-top:10px"></div>
   </div>
-  <svg class="chart block" viewBox="0 0 1000 250" role="img" aria-label="architecture">
-    <g font-family="Figtree, sans-serif" font-size="15" fill="var(--ink)">
-      <rect x="10" y="80" width="150" height="90" rx="22" fill="var(--paper)" stroke="var(--line)"/><text x="85" y="118" text-anchor="middle">Arabic turn</text><text x="85" y="142" text-anchor="middle" fill="var(--muted)" font-size="13">normalised, split</text>
-      <rect x="200" y="60" width="200" height="130" rx="22" fill="var(--MSA-s)" stroke="var(--MSA)"/><text x="300" y="112" text-anchor="middle">MARBERT encoder</text><text x="300" y="136" text-anchor="middle" fill="var(--muted)" font-size="13">ALDi-Token-DI warm start</text><text x="300" y="156" text-anchor="middle" fill="var(--muted)" font-size="13">first sub-word per word</text>
-      <rect x="440" y="20" width="230" height="210" rx="22" fill="var(--paper)" stroke="var(--line)"/>
-      <text x="555" y="50" text-anchor="middle" font-weight="600">per word</text>
-      <g font-size="13"><text x="462" y="80">7 naturalness logits</text><text x="462" y="100" fill="var(--muted)">MSA EGY SAU GLF LEV IRQ MAG</text><text x="462" y="130">other dialect</text><text x="462" y="155">non-Arabic (names, digits)</text><text x="462" y="180">register (formal but fine)</text><text x="462" y="210" fill="var(--muted)">masked BCE: unknown = no loss</text></g>
-      <rect x="710" y="60" width="130" height="130" rx="22" fill="var(--LEV-s)" stroke="var(--decide)"/><text x="775" y="112" text-anchor="middle">policy</text><text x="775" y="136" text-anchor="middle" fill="var(--muted)" font-size="13">temperature</text><text x="775" y="156" text-anchor="middle" fill="var(--muted)" font-size="13">tau per target</text>
-      <rect x="870" y="70" width="120" height="110" rx="22" fill="var(--paper)" stroke="var(--line)"/><text x="930" y="108" text-anchor="middle">fits / not</text><text x="930" y="130" text-anchor="middle" font-size="13" fill="var(--muted)">+ label set</text><text x="930" y="150" text-anchor="middle" font-size="13" fill="var(--muted)">+ adherence</text>
-      <g stroke="var(--muted)" stroke-width="2" fill="none"><path d="M160 125h36"/><path d="M400 125h36"/><path d="M670 125h36"/><path d="M840 125h26"/></g>
-    </g>
-  </svg>
-  <div class="grid">
-    <div><h3>Naturalness bits, not classes</h3><p>The target is a runtime choice, so the model never learns "is this Egyptian?". It learns, for each variety, "would a native speaker say this word here?". The same design grew from 3 varieties to 9 to 7 without changes.</p></div>
-    <div><h3>Unknown is a first-class label</h3><p>When the evidence is silent the bit is masked and costs no loss. The model is never trained on a guess.</p></div>
-    <div><h3>Thresholds live outside the model</h3><p>A temperature and one threshold per target, fitted on dev under a 1% false-alarm cap. Tuning a target never needs retraining.</p></div>
-    <div><h3>Gulf contains Saudi</h3><p>Agents are configured as "Khaleeji" or as "Saudi". Gulf accepts a word natural in any Gulf variety; Saudi is stricter and never named as a deviation from Gulf.</p></div>
+
+  <div class="block">
+    <div class="eyebrow">Inside the model · click a layer</div>
+    <h3>What I kept, what I replaced, what I added</h3>
+    <div class="legend" id="originlegend"></div>
+    <div class="pick" style="margin:6px 0 4px" role="group" aria-label="head type">
+      <button class="pill" id="h-lin" aria-pressed="true">naturalness head · linear (shipped)</button>
+      <button class="pill" id="h-ptr" aria-pressed="false">pointer head (tested)</button>
+    </div>
+    <div class="layers">
+      <svg class="chart" id="stack" viewBox="0 0 560 640" role="img" aria-label="model layers"></svg>
+      <div class="card" id="layerinfo"></div>
+    </div>
   </div>
-  <p class="note"><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/research/architectures.html">Nine-option study</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/training/train_v3.py">train_v3.py</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/src/haseen/decision.py">decision.py</a></p>
+
+  <div class="block">
+    <div class="eyebrow">Trace a word · real model output</div>
+    <h3>Follow one word through the model</h3>
+    <div class="pick" id="tracesent" role="group" aria-label="sentence"></div>
+    <div class="sent" id="traceword" style="font-size:clamp(22px,3.2vw,30px)"></div>
+    <div class="cols2">
+      <div><div class="eyebrow" style="margin-top:6px">1 · sub-words (MARBERT WordPiece)</div><div id="subs" class="subs"></div>
+        <div class="note" id="subnote"></div></div>
+      <div><div class="eyebrow" style="margin-top:6px">2 · naturalness per variety, and the target's threshold</div><svg class="chart" id="probs" viewBox="0 0 520 250" role="img" aria-label="probabilities"></svg></div>
+    </div>
+    <div class="card" id="verdict" style="margin-top:10px"></div>
+  </div>
+
+  <div class="block">
+    <h3>Training recipe</h3>
+    <div class="tbl"><table><tbody>
+      <tr><td class="nw">Optimiser</td><td>AdamW, weight decay 0.01; encoder lr 4e-5, heads lr 1e-3; linear warm-up 6%, then linear decay; gradient clip 1.0</td></tr>
+      <tr><td class="nw">Batch, length</td><td>32 sentences, up to 128 sub-words; fp16 mixed precision on one NVIDIA L4</td></tr>
+      <tr><td class="nw">Schedule</td><td>1 epoch over 501,080 sentences = 15,659 steps (the dev curve is flat after about 13K steps)</td></tr>
+      <tr><td class="nw">Loss</td><td>masked binary cross-entropy on the 7 naturalness bits (unknown = weight 0, "not natural" weighted ×3) + other-dialect + non-Arabic + 0.2 × register</td></tr>
+      <tr><td class="nw">Calibration</td><td>temperature scaling on dev (LBFGS), then one threshold per target under a 1% false-alarm cap</td></tr>
+      <tr><td class="nw">Export</td><td>ONNX opset 17, dynamic int8 per-tensor quantisation (per-channel was tested and rejected: 81.6% agreement)</td></tr>
+    </tbody></table></div>
+    <p class="note"><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/training/train_v3.py">train_v3.py</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/training/posthoc_v3.py">posthoc_v3.py</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/training/export_release.py">export_release.py</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/src/haseen/decision.py">decision.py</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/research/architectures.html">nine-option study</a></p>
+  </div>
 </section>
 
 <!-- 06 PILOT -->
@@ -462,7 +501,7 @@ docker run --rm --network none -p 8000:8000 nightprincey/haseen3:3.0.0</pre>
       <tr><td>Browser demo</td><td class="mono">spaces/NightPrince/HaSeen-3-Playground</td></tr>
       <tr><td>Server image</td><td class="mono">docker.io/nightprincey/haseen3:3.0.0</td></tr>
       <tr><td>Pre-registration, decisions, results</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/training/PREREG_V3.md">PREREG_V3.md</a> · <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/RESULTS.md">RESULTS.md</a></td></tr>
-      <tr><td>Research trail: plan, papers, data survey, architecture study, pilot, audits, spend log</td><td><a href="https://github.com/NightPrinceY/haseen-v3/tree/v3.0.0/research">research/</a> · <a href="https://github.com/NightPrinceY/haseen-v3/tree/v3.0.0/docs/sources">docs/sources/</a></td></tr>
+      <tr><td>Research trail: plan, papers, data survey, architecture study, pilot, audits, spend log</td><td><a href="https://github.com/NightPrinceY/haseen-v3/tree/v3.0.0/research">research/</a> · <a href="https://github.com/NightPrinceY/haseen-v3/tree/v3.0.0/docs/sources">docs/sources/</a></td></tr><tr><td>Builds 1 and 2 kept as they were: guidelines, gold-building trail, all runs, results, reports</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/history">history/</a></td></tr><tr><td>Every Build-3 run: config, training logs, dev curve, metrics, policy, known answers, export report</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/experiments/build3">experiments/build3/</a></td></tr><tr><td>The task and the scope questions</td><td><a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/brief">brief/</a></td></tr>
     </tbody></table></div>
   <footer>HaSeen · researched and built by Yahya Elnawasany (NightPrince), with Claude Code as research assistant · every number links to the file it comes from.</footer>
 </section>
@@ -562,4 +601,130 @@ function bars(id, series, colors, lo, hi, h, labels){
 }
 bars("teachchart",[TEACH.t9,TEACH.m1,TEACH.t10,TEACH.m2],["var(--OTH)","var(--muted)","var(--decide)","var(--accent)"],0.7,1.0,260,false);
 bars("buildchart",[B1,V2,Object.fromEntries(T.map(t=>[t,RES[t].F1]))],["var(--OTH)","var(--LEV)","var(--accent)"],0.0,1.0,280,true);
+
+// ---------- Architecture tab ----------
+const TRACE = {"sents": {"egy": [{"w": "أنا", "sub": ["انا"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "أبغى", "sub": ["ابغي"], "p": {"MSA": 0.0, "EGY": 0.0, "SAU": 1.0, "GLF": 1.0, "LEV": 0.2395, "IRQ": 0.0641, "MAG": 0.0162, "other_dialect": 0.0, "name": 0.0}, "conf": false, "labels": ["Saudi", "Gulf"]}, {"w": "أروح", "sub": ["اروح"], "p": {"MSA": 0.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 0.9065, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "الاجتماع", "sub": ["الاجتماع"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "بكرة", "sub": ["بكره"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "بس", "sub": ["بس"], "p": {"MSA": 0.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 0.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "سوف", "sub": ["سوف"], "p": {"MSA": 0.9999, "EGY": 0.0, "SAU": 0.0, "GLF": 0.0, "LEV": 0.0, "IRQ": 0.0, "MAG": 0.0, "other_dialect": 0.0, "name": 0.0001}, "conf": false, "labels": ["MSA"]}, {"w": "أتأخر", "sub": ["اتاخر"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "شوية", "sub": ["شويه"], "p": {"MSA": 0.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}], "glf": [{"w": "حضرتك", "sub": ["حضرتك"], "p": {"MSA": 0.0002, "EGY": 1.0, "SAU": 0.0012, "GLF": 0.0008, "LEV": 0.9999, "IRQ": 0.0006, "MAG": 0.9894, "other_dialect": 0.0, "name": 0.0}, "conf": false, "labels": ["Egyptian", "Levantine", "Maghrebi"]}, {"w": "الطلب", "sub": ["الطلب"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "بتاعك", "sub": ["بتاعك"], "p": {"MSA": 0.0002, "EGY": 0.9999, "SAU": 0.0, "GLF": 0.9999, "LEV": 0.9999, "IRQ": 0.0, "MAG": 0.9994, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "هيوصل", "sub": ["هيوصل"], "p": {"MSA": 0.0005, "EGY": 0.9999, "SAU": 0.0001, "GLF": 0.0001, "LEV": 0.0, "IRQ": 0.0, "MAG": 0.0, "other_dialect": 0.0, "name": 0.0}, "conf": false, "labels": ["Egyptian"]}, {"w": "بكرة", "sub": ["بكره"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 1.0, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}, {"w": "وسنرسلكم", "sub": ["وسن", "##رسل", "##كم"], "p": {"MSA": 0.9987, "EGY": 0.0137, "SAU": 0.0045, "GLF": 0.0076, "LEV": 0.0127, "IRQ": 0.0012, "MAG": 0.0022, "other_dialect": 0.0001, "name": 0.0}, "conf": false, "labels": ["MSA"]}, {"w": "الكود", "sub": ["الكود"], "p": {"MSA": 1.0, "EGY": 1.0, "SAU": 1.0, "GLF": 1.0, "LEV": 1.0, "IRQ": 0.9998, "MAG": 1.0, "other_dialect": 0.0, "name": 0.0}, "conf": true, "labels": []}]}, "tau": {"MSA": 0.2, "EGY": 0.15, "SAU": 0.9, "GLF": 0.9, "LEV": 0.8, "IRQ": 0.35}, "T": 1.0068962574005127, "tau_odia": 0.4};
+const HF = (r) => `https://huggingface.co/${r}`;
+const STEPS = [
+ {k:"Approach", h:"1 · Which kind of system?", body:`
+  <p>Five families could solve the task. I scored nine concrete designs on quality, latency, effort, productisation and risk, and wrote the rule for choosing before any training.</p>
+  <div class="tbl"><table><thead><tr><th>Family</th><th>Evidence</th><th>Verdict</th></tr></thead><tbody>
+  <tr><td>Rules and word lists</td><td>"Deviating if the Egyptian analyzer cannot parse it": F1 0.16 in my spike; published Gulf cue lists had precision 0.0</td><td><span class="tag no">rejected</span> · kept as label evidence</td></tr>
+  <tr><td>Prompted LLM</td><td>Zero-shot dialect ID ≈ 46 macro-F1 (GPT-4) vs ≈ 83 for a fine-tuned MARBERT; the task forbids cloud LLMs at inference</td><td><span class="tag no">rejected</span></td></tr>
+  <tr><td>Fine-tuned decoder (B)</td><td>Qwen 2B frozen + LoRA + token head; 12× the parameters, needs a GPU</td><td><span class="tag">fallback</span> only if A's errors came from missing knowledge</td></tr>
+  <tr><td><b>Fine-tuned encoder, per-word heads (A)</b></td><td>one pass labels every word; 162M parameters; runs on CPU</td><td><span class="tag pass">chosen</span></td></tr>
+  <tr><td>Cascade (C)</td><td>A + a local LLM re-check for low-confidence words</td><td><span class="tag">not needed</span> unless B beat A by ≥ 3 F1</td></tr>
+  </tbody></table></div>
+  <p class="note">Rule written on 12 Oct: ship A if F1 ≥ 0.85 and latency is fine. A reached it, so B and C were never trained. <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/research/architectures.html">nine-option study</a></p>`},
+ {k:"Encoder, not decoder", h:"2 · Why an encoder and not a decoder?", body:`
+  <div class="tbl"><table><thead><tr><th></th><th>Encoder (BERT family)</th><th>Decoder (GPT family)</th></tr></thead><tbody>
+  <tr><td>Context per word</td><td><b>both sides</b>: «مش» is judged knowing the verb after it</td><td>left side only, unless it generates</td></tr>
+  <tr><td>Output</td><td>one label per word in <b>one forward pass</b></td><td>generated text to parse, or a bolted-on head</td></tr>
+  <tr><td>Size and speed</td><td><b>162M</b>, 7 ms per sentence on CPU (int8)</td><td>2B+, GPU, tens of ms or more</td></tr>
+  <tr><td>Confidence</td><td>a calibrated probability per word and variety</td><td>token probabilities of free text</td></tr>
+  <tr><td>Air-gapped</td><td>a 155 MB file, no network</td><td>possible, but heavy</td></tr>
+  </tbody></table></div>
+  <p class="block" style="margin-top:14px">The pilot settled the remaining doubt: backbones and heads landed within about one F1 point of each other, while the labels moved realistic F1 by 17 points. The bottleneck was data, not model knowledge, which is the case where a bigger decoder does not help.</p>`},
+ {k:"Which Arabic encoder", h:"3 · Why MARBERT?", body:`
+  <div class="tbl"><table><thead><tr><th>Encoder</th><th>Pre-training</th><th>What I measured</th></tr></thead><tbody>
+  <tr><td><a href="${HF("UBC-NLP/MARBERT")}">MARBERT</a> / <a href="${HF("UBC-NLP/MARBERTv2")}">MARBERTv2</a> (UBC-NLP)</td><td>1B Arabic tweets: dialect-heavy, BERT-base, 100K-word vocabulary</td><td><b>1.86 sub-words per Egyptian word, 2.3% unknown</b> (30K words); pilot synthetic F1 0.841</td></tr>
+  <tr><td><a href="${HF("CAMeL-Lab/bert-base-arabic-camelbert-mix")}">CAMeLBERT-Mix</a> (CAMeL Lab)</td><td>MSA + dialect + Classical Arabic</td><td>pilot synthetic F1 0.830, realistic 0.568</td></tr>
+  <tr><td>AlcLaM, multilingual encoders</td><td>dialect social media / 100+ languages</td><td>not tried: low adoption, or weaker Arabic tokenisation</td></tr>
+  </tbody></table></div>
+  <p>Dialect words are spelled freely on social media, which is where MARBERT learned Arabic; it splits dialect words into fewer pieces, so the first sub-word carries more of the word. <a href="https://arxiv.org/abs/2101.01785">MARBERT paper</a></p>`},
+ {k:"Warm start", h:"4 · Why start from ALDi-Token-DI?", body:`
+  <p><a href="${HF("VARabi/ALDi-Token-DI")}">VARabi/ALDi-Token-DI</a> is MARBERT already fine-tuned to tag <b>each token as MSA or dialect</b>, trained on the CALCS-2016 MSA–Egyptian code-switching set. It comes from the ALDi project on Arabic dialectness (<a href="https://arxiv.org/abs/2310.13747">EMNLP 2023</a>, <a href="https://github.com/AMR-KELEG/ALDi">code</a>).</p>
+  <div class="grid"><div><h3>What it gives</h3><p>A per-token sense of "formal or colloquial", exactly one of my sub-skills. In the pilot it gave the best calibration (ECE 0.012 vs 0.020) and the best realistic F1 with the same labels (0.627 vs 0.609).</p></div>
+  <div><h3>What it lacks</h3><p>Two classes only, and it misses a single <span class="ar">سوف</span> inside Egyptian. I removed its 2-class head and trained 7 naturalness bits on my data, which teaches single-word slips.</p></div></div>`}
+];
+let st=0;
+function renderSteps(){
+  $("archsteps").innerHTML=STEPS.map((x,i)=>`<button class="pill" role="tab" aria-selected="${i===st}" aria-pressed="${i===st}" data-i="${i}">${i+1} · ${x.k}</button>`).join("");
+  $("archstep").innerHTML=`<h3>${STEPS[st].h}</h3>${STEPS[st].body}`;
+}
+$("archsteps").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; st=+b.dataset.i; renderSteps();});
+renderSteps();
+
+// lineage
+const LINE=[
+ {id:"marbert", t:"MARBERT", s:"UBC-NLP · pre-trained", c:"MSA", info:`<h3>MARBERT</h3><div class="kv"><b>who</b><span>UBC-NLP (Abdul-Mageed et al., ACL 2021)</span><b>what</b><span>BERT-base masked language model, 12 layers, 768 hidden, 100K WordPiece vocabulary</span><b>data</b><span>1B Arabic tweets, rich in dialects</span><b>role</b><span>the architecture and the Arabic knowledge underneath everything</span><b>link</b><span><a href="${HF("UBC-NLP/MARBERT")}">huggingface.co/UBC-NLP/MARBERT</a></span></div>`},
+ {id:"aldi", t:"ALDi-Token-DI", s:"VARabi · fine-tuned", c:"GLF", info:`<h3>ALDi-Token-DI</h3><div class="kv"><b>who</b><span>VARabi (ALDi project, EMNLP 2023)</span><b>what</b><span>MARBERT fine-tuned for token-level MSA vs dialect tagging</span><b>data</b><span>CALCS-2016 MSA–Egyptian code-switched tweets</span><b>role</b><span>my starting weights; its 2-class head is dropped</span><b>link</b><span><a href="${HF("VARabi/ALDi-Token-DI")}">huggingface.co/VARabi/ALDi-Token-DI</a> · <a href="https://github.com/AMR-KELEG/ALDi">github.com/AMR-KELEG/ALDi</a></span></div>`},
+ {id:"haseen", t:"HaSeen-3", s:"Yahya · fine-tuned + new heads", c:"EGY", info:`<h3>HaSeen-3</h3><div class="kv"><b>who</b><span>me</span><b>what</b><span>the whole encoder fine-tuned again, plus 4 new per-word heads (12,304 parameters); 162,263,056 parameters in total</span><b>data</b><span>HaSeen-3-Mix: 501K sentences, one naturalness bit per word and variety</span><b>role</b><span>the model, PyTorch weights (safetensors, 619 MB)</span><b>link</b><span class="mono">huggingface.co/NightPrince/HaSeen-3 (private)</span></div>`},
+ {id:"onnx", t:"HaSeen-3-ONNX", s:"int8 · what ships", c:"LEV", info:`<h3>HaSeen-3-ONNX</h3><div class="kv"><b>what</b><span>the same model exported to ONNX and quantised to int8 (per-tensor)</span><b>size, speed</b><span>155.5 MB; 7.12 ms p50 per sentence on 4 CPU threads</span><b>fidelity</b><span>same decision as fp32 on 99.41% of 59,733 dev words; thresholds re-fitted on its own outputs</span><b>role</b><span>the default runtime of the package, the Docker image and the browser demo</span><b>link</b><span class="mono">huggingface.co/NightPrince/HaSeen-3-ONNX (private)</span></div>`}
+];
+let ln=2;
+function renderLineage(){
+  const s=$("lineage"); s.innerHTML="";
+  LINE.forEach((n,i)=>{const x=10+i*250, g=el("g",{class:"node"+(i===ln?" sel":""),tabindex:0,role:"button","data-i":i,"aria-label":n.t});
+    g.append(el("rect",{x,y:30,width:220,height:100,rx:24,fill:`var(--${n.c}-s)`,stroke:`var(--${n.c})`,"stroke-width":1.5}));
+    g.append(el("text",{x:x+110,y:74,"text-anchor":"middle","font-size":19,fill:"var(--ink)","font-family":"Caprasimo, serif"},n.t));
+    g.append(el("text",{x:x+110,y:100,"text-anchor":"middle","font-size":13,fill:"var(--muted)","font-family":"Figtree, sans-serif"},n.s));
+    s.append(g); if(i<3) s.append(el("path",{d:`M${x+222} 80h24`,stroke:"var(--muted)","stroke-width":2.5}));});
+  $("lineinfo").innerHTML=LINE[ln].info;
+}
+$("lineage").addEventListener("click",e=>{const g=e.target.closest("g.node"); if(!g) return; ln=+g.dataset.i; renderLineage();});
+$("lineage").addEventListener("keydown",e=>{const g=e.target.closest("g.node"); if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault(); ln=+g.dataset.i; renderLineage();}});
+renderLineage();
+
+// layer stack
+const ORIGIN={mar:["MSA","MARBERT (pre-trained)"],aldi:["GLF","ALDi-Token-DI (fine-tuned, my start)"],mine:["EGY","added or retrained by me"],post:["LEV","fitted after training (dev only)"],run:["MAG","runtime around the model"],gone:["OTH","removed"]};
+$("originlegend").innerHTML=Object.values(ORIGIN).map(([c,t])=>`<span><i style="background:var(--${c})"></i>${t}</span>`).join("");
+const fmt=n=>n.toLocaleString("en-US");
+function LAYERS(ptr){return [
+ {t:"Output JSON", s:"conforms, labels, adherence, reads_as", o:"run", d:`Per word: <b>conforms</b> true / false, a <b>label set</b> of the varieties it belongs to (most likely first), a confidence; per turn: adherence and the varieties it reads as. <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/src/haseen/decision.py">decision.py</a>`},
+ {t:"Decision policy", s:"one threshold per target", o:"post", d:`A word deviates when p(target) &lt; τ. τ per target, fitted on dev for maximum F1 with ≤ 1% false alarms: ${Object.entries(TRACE.tau).map(([k,v])=>k+" "+v).join(" · ")}. "Other dialect" only when p(other) &gt; ${TRACE.tau_odia} and p(target) &lt; 0.5. Labels = varieties with p ≥ 0.5; Saudi is never named as a source for target Gulf. <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/docs/results/policy_v3_int8.json">policy</a>`},
+ {t:"Temperature calibration", s:"T = "+TRACE.T.toFixed(3), o:"post", d:`Logits are divided by a temperature fitted on dev, so a probability of 0.9 means about 90%. Fitted on the int8 model's own outputs.`},
+ {t:"Per-word heads", s:ptr?"pointer: 395,528 params + 12,304":"linear: 12,304 parameters", o:"mine", d: ptr?`<b>Pointer head (tested, not shipped).</b> Each variety is described by an Arabic sentence («كلمة طبيعية في اللهجة المصرية» …) encoded by the same encoder; a word is scored by scaled cosine with each option, plus a <b>learned orthogonal vector per option</b>. That vector is my fix after the first pointer head collapsed (option texts encoded almost alike, so it learned one "naturalness" score). Dev 0.871 vs linear 0.876: not chosen.`:`Four small heads on each word vector, all mine: <b>naturalness</b> 768→7 (MSA, Egyptian, Saudi, Gulf, Levantine, Iraqi, Maghrebi; ${fmt(5383)} params) · <b>other dialect</b> 768→1 (769) · <b>non-Arabic</b> 768→1 (769: names, digits, Latin) · <b>register</b> 768→7 (${fmt(5383)}: formal but acceptable). Masked BCE: an unknown bit costs nothing.`},
+ {t:"First sub-word pooling", s:"one vector per word", o:"mine", d:`A word split into several sub-words (وسنرسلكم → وسن ##رسل ##كم) is represented by its first sub-word, which in BERT already attends to the rest. Plus dropout 0.1 in training.`},
+ {t:"ALDi's 2-class token head", s:"MSA / dialect", o:"gone", d:`The original classifier of ALDi-Token-DI (MSA vs dialect). Removed: two classes cannot say which dialect, or that a word is natural in several.`},
+ {t:"12 Transformer layers", s:"768 hidden · 12 heads · 3,072 FFN", o:"aldi", d:`MARBERT's architecture with ALDi-Token-DI's weights as the start, then <b>every weight fine-tuned by me</b> on HaSeen-3-Mix (encoder lr 4e-5). ${fmt(85054464)} parameters. Bidirectional self-attention: each word sees the whole turn.`},
+ {t:"Embeddings", s:"100K tokens × 768, 512 positions", o:"aldi", d:`Token, position and segment embeddings from MARBERT (via ALDi-Token-DI), fine-tuned too. ${fmt(77196288)} parameters, nearly half the model: the price of a 100K-word Arabic vocabulary.`},
+ {t:"WordPiece tokenizer", s:"MARBERT vocabulary, 100,000", o:"mar", d:`MARBERT's tokenizer, unchanged. On 30K Egyptian words: 1.86 sub-words per word and 2.3% unknown, the best of the encoders I checked.`},
+ {t:"Normalise and split", s:"alef, yaa, taa, diacritics", o:"run", d:`My light CODA-style normalisation (أ إ آ → ا, ى → ي, ة → ه, no diacritics or tatweel), whitespace split, punctuation stripped at word edges; Latin, digits and names never deviate. <a href="https://github.com/NightPrinceY/haseen-v3/blob/v3.0.0/src/haseen/text.py">text.py</a>`}
+];}
+let ptr=false, sel=3;
+function renderStack(){
+  const L=LAYERS(ptr), s=$("stack"); s.innerHTML="";
+  const h=56, gap=8, top=6;
+  L.forEach((l,i)=>{const y=top+i*(h+gap), c=ORIGIN[l.o][0], g=el("g",{class:"layer"+(i===sel?" sel":""),tabindex:0,role:"button","data-i":i,"aria-label":l.t});
+    const w=l.o==="aldi"&&i===6?540:(l.o==="mine"?500:520), x=(560-w)/2;
+    g.append(el("rect",{class:"box",x,y,width:w,height:h,rx:18,fill:`var(--${c}-s)`,stroke:`var(--${c})`,"stroke-width":1.5,"stroke-dasharray":l.o==="gone"?"6 5":"0"}));
+    g.append(el("rect",{x:x+10,y:y+14,width:8,height:h-28,rx:4,fill:`var(--${c})`}));
+    g.append(el("text",{x:x+30,y:y+24,"font-size":16,fill:l.o==="gone"?"var(--muted)":"var(--ink)","font-family":"Figtree, sans-serif","font-weight":600,"text-decoration":l.o==="gone"?"line-through":"none"},l.t));
+    g.append(el("text",{x:x+30,y:y+44,"font-size":13,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"},l.s));
+    s.append(g);});
+  const l=L[sel]; $("layerinfo").innerHTML=`<div class="eyebrow" style="color:var(--${ORIGIN[l.o][0]})">${ORIGIN[l.o][1]}</div><h3>${l.t}</h3><p style="font-size:15px">${l.d}</p>`;
+}
+$("stack").addEventListener("click",e=>{const g=e.target.closest("g.layer"); if(!g) return; sel=+g.dataset.i; renderStack();});
+$("stack").addEventListener("keydown",e=>{const g=e.target.closest("g.layer"); if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault(); sel=+g.dataset.i; renderStack();}});
+$("h-lin").addEventListener("click",()=>{ptr=false; sel=3; $("h-lin").setAttribute("aria-pressed","true"); $("h-ptr").setAttribute("aria-pressed","false"); renderStack();});
+$("h-ptr").addEventListener("click",()=>{ptr=true; sel=3; $("h-ptr").setAttribute("aria-pressed","true"); $("h-lin").setAttribute("aria-pressed","false"); renderStack();});
+renderStack();
+
+// trace a word
+const TS={egy:{t:"EGY",n:"target Egyptian"},glf:{t:"GLF",n:"target Gulf"}};
+let ts="egy", tw=1;
+function renderTrace(){
+  $("tracesent").innerHTML=Object.entries(TS).map(([k,v])=>`<button class="pill" aria-pressed="${k===ts}" data-k="${k}">${v.n}</button>`).join("");
+  const W=TRACE.sents[ts], tg=TS[ts].t;
+  $("traceword").innerHTML=W.map((x,i)=>`<span class="w pickable ${x.conf?"":"dev"} ${i===tw?"on":""}" data-i="${i}" style="--s:var(--${x.conf?"OTH":(KEY[x.labels[0]]||"OTH")}-s)" tabindex="0" role="button">${esc(x.w)}</span>`).join("");
+  const x=W[tw];
+  $("subs").innerHTML=x.sub.map((p,i)=>`<span class="sw ${i===0?"first":""}">${esc(p)}</span>`).join("");
+  $("subnote").textContent=x.sub.length>1?`${x.sub.length} sub-words; the first one (outlined) carries the word to the heads.`:"One sub-word: MARBERT's 100K vocabulary holds the whole word.";
+  const s=$("probs"); s.innerHTML=""; const V=["MSA","EGY","SAU","GLF","LEV","IRQ","MAG"], L=110, R=455, rowh=32;
+  V.forEach((v,i)=>{const y=10+i*rowh, p=x.p[v]??0;
+    s.append(el("text",{x:L-10,y:y+18,"text-anchor":"end","font-size":14,fill:v===tg?"var(--ink)":"var(--muted)","font-weight":v===tg?700:400,"font-family":"Figtree, sans-serif"},NAME[v]+(v===tg?" ◂":"")));
+    s.append(el("rect",{x:L,y:y+4,width:R-L,height:20,rx:10,fill:"var(--OTH-s)"}));
+    s.append(el("rect",{x:L,y:y+4,width:Math.max(2,(R-L)*p),height:20,rx:10,fill:`var(--${v})`,opacity:v===tg?1:.75}));
+    s.append(el("text",{x:R+6,y:y+19,"font-size":12,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"},p.toFixed(2)));});
+  const tau=TRACE.tau[tg], tx=L+(R-L)*tau, ti=V.indexOf(tg);
+  s.append(el("line",{x1:tx,x2:tx,y1:10+ti*rowh,y2:10+ti*rowh+28,stroke:"var(--decide)","stroke-width":4}));
+  s.append(el("text",{x:tx,y:10+7*rowh+4,"text-anchor":"middle","font-size":12,fill:"var(--muted)","font-family":"JetBrains Mono, monospace"},"τ "+NAME[tg]+" = "+tau));
+  const p=x.p[tg]??1;
+  $("verdict").innerHTML=x.conf?`<b>${esc(x.w)}</b> fits ${NAME[tg]}: p(${NAME[tg]}) = ${p.toFixed(2)} ≥ τ ${tau}.`:`<b>${esc(x.w)}</b> deviates from ${NAME[tg]}: p(${NAME[tg]}) = ${p.toFixed(2)} &lt; τ ${tau}. It belongs to <b>${x.labels.map(esc).join(", ")}</b> (every variety with p ≥ 0.5, most likely first${tg==="GLF"?"; Saudi is never named inside Gulf":""}).`;
+}
+$("tracesent").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; ts=b.dataset.k; tw=ts==="egy"?1:5; renderTrace();});
+$("traceword").addEventListener("click",e=>{const w=e.target.closest(".w"); if(!w) return; tw=+w.dataset.i; renderTrace();});
+$("traceword").addEventListener("keydown",e=>{const w=e.target.closest(".w"); if(w&&(e.key==="Enter"||e.key===" ")){e.preventDefault(); tw=+w.dataset.i; renderTrace();}});
+renderTrace();
 </script>
